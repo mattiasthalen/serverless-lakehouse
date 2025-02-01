@@ -1,0 +1,14 @@
+[project]
+name = "adventure-works"
+version = "0.1.0"
+description = ""
+readme = "README.md"
+requires-python = ">=3.9,<3.13"
+dependencies = [
+    "beautifulsoup4>=4.12.3",
+    "dlt[duckdb]>=1.5.0",
+    "duckdb>=1.1.3",
+    "enlighten>=1.13.0",
+    "polars>=1.21.0",
+    "sqlmesh[github,web]>=0.150.1",
+]
