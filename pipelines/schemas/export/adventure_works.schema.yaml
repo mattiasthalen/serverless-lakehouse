@@ -1,0 +1,2166 @@
+version: 4
+version_hash: YHbWXps/BMPqzpK9MPfBX79WLfQiti0b+v409QJSJcA=
+engine_version: 11
+name: adventure_works
+tables:
+  _dlt_version:
+    columns:
+      version:
+        data_type: bigint
+        nullable: false
+      engine_version:
+        data_type: bigint
+        nullable: false
+      inserted_at:
+        data_type: timestamp
+        nullable: false
+      schema_name:
+        data_type: text
+        nullable: false
+      version_hash:
+        data_type: text
+        nullable: false
+      schema:
+        data_type: text
+        nullable: false
+    write_disposition: skip
+    resource: _dlt_version
+    description: Created by DLT. Tracks schema updates
+  _dlt_loads:
+    columns:
+      load_id:
+        data_type: text
+        nullable: false
+      schema_name:
+        data_type: text
+        nullable: true
+      status:
+        data_type: bigint
+        nullable: false
+      inserted_at:
+        data_type: timestamp
+        nullable: false
+      schema_version_hash:
+        data_type: text
+        nullable: true
+    write_disposition: skip
+    resource: _dlt_loads
+    description: Created by DLT. Tracks completed loads
+  raw__adventure_works__adresses:
+    columns:
+      address_id:
+        data_type: bigint
+        nullable: true
+      address_line1:
+        data_type: text
+        nullable: true
+      city:
+        data_type: text
+        nullable: true
+      state_province_id:
+        data_type: bigint
+        nullable: true
+      postal_code:
+        data_type: text
+        nullable: true
+      rowguid:
+        data_type: text
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+      address_line2:
+        data_type: text
+        nullable: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__adresses
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__adress_types:
+    columns:
+      address_type_id:
+        data_type: bigint
+        nullable: true
+      name:
+        data_type: text
+        nullable: true
+      rowguid:
+        data_type: text
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__adress_types
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__bill_of_materials:
+    columns:
+      bill_of_materials_id:
+        data_type: bigint
+        nullable: true
+      product_assembly_id:
+        data_type: bigint
+        nullable: true
+      component_id:
+        data_type: bigint
+        nullable: true
+      start_date:
+        data_type: text
+        nullable: true
+      unit_measure_code:
+        data_type: text
+        nullable: true
+      bomlevel:
+        data_type: bigint
+        nullable: true
+      per_assembly_qty:
+        data_type: double
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+      end_date:
+        data_type: text
+        nullable: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__bill_of_materials
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__business_entity_adresses:
+    columns:
+      business_entity_id:
+        data_type: bigint
+        nullable: true
+      address_id:
+        data_type: bigint
+        nullable: true
+      address_type_id:
+        data_type: bigint
+        nullable: true
+      rowguid:
+        data_type: text
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__business_entity_adresses
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__business_entity_contacts:
+    columns:
+      business_entity_id:
+        data_type: bigint
+        nullable: true
+      person_id:
+        data_type: bigint
+        nullable: true
+      contact_type_id:
+        data_type: bigint
+        nullable: true
+      rowguid:
+        data_type: text
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__business_entity_contacts
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__contact_types:
+    columns:
+      contact_type_id:
+        data_type: bigint
+        nullable: true
+      name:
+        data_type: text
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__contact_types
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__country_regions:
+    columns:
+      country_region_code:
+        data_type: text
+        nullable: true
+      name:
+        data_type: text
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__country_regions
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__credit_cards:
+    columns:
+      credit_card_id:
+        data_type: bigint
+        nullable: true
+      card_type:
+        data_type: text
+        nullable: true
+      card_number:
+        data_type: text
+        nullable: true
+      exp_month:
+        data_type: bigint
+        nullable: true
+      exp_year:
+        data_type: bigint
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__credit_cards
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__cultures:
+    columns:
+      culture_id:
+        data_type: text
+        nullable: true
+      name:
+        data_type: text
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__cultures
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__currencies:
+    columns:
+      currency_code:
+        data_type: text
+        nullable: true
+      name:
+        data_type: text
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__currencies
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__currency_rates:
+    columns:
+      currency_rate_id:
+        data_type: bigint
+        nullable: true
+      currency_rate_date:
+        data_type: text
+        nullable: true
+      from_currency_code:
+        data_type: text
+        nullable: true
+      to_currency_code:
+        data_type: text
+        nullable: true
+      average_rate:
+        data_type: double
+        nullable: true
+      end_of_day_rate:
+        data_type: double
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__currency_rates
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__customers:
+    columns:
+      customer_id:
+        data_type: bigint
+        nullable: true
+      store_id:
+        data_type: bigint
+        nullable: true
+      territory_id:
+        data_type: bigint
+        nullable: true
+      account_number:
+        data_type: text
+        nullable: true
+      rowguid:
+        data_type: text
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+      person_id:
+        data_type: bigint
+        nullable: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__customers
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__departments:
+    columns:
+      department_id:
+        data_type: bigint
+        nullable: true
+      name:
+        data_type: text
+        nullable: true
+      group_name:
+        data_type: text
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__departments
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__email_addresses:
+    columns:
+      business_entity_id:
+        data_type: bigint
+        nullable: true
+      email_address_id:
+        data_type: bigint
+        nullable: true
+      email:
+        data_type: text
+        nullable: true
+      rowguid:
+        data_type: text
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__email_addresses
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__employee_department_histories:
+    columns:
+      business_entity_id:
+        data_type: bigint
+        nullable: true
+      department_id:
+        data_type: bigint
+        nullable: true
+      shift_id:
+        data_type: bigint
+        nullable: true
+      start_date:
+        data_type: timestamp
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+      end_date:
+        data_type: text
+        nullable: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__employee_department_histories
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__employee_pay_histories:
+    columns:
+      business_entity_id:
+        data_type: bigint
+        nullable: true
+      rate_change_date:
+        data_type: timestamp
+        nullable: true
+      rate:
+        data_type: double
+        nullable: true
+      pay_frequency:
+        data_type: bigint
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__employee_pay_histories
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__employees:
+    columns:
+      business_entity_id:
+        data_type: bigint
+        nullable: true
+      national_idnumber:
+        data_type: text
+        nullable: true
+      login_id:
+        data_type: text
+        nullable: true
+      job_title:
+        data_type: text
+        nullable: true
+      birth_date:
+        data_type: text
+        nullable: true
+      marital_status:
+        data_type: text
+        nullable: true
+      gender:
+        data_type: text
+        nullable: true
+      hire_date:
+        data_type: text
+        nullable: true
+      salaried_flag:
+        data_type: bool
+        nullable: true
+      vacation_hours:
+        data_type: bigint
+        nullable: true
+      sick_leave_hours:
+        data_type: bigint
+        nullable: true
+      current_flag:
+        data_type: bool
+        nullable: true
+      rowguid:
+        data_type: text
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+      organization_level:
+        data_type: bigint
+        nullable: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__employees
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__illustrations:
+    columns:
+      illustration_id:
+        data_type: bigint
+        nullable: true
+      diagram:
+        data_type: text
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__illustrations
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__job_candidates:
+    columns:
+      job_candidate_id:
+        data_type: bigint
+        nullable: true
+      resume:
+        data_type: text
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+      business_entity_id:
+        data_type: bigint
+        nullable: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__job_candidates
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__locations:
+    columns:
+      location_id:
+        data_type: bigint
+        nullable: true
+      name:
+        data_type: text
+        nullable: true
+      cost_rate:
+        data_type: double
+        nullable: true
+      availability:
+        data_type: double
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__locations
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__person_phones:
+    columns:
+      business_entity_id:
+        data_type: bigint
+        nullable: true
+      phone_number:
+        data_type: text
+        nullable: true
+      phone_number_type_id:
+        data_type: bigint
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__person_phones
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__persons:
+    columns:
+      business_entity_id:
+        data_type: bigint
+        nullable: true
+      person_type:
+        data_type: text
+        nullable: true
+      name_style:
+        data_type: bool
+        nullable: true
+      first_name:
+        data_type: text
+        nullable: true
+      middle_name:
+        data_type: text
+        nullable: true
+      last_name:
+        data_type: text
+        nullable: true
+      email_promotion:
+        data_type: bigint
+        nullable: true
+      demographics:
+        data_type: text
+        nullable: true
+      rowguid:
+        data_type: text
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+      title:
+        data_type: text
+        nullable: true
+      suffix:
+        data_type: text
+        nullable: true
+      additional_contact_info:
+        data_type: text
+        nullable: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__persons
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__phone_number_types:
+    columns:
+      phone_number_type_id:
+        data_type: bigint
+        nullable: true
+      name:
+        data_type: text
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__phone_number_types
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__product_categories:
+    columns:
+      product_category_id:
+        data_type: bigint
+        nullable: true
+      name:
+        data_type: text
+        nullable: true
+      rowguid:
+        data_type: text
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__product_categories
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__product_cost_histories:
+    columns:
+      product_id:
+        data_type: bigint
+        nullable: true
+      start_date:
+        data_type: timestamp
+        nullable: true
+      end_date:
+        data_type: text
+        nullable: true
+      standard_cost:
+        data_type: double
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__product_cost_histories
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__product_descriptions:
+    columns:
+      product_description_id:
+        data_type: bigint
+        nullable: true
+      description:
+        data_type: text
+        nullable: true
+      rowguid:
+        data_type: text
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__product_descriptions
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__product_inventories:
+    columns:
+      product_id:
+        data_type: bigint
+        nullable: true
+      location_id:
+        data_type: bigint
+        nullable: true
+      shelf:
+        data_type: text
+        nullable: true
+      bin:
+        data_type: bigint
+        nullable: true
+      quantity:
+        data_type: bigint
+        nullable: true
+      rowguid:
+        data_type: text
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__product_inventories
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__product_list_price_histories:
+    columns:
+      product_id:
+        data_type: bigint
+        nullable: true
+      start_date:
+        data_type: timestamp
+        nullable: true
+      end_date:
+        data_type: text
+        nullable: true
+      list_price:
+        data_type: double
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__product_list_price_histories
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__product_model_illustrations:
+    columns:
+      product_model_id:
+        data_type: bigint
+        nullable: true
+      illustration_id:
+        data_type: bigint
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__product_model_illustrations
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__product_models:
+    columns:
+      product_model_id:
+        data_type: bigint
+        nullable: true
+      name:
+        data_type: text
+        nullable: true
+      rowguid:
+        data_type: text
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+      instructions:
+        data_type: text
+        nullable: true
+      catalog_description:
+        data_type: text
+        nullable: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__product_models
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__product_photos:
+    columns:
+      product_photo_id:
+        data_type: bigint
+        nullable: true
+      thumb_nail_photo:
+        data_type: text
+        nullable: true
+      thumbnail_photo_file_name:
+        data_type: text
+        nullable: true
+      large_photo:
+        data_type: text
+        nullable: true
+      large_photo_file_name:
+        data_type: text
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__product_photos
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__product_reviews:
+    columns:
+      product_review_id:
+        data_type: bigint
+        nullable: true
+      product_id:
+        data_type: bigint
+        nullable: true
+      reviewer_name:
+        data_type: text
+        nullable: true
+      review_date:
+        data_type: text
+        nullable: true
+      email_address:
+        data_type: text
+        nullable: true
+      rating:
+        data_type: bigint
+        nullable: true
+      comments:
+        data_type: text
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__product_reviews
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__products:
+    columns:
+      product_id:
+        data_type: bigint
+        nullable: true
+      name:
+        data_type: text
+        nullable: true
+      product_number:
+        data_type: text
+        nullable: true
+      make_flag:
+        data_type: bool
+        nullable: true
+      finished_goods_flag:
+        data_type: bool
+        nullable: true
+      safety_stock_level:
+        data_type: bigint
+        nullable: true
+      reorder_point:
+        data_type: bigint
+        nullable: true
+      standard_cost:
+        data_type: double
+        nullable: true
+      list_price:
+        data_type: double
+        nullable: true
+      days_to_manufacture:
+        data_type: bigint
+        nullable: true
+      sell_start_date:
+        data_type: text
+        nullable: true
+      rowguid:
+        data_type: text
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+      color:
+        data_type: text
+        nullable: true
+      class:
+        data_type: text
+        nullable: true
+      weight_unit_measure_code:
+        data_type: text
+        nullable: true
+      weight:
+        data_type: double
+        nullable: true
+      size:
+        data_type: text
+        nullable: true
+      size_unit_measure_code:
+        data_type: text
+        nullable: true
+      product_line:
+        data_type: text
+        nullable: true
+      style:
+        data_type: text
+        nullable: true
+      product_subcategory_id:
+        data_type: bigint
+        nullable: true
+      product_model_id:
+        data_type: bigint
+        nullable: true
+      sell_end_date:
+        data_type: text
+        nullable: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__products
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__product_subcategories:
+    columns:
+      product_subcategory_id:
+        data_type: bigint
+        nullable: true
+      product_category_id:
+        data_type: bigint
+        nullable: true
+      name:
+        data_type: text
+        nullable: true
+      rowguid:
+        data_type: text
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__product_subcategories
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__product_vendors:
+    columns:
+      product_id:
+        data_type: bigint
+        nullable: true
+      business_entity_id:
+        data_type: bigint
+        nullable: true
+      average_lead_time:
+        data_type: bigint
+        nullable: true
+      standard_price:
+        data_type: double
+        nullable: true
+      last_receipt_cost:
+        data_type: double
+        nullable: true
+      last_receipt_date:
+        data_type: text
+        nullable: true
+      min_order_qty:
+        data_type: bigint
+        nullable: true
+      max_order_qty:
+        data_type: bigint
+        nullable: true
+      unit_measure_code:
+        data_type: text
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+      on_order_qty:
+        data_type: bigint
+        nullable: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__product_vendors
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__purchase_order_details:
+    columns:
+      purchase_order_id:
+        data_type: bigint
+        nullable: true
+      purchase_order_detail_id:
+        data_type: bigint
+        nullable: true
+      due_date:
+        data_type: text
+        nullable: true
+      order_qty:
+        data_type: bigint
+        nullable: true
+      product_id:
+        data_type: bigint
+        nullable: true
+      unit_price:
+        data_type: double
+        nullable: true
+      line_total:
+        data_type: double
+        nullable: true
+      received_qty:
+        data_type: double
+        nullable: true
+      rejected_qty:
+        data_type: double
+        nullable: true
+      stocked_qty:
+        data_type: double
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__purchase_order_details
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__purchase_order_headers:
+    columns:
+      purchase_order_id:
+        data_type: bigint
+        nullable: true
+      revision_number:
+        data_type: bigint
+        nullable: true
+      status:
+        data_type: bigint
+        nullable: true
+      employee_id:
+        data_type: bigint
+        nullable: true
+      vendor_id:
+        data_type: bigint
+        nullable: true
+      ship_method_id:
+        data_type: bigint
+        nullable: true
+      order_date:
+        data_type: text
+        nullable: true
+      ship_date:
+        data_type: text
+        nullable: true
+      sub_total:
+        data_type: double
+        nullable: true
+      tax_amt:
+        data_type: double
+        nullable: true
+      freight:
+        data_type: double
+        nullable: true
+      total_due:
+        data_type: double
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__purchase_order_headers
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__sales_order_details:
+    columns:
+      sales_order_id:
+        data_type: bigint
+        nullable: true
+      sales_order_detail_id:
+        data_type: bigint
+        nullable: true
+      carrier_tracking_number:
+        data_type: text
+        nullable: true
+      order_qty:
+        data_type: bigint
+        nullable: true
+      product_id:
+        data_type: bigint
+        nullable: true
+      special_offer_id:
+        data_type: bigint
+        nullable: true
+      unit_price:
+        data_type: double
+        nullable: true
+      unit_price_discount:
+        data_type: double
+        nullable: true
+      line_total:
+        data_type: double
+        nullable: true
+      rowguid:
+        data_type: text
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__sales_order_details
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__sales_order_headers:
+    columns:
+      sales_order_id:
+        data_type: bigint
+        nullable: true
+      revision_number:
+        data_type: bigint
+        nullable: true
+      order_date:
+        data_type: text
+        nullable: true
+      due_date:
+        data_type: text
+        nullable: true
+      ship_date:
+        data_type: text
+        nullable: true
+      status:
+        data_type: bigint
+        nullable: true
+      online_order_flag:
+        data_type: bool
+        nullable: true
+      sales_order_number:
+        data_type: text
+        nullable: true
+      purchase_order_number:
+        data_type: text
+        nullable: true
+      account_number:
+        data_type: text
+        nullable: true
+      customer_id:
+        data_type: bigint
+        nullable: true
+      sales_person_id:
+        data_type: bigint
+        nullable: true
+      territory_id:
+        data_type: bigint
+        nullable: true
+      bill_to_address_id:
+        data_type: bigint
+        nullable: true
+      ship_to_address_id:
+        data_type: bigint
+        nullable: true
+      ship_method_id:
+        data_type: bigint
+        nullable: true
+      credit_card_id:
+        data_type: bigint
+        nullable: true
+      credit_card_approval_code:
+        data_type: text
+        nullable: true
+      sub_total:
+        data_type: double
+        nullable: true
+      tax_amt:
+        data_type: double
+        nullable: true
+      freight:
+        data_type: double
+        nullable: true
+      total_due:
+        data_type: double
+        nullable: true
+      rowguid:
+        data_type: text
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+      currency_rate_id:
+        data_type: bigint
+        nullable: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__sales_order_headers
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__sales_person_quota_histories:
+    columns:
+      business_entity_id:
+        data_type: bigint
+        nullable: true
+      quota_date:
+        data_type: text
+        nullable: true
+      sales_quota:
+        data_type: double
+        nullable: true
+      rowguid:
+        data_type: text
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__sales_person_quota_histories
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__sales_persons:
+    columns:
+      business_entity_id:
+        data_type: bigint
+        nullable: true
+      bonus:
+        data_type: double
+        nullable: true
+      commission_pct:
+        data_type: double
+        nullable: true
+      sales_ytd:
+        data_type: double
+        nullable: true
+      sales_last_year:
+        data_type: double
+        nullable: true
+      rowguid:
+        data_type: text
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+      territory_id:
+        data_type: bigint
+        nullable: true
+      sales_quota:
+        data_type: double
+        nullable: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__sales_persons
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__sales_reasons:
+    columns:
+      sales_reason_id:
+        data_type: bigint
+        nullable: true
+      name:
+        data_type: text
+        nullable: true
+      reason_type:
+        data_type: text
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__sales_reasons
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__sales_tax_rates:
+    columns:
+      sales_tax_rate_id:
+        data_type: bigint
+        nullable: true
+      state_province_id:
+        data_type: bigint
+        nullable: true
+      tax_type:
+        data_type: bigint
+        nullable: true
+      tax_rate:
+        data_type: double
+        nullable: true
+      name:
+        data_type: text
+        nullable: true
+      rowguid:
+        data_type: text
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__sales_tax_rates
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__sales_territories:
+    columns:
+      territory_id:
+        data_type: bigint
+        nullable: true
+      name:
+        data_type: text
+        nullable: true
+      country_region_code:
+        data_type: text
+        nullable: true
+      group:
+        data_type: text
+        nullable: true
+      sales_ytd:
+        data_type: double
+        nullable: true
+      sales_last_year:
+        data_type: double
+        nullable: true
+      cost_ytd:
+        data_type: double
+        nullable: true
+      cost_last_year:
+        data_type: double
+        nullable: true
+      rowguid:
+        data_type: text
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__sales_territories
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__sales_territory_histories:
+    columns:
+      business_entity_id:
+        data_type: bigint
+        nullable: true
+      territory_id:
+        data_type: bigint
+        nullable: true
+      start_date:
+        data_type: text
+        nullable: true
+      end_date:
+        data_type: text
+        nullable: true
+      rowguid:
+        data_type: text
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__sales_territory_histories
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__scrap_reasons:
+    columns:
+      scrap_reason_id:
+        data_type: bigint
+        nullable: true
+      name:
+        data_type: text
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__scrap_reasons
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__shifts:
+    columns:
+      shift_id:
+        data_type: bigint
+        nullable: true
+      name:
+        data_type: text
+        nullable: true
+      start_time:
+        data_type: text
+        nullable: true
+      end_time:
+        data_type: text
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__shifts
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__ship_methods:
+    columns:
+      ship_method_id:
+        data_type: bigint
+        nullable: true
+      name:
+        data_type: text
+        nullable: true
+      ship_base:
+        data_type: double
+        nullable: true
+      ship_rate:
+        data_type: double
+        nullable: true
+      rowguid:
+        data_type: text
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__ship_methods
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__shopping_cart_items:
+    columns:
+      shopping_cart_item_id:
+        data_type: bigint
+        nullable: true
+      shopping_cart_id:
+        data_type: text
+        nullable: true
+      quantity:
+        data_type: bigint
+        nullable: true
+      product_id:
+        data_type: bigint
+        nullable: true
+      date_created:
+        data_type: text
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__shopping_cart_items
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__specials_offers:
+    columns:
+      special_offer_id:
+        data_type: bigint
+        nullable: true
+      description:
+        data_type: text
+        nullable: true
+      discount_percentage:
+        data_type: double
+        nullable: true
+      type:
+        data_type: text
+        nullable: true
+      category:
+        data_type: text
+        nullable: true
+      start_date:
+        data_type: text
+        nullable: true
+      end_date:
+        data_type: text
+        nullable: true
+      minimum_quantity:
+        data_type: bigint
+        nullable: true
+      rowguid:
+        data_type: text
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+      maximum_quantity:
+        data_type: bigint
+        nullable: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__specials_offers
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__state_provinces:
+    columns:
+      state_province_id:
+        data_type: bigint
+        nullable: true
+      state_province_code:
+        data_type: text
+        nullable: true
+      country_region_code:
+        data_type: text
+        nullable: true
+      is_only_state_province_flag:
+        data_type: bool
+        nullable: true
+      name:
+        data_type: text
+        nullable: true
+      territory_id:
+        data_type: bigint
+        nullable: true
+      rowguid:
+        data_type: text
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__state_provinces
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__stores:
+    columns:
+      business_entity_id:
+        data_type: bigint
+        nullable: true
+      name:
+        data_type: text
+        nullable: true
+      sales_person_id:
+        data_type: bigint
+        nullable: true
+      demographics:
+        data_type: text
+        nullable: true
+      rowguid:
+        data_type: text
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__stores
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__transaction_histories:
+    columns:
+      transaction_id:
+        data_type: bigint
+        nullable: true
+      product_id:
+        data_type: bigint
+        nullable: true
+      reference_order_id:
+        data_type: bigint
+        nullable: true
+      reference_order_line_id:
+        data_type: bigint
+        nullable: true
+      transaction_date:
+        data_type: text
+        nullable: true
+      transaction_type:
+        data_type: text
+        nullable: true
+      quantity:
+        data_type: bigint
+        nullable: true
+      actual_cost:
+        data_type: double
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__transaction_histories
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__transaction_history_archives:
+    columns:
+      transaction_id:
+        data_type: bigint
+        nullable: true
+      product_id:
+        data_type: bigint
+        nullable: true
+      reference_order_id:
+        data_type: bigint
+        nullable: true
+      reference_order_line_id:
+        data_type: bigint
+        nullable: true
+      transaction_date:
+        data_type: text
+        nullable: true
+      transaction_type:
+        data_type: text
+        nullable: true
+      quantity:
+        data_type: bigint
+        nullable: true
+      actual_cost:
+        data_type: double
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__transaction_history_archives
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__unit_measures:
+    columns:
+      unit_measure_code:
+        data_type: text
+        nullable: true
+      name:
+        data_type: text
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__unit_measures
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__vendors:
+    columns:
+      business_entity_id:
+        data_type: bigint
+        nullable: true
+      account_number:
+        data_type: text
+        nullable: true
+      name:
+        data_type: text
+        nullable: true
+      credit_rating:
+        data_type: bigint
+        nullable: true
+      preferred_vendor_status:
+        data_type: bool
+        nullable: true
+      active_flag:
+        data_type: bool
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+      purchasing_web_service_url:
+        data_type: text
+        nullable: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__vendors
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__work_order_routings:
+    columns:
+      work_order_id:
+        data_type: bigint
+        nullable: true
+      product_id:
+        data_type: bigint
+        nullable: true
+      operation_sequence:
+        data_type: bigint
+        nullable: true
+      location_id:
+        data_type: bigint
+        nullable: true
+      scheduled_start_date:
+        data_type: text
+        nullable: true
+      scheduled_end_date:
+        data_type: text
+        nullable: true
+      actual_start_date:
+        data_type: text
+        nullable: true
+      actual_end_date:
+        data_type: text
+        nullable: true
+      actual_resource_hrs:
+        data_type: double
+        nullable: true
+      planned_cost:
+        data_type: double
+        nullable: true
+      actual_cost:
+        data_type: double
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__work_order_routings
+    x-normalizer:
+      seen-data: true
+  raw__adventure_works__work_orders:
+    columns:
+      work_order_id:
+        data_type: bigint
+        nullable: true
+      product_id:
+        data_type: bigint
+        nullable: true
+      order_qty:
+        data_type: bigint
+        nullable: true
+      stocked_qty:
+        data_type: bigint
+        nullable: true
+      scrapped_qty:
+        data_type: bigint
+        nullable: true
+      start_date:
+        data_type: text
+        nullable: true
+      end_date:
+        data_type: text
+        nullable: true
+      due_date:
+        data_type: text
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+      scrap_reason_id:
+        data_type: bigint
+        nullable: true
+    write_disposition: replace
+    resource: get__adventure_works__odata__v1__work_orders
+    x-normalizer:
+      seen-data: true
+  _dlt_pipeline_state:
+    columns:
+      version:
+        data_type: bigint
+        nullable: false
+      engine_version:
+        data_type: bigint
+        nullable: false
+      pipeline_name:
+        data_type: text
+        nullable: false
+      state:
+        data_type: text
+        nullable: false
+      created_at:
+        data_type: timestamp
+        nullable: false
+      version_hash:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: append
+    file_format: preferred
+    resource: _dlt_pipeline_state
+    x-normalizer:
+      seen-data: true
+settings:
+  detections:
+  - iso_timestamp
+  default_hints:
+    not_null:
+    - _dlt_id
+    - _dlt_root_id
+    - _dlt_parent_id
+    - _dlt_list_idx
+    - _dlt_load_id
+    parent_key:
+    - _dlt_parent_id
+    root_key:
+    - _dlt_root_id
+    unique:
+    - _dlt_id
+    row_key:
+    - _dlt_id
+normalizers:
+  names: snake_case
+  json:
+    module: dlt.common.normalizers.json.relational
+previous_hashes:
+- IqJ3OYy4Z1Z1cZOUJPVY+YD/pwfxXv6CRCHx+BDeADo=
+- DlKCU9J8x6rV1Q/9Ksf1jrUQfywHU9/S//U2KwCbxsk=
+- hgJ29a7TSNOOoPZIvPtZzJa2Xlu17azSOGEyseshU6c=
+- 8NPCH7RrIKkAVPASHLkdfWhASWXx3ynUW3y6Bj2fWfc=
+- giDRKxB35JCP9ZAXuj+CKA+9/64mGWd7tkcMizjX6KE=
