@@ -1,0 +1,14 @@
+gateways:
+  local:
+    connection:
+      type: duckdb
+      database: "./lakehouse/lakehouse.duckdb"
+
+default_gateway: local
+
+model_defaults:
+  dialect: duckdb
+  start: 2025-01-01
+
+model_naming:
+  infer_names: True
