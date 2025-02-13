@@ -198,12 +198,12 @@ def load_adventure_works() -> None:
         progress="enlighten",
         export_schema_path="./pipelines/schemas/export",
         import_schema_path="./pipelines/schemas/import",
-        dev_mode=False
+        dev_mode=True
     )
 
     source = adventure_works_source()
     
-    load_info = pipeline.run(source, table_format="delta")
+    load_info = pipeline.run(source, table_format="iceberg")
     print(load_info)
 
 if __name__ == "__main__":
