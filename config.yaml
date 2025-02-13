@@ -3,6 +3,8 @@ gateways:
     connection:
       type: duckdb
       database: "./lakehouse/lakehouse.duckdb"
+      extensions:
+        - delta
 
 default_gateway: local
 

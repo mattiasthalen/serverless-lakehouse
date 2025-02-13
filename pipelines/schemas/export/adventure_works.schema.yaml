@@ -1,5 +1,5 @@
-version: 2
-version_hash: VIiTOHCGiGCvsFhj2ega66IztiWiFIRrWrWuNZyndII=
+version: 3
+version_hash: w66gswzHYqoU6ZbXn2hVyKO4GalYJQG6BVXUDCXJzDg=
 engine_version: 11
 name: adventure_works
 tables:
@@ -86,6 +86,7 @@ tables:
     table_format: delta
     resource: get__adventure_works__odata__v1__addresses
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__credit_cards:
     columns:
@@ -121,6 +122,7 @@ tables:
     table_format: delta
     resource: get__adventure_works__odata__v1__credit_cards
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__currency_rates:
     columns:
@@ -159,6 +161,7 @@ tables:
     table_format: delta
     resource: get__adventure_works__odata__v1__currency_rates
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__customers:
     columns:
@@ -194,6 +197,7 @@ tables:
     table_format: delta
     resource: get__adventure_works__odata__v1__customers
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__persons:
     columns:
@@ -247,6 +251,7 @@ tables:
     table_format: delta
     resource: get__adventure_works__odata__v1__persons
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__products:
     columns:
@@ -303,6 +308,7 @@ tables:
     table_format: delta
     resource: get__adventure_works__odata__v1__products
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__product_categories:
     columns:
@@ -332,6 +338,7 @@ tables:
     table_format: delta
     resource: get__adventure_works__odata__v1__product_categories
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__sales_order_details:
     columns:
@@ -382,6 +389,7 @@ tables:
     table_format: delta
     resource: get__adventure_works__odata__v1__sales_order_details
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__sales_order_headers:
     columns:
@@ -474,6 +482,7 @@ tables:
     table_format: delta
     resource: get__adventure_works__odata__v1__sales_order_headers
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__sales_persons:
     columns:
@@ -518,6 +527,7 @@ tables:
     table_format: delta
     resource: get__adventure_works__odata__v1__sales_persons
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__sales_territories:
     columns:
@@ -565,6 +575,7 @@ tables:
     table_format: delta
     resource: get__adventure_works__odata__v1__sales_territories
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__ship_methods:
     columns:
@@ -600,6 +611,7 @@ tables:
     table_format: delta
     resource: get__adventure_works__odata__v1__ship_methods
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__special_offers:
     columns:
@@ -650,6 +662,7 @@ tables:
     table_format: delta
     resource: get__adventure_works__odata__v1__special_offers
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__state_provinces:
     columns:
@@ -691,6 +704,7 @@ tables:
     table_format: delta
     resource: get__adventure_works__odata__v1__state_provinces
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__stores:
     columns:
@@ -726,6 +740,7 @@ tables:
     table_format: delta
     resource: get__adventure_works__odata__v1__stores
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   _dlt_pipeline_state:
     columns:
@@ -783,6 +798,6 @@ normalizers:
   json:
     module: dlt.common.normalizers.json.relational
 previous_hashes:
-- 4fzSraeXKSu7h+imSDnIyZcedETTuZFvOKhZQFx03rM=
 - DXU3dNZs4FpjNO3RHaNBxBP54ztT064jq4SWeLsWX00=
+- 4fzSraeXKSu7h+imSDnIyZcedETTuZFvOKhZQFx03rM=
 - r35lcST6OCm7DCyj6bdpgbVAWm0TnmuPo7FA8lJbfcA=
