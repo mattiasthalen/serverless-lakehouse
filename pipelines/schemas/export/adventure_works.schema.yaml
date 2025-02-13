@@ -1,5 +1,5 @@
-version: 3
-version_hash: w66gswzHYqoU6ZbXn2hVyKO4GalYJQG6BVXUDCXJzDg=
+version: 5
+version_hash: 06HvyIJSKXLHijAyKHc1QUzp/flhAghKepAlGd0hcZE=
 engine_version: 11
 name: adventure_works
 tables:
@@ -82,7 +82,7 @@ tables:
       address_line2:
         data_type: text
         nullable: true
-    write_disposition: append
+    write_disposition: replace
     table_format: delta
     resource: get__adventure_works__odata__v1__addresses
     x-normalizer:
@@ -118,7 +118,7 @@ tables:
         nullable: false
         unique: true
         row_key: true
-    write_disposition: append
+    write_disposition: replace
     table_format: delta
     resource: get__adventure_works__odata__v1__credit_cards
     x-normalizer:
@@ -157,7 +157,7 @@ tables:
         nullable: false
         unique: true
         row_key: true
-    write_disposition: append
+    write_disposition: replace
     table_format: delta
     resource: get__adventure_works__odata__v1__currency_rates
     x-normalizer:
@@ -193,7 +193,10 @@ tables:
         nullable: false
         unique: true
         row_key: true
-    write_disposition: append
+      person_id:
+        data_type: bigint
+        nullable: true
+    write_disposition: replace
     table_format: delta
     resource: get__adventure_works__odata__v1__customers
     x-normalizer:
@@ -247,7 +250,10 @@ tables:
       suffix:
         data_type: text
         nullable: true
-    write_disposition: append
+      additional_contact_info:
+        data_type: text
+        nullable: true
+    write_disposition: replace
     table_format: delta
     resource: get__adventure_works__odata__v1__persons
     x-normalizer:
@@ -304,7 +310,40 @@ tables:
         nullable: false
         unique: true
         row_key: true
-    write_disposition: append
+      color:
+        data_type: text
+        nullable: true
+      class:
+        data_type: text
+        nullable: true
+      weight_unit_measure_code:
+        data_type: text
+        nullable: true
+      weight:
+        data_type: double
+        nullable: true
+      size:
+        data_type: text
+        nullable: true
+      size_unit_measure_code:
+        data_type: text
+        nullable: true
+      product_line:
+        data_type: text
+        nullable: true
+      style:
+        data_type: text
+        nullable: true
+      product_subcategory_id:
+        data_type: bigint
+        nullable: true
+      product_model_id:
+        data_type: bigint
+        nullable: true
+      sell_end_date:
+        data_type: text
+        nullable: true
+    write_disposition: replace
     table_format: delta
     resource: get__adventure_works__odata__v1__products
     x-normalizer:
@@ -334,7 +373,7 @@ tables:
         nullable: false
         unique: true
         row_key: true
-    write_disposition: append
+    write_disposition: replace
     table_format: delta
     resource: get__adventure_works__odata__v1__product_categories
     x-normalizer:
@@ -385,7 +424,7 @@ tables:
         nullable: false
         unique: true
         row_key: true
-    write_disposition: append
+    write_disposition: replace
     table_format: delta
     resource: get__adventure_works__odata__v1__sales_order_details
     x-normalizer:
@@ -478,7 +517,7 @@ tables:
       currency_rate_id:
         data_type: bigint
         nullable: true
-    write_disposition: append
+    write_disposition: replace
     table_format: delta
     resource: get__adventure_works__odata__v1__sales_order_headers
     x-normalizer:
@@ -523,7 +562,7 @@ tables:
       sales_quota:
         data_type: double
         nullable: true
-    write_disposition: append
+    write_disposition: replace
     table_format: delta
     resource: get__adventure_works__odata__v1__sales_persons
     x-normalizer:
@@ -571,7 +610,7 @@ tables:
         nullable: false
         unique: true
         row_key: true
-    write_disposition: append
+    write_disposition: replace
     table_format: delta
     resource: get__adventure_works__odata__v1__sales_territories
     x-normalizer:
@@ -607,7 +646,7 @@ tables:
         nullable: false
         unique: true
         row_key: true
-    write_disposition: append
+    write_disposition: replace
     table_format: delta
     resource: get__adventure_works__odata__v1__ship_methods
     x-normalizer:
@@ -658,7 +697,7 @@ tables:
       maximum_quantity:
         data_type: bigint
         nullable: true
-    write_disposition: append
+    write_disposition: replace
     table_format: delta
     resource: get__adventure_works__odata__v1__special_offers
     x-normalizer:
@@ -700,7 +739,7 @@ tables:
         nullable: false
         unique: true
         row_key: true
-    write_disposition: append
+    write_disposition: replace
     table_format: delta
     resource: get__adventure_works__odata__v1__state_provinces
     x-normalizer:
@@ -736,7 +775,7 @@ tables:
         nullable: false
         unique: true
         row_key: true
-    write_disposition: append
+    write_disposition: replace
     table_format: delta
     resource: get__adventure_works__odata__v1__stores
     x-normalizer:
@@ -798,6 +837,8 @@ normalizers:
   json:
     module: dlt.common.normalizers.json.relational
 previous_hashes:
+- PUci+DpAc5MgEkw0CJOFawAsirGUJqcZAP7I//XSoJ8=
+- XgaPQeIX1MvvPAwAUIp4z1qgmjpG5hIL4kn2OZyZrl4=
 - DXU3dNZs4FpjNO3RHaNBxBP54ztT064jq4SWeLsWX00=
 - 4fzSraeXKSu7h+imSDnIyZcedETTuZFvOKhZQFx03rM=
 - r35lcST6OCm7DCyj6bdpgbVAWm0TnmuPo7FA8lJbfcA=

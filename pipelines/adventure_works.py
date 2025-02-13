@@ -19,6 +19,7 @@ class ODataLinkPaginator(JSONLinkPaginator):
     def update_state(self, response: Response, data: t.Optional[t.List[t.Any]] = None) -> None:
         """Extracts the next page URL from the JSON response."""
         self._next_reference = response.json().get(self.next_url_path)
+        print(f"Next page URL: {self._next_reference}")
 
 @dlt.source(name="adventure_works")
 def adventure_works_source() -> t.Any:
@@ -30,19 +31,19 @@ def adventure_works_source() -> t.Any:
             "write_disposition": "append",
             "max_table_nesting": 0,
             "endpoint": {
-                "paginator": ODataLinkPaginator("@odata.nextLink"),
                 "data_selector": "value",
                 "params": {
-                    "$count": "true",
+                    "$count": "false",
                     "$orderby": "ModifiedDate",
                 },
                 "incremental": {
                     "start_param": "$filter",
                     "cursor_path": "ModifiedDate",
                     "initial_value": "1970-01-01",
-                    "convert": lambda date: f"ModifiedDate gt {date}",
-                    "range_start": "open",
-                    "on_cursor_value_missing": "include"
+                    "convert": lambda date: f"ModifiedDate ge {date}",
+                    "range_start": "closed",
+                    "on_cursor_value_missing": "include",
+                    "row_order": "asc",
                 },
             },
         },
@@ -53,6 +54,7 @@ def adventure_works_source() -> t.Any:
                 "primary_key": "AddressId",
                 "endpoint": {
                     "path": "/Addresses",
+                    "paginator": ODataLinkPaginator("@odata.nextLink"),
                 },
             },
             {
@@ -61,6 +63,7 @@ def adventure_works_source() -> t.Any:
                 "primary_key": "CreditCardId",
                 "endpoint": {
                     "path": "/CreditCards",
+                    "paginator": ODataLinkPaginator("@odata.nextLink"),
                 },
             },
             {
@@ -69,6 +72,7 @@ def adventure_works_source() -> t.Any:
                 "primary_key": "CurrencyRateId",
                 "endpoint": {
                     "path": "/CurrencyRates",
+                    "paginator": ODataLinkPaginator("@odata.nextLink"),
                 },
             },
             {
@@ -77,6 +81,7 @@ def adventure_works_source() -> t.Any:
                 "primary_key": "CustomerId",
                 "endpoint": {
                     "path": "/Customers",
+                    "paginator": ODataLinkPaginator("@odata.nextLink"),
                 },
             },
             {
@@ -85,6 +90,7 @@ def adventure_works_source() -> t.Any:
                 "primary_key": "BusinessEntityId",
                 "endpoint": {
                     "path": "/Persons",
+                    "paginator": ODataLinkPaginator("@odata.nextLink"),
                 },
             },
             {
@@ -93,6 +99,7 @@ def adventure_works_source() -> t.Any:
                 "primary_key": "ProductId",
                 "endpoint": {
                     "path": "/Products",
+                    "paginator": ODataLinkPaginator("@odata.nextLink"),
                 },
             },
             {
@@ -101,6 +108,7 @@ def adventure_works_source() -> t.Any:
                 "primary_key": "ProductCategoryId",
                 "endpoint": {
                     "path": "/ProductCategories",
+                    "paginator": ODataLinkPaginator("@odata.nextLink"),
                 },
             },
             {
@@ -109,6 +117,7 @@ def adventure_works_source() -> t.Any:
                 "primary_key": "SalesOrderDetailId",
                 "endpoint": {
                     "path": "/SalesOrderDetails",
+                    "paginator": ODataLinkPaginator("@odata.nextLink"),
                 },
             },
             {
@@ -117,6 +126,7 @@ def adventure_works_source() -> t.Any:
                 "primary_key": "SalesOrderId",
                 "endpoint": {
                     "path": "/SalesOrderHeaders",
+                    "paginator": ODataLinkPaginator("@odata.nextLink"),
                 },
             },
             {
@@ -125,6 +135,7 @@ def adventure_works_source() -> t.Any:
                 "primary_key": "BusinessEntityId",
                 "endpoint": {
                     "path": "/SalesPersons",
+                    "paginator": ODataLinkPaginator("@odata.nextLink"),
                 },
             },
             {
@@ -133,6 +144,7 @@ def adventure_works_source() -> t.Any:
                 "primary_key": "TerritoryId",
                 "endpoint": {
                     "path": "/SalesTerritories",
+                    "paginator": ODataLinkPaginator("@odata.nextLink"),
                 },
             },
             {
@@ -141,6 +153,7 @@ def adventure_works_source() -> t.Any:
                 "primary_key": "ShipMethodId",
                 "endpoint": {
                     "path": "/ShipMethods",
+                    "paginator": ODataLinkPaginator("@odata.nextLink"),
                 },
             },
             {
@@ -149,6 +162,7 @@ def adventure_works_source() -> t.Any:
                 "primary_key": "SpecialOfferId",
                 "endpoint": {
                     "path": "/SpecialOffers",
+                    "paginator": ODataLinkPaginator("@odata.nextLink"),
                 },
             },
             {
@@ -157,6 +171,7 @@ def adventure_works_source() -> t.Any:
                 "primary_key": "StateProvinceId",
                 "endpoint": {
                     "path": "/StateProvinces",
+                    "paginator": ODataLinkPaginator("@odata.nextLink"),
                 },
             },
             {
@@ -165,6 +180,7 @@ def adventure_works_source() -> t.Any:
                 "primary_key": "BusinessEntityId",
                 "endpoint": {
                     "path": "/Stores",
+                    "paginator": ODataLinkPaginator("@odata.nextLink"),
                 },
             },
         ],
