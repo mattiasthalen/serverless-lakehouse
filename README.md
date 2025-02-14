@@ -5,29 +5,30 @@
 architecture-beta
     service api(cloud)[Adventure Works API]
     service extract(server)[dlt]
-
-    group lakehouse(cloud)[Lakehouse]
-        group engine(database)[DuckDB] in lakehouse
-            service staging(server)[SQLMesh] in engine
-            service silver(database)[Silver] in engine
-            service transform(server)[SQLMesh] in engine
-            service gold(database)[Gold] in engine
-
-        group s3(cloud)[Iceberg] in lakehouse
-            service bronze(disk)[Bronze] in s3
-            service gold_export(disk)[Gold] in s3
-    
-        service export(server)[dlt] in lakehouse
-        
+    service load(server)[SQLMesh]
+    service transform(server)[SQLMesh]
+    service export_silver(server)[dlt]
+    service export_gold(server)[dlt]
     service consumption(cloud)[BI]
+
+    group storage(cloud)[Storage]
+        service bronze(disk)[Bronze] in storage
+        service silver(disk)[Silver] in storage
+        service gold(disk)[Gold] in storage
+
+    group engine(database)[DuckDB]
+        service silver_view(database)[Silver] in engine
+        service gold_view(database)[Gold] in engine
 
     api:R -- L:extract
     extract:R -- L:bronze
-    bronze:T -- B:staging
-    staging:R -- L:silver
-    silver:R -- L:transform
-    transform:R -- L:gold
-    gold:R -- L:export
-    export:B -- T:gold_export
-    gold_export:R -- L:consumption
+    bronze:T -- B:load
+    load:T -- L:silver_view
+    silver_view:T -- L:transform
+    transform:B -- T:gold_view
+    silver_view:B -- T:export_silver
+    export_silver:B -- T:silver
+    gold_view:B -- T:export_gold
+    export_gold:B -- T:gold
+    gold:R -- L:consumption
 ```
