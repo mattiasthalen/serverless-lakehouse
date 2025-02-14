@@ -1,5 +1,15 @@
 # Serverless Lakehouse
 
+This project utilizes dlt, DuckDB, and SQLMesh, to create a serverless lakehouse by:
+1. Extracting data from source via dlt.
+2. Loading the data to delta files.
+3. Reading the bronze using DuckDB.
+4. Transforming the data using SQLMesh.
+5. Extracting silver & gold from DuckDB with dlt.
+6. Loading silver & gold to delta files.
+
+It does this locally into `./lakehouse`, which could be replaced by a S3 bucket.
+
 ## Architecture
 ```mermaid
 architecture-beta
