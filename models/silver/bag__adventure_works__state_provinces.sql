@@ -32,7 +32,12 @@ WITH staging AS (
   FROM staging
 ), hooks AS (
   SELECT
-    CONCAT('state_province|adventure_works|', state_province_id, '~epoch|valid_from|', _sqlmesh__valid_from)::BLOB AS _pit_hook__state_province,
+    CONCAT(
+      'state_province|adventure_works|',
+      state_province_id,
+      '~epoch|valid_from|',
+      _sqlmesh__valid_from
+    )::BLOB AS _pit_hook__state_province,
     CONCAT('state_province|adventure_works|', state_province_id)::BLOB AS _hook__state_province,
     CONCAT('territory|adventure_works|', territory_id)::BLOB AS _hook__territory,
     *
