@@ -70,3 +70,17 @@ flowchart LR
     
     raw__adventure_works__stores --> raw__adventure_works__persons
 ```
+
+### Silver
+Under construction
+
+### Gold
+```mermaid
+flowchart LR
+    _bridge --> customers
+    _bridge --> products
+    _bridge --> sales_order_details
+    _bridge --> sales_order_headers
+    _bridge --> sales_persons
+    _bridge --> stores
+```
