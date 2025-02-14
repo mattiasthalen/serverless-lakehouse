@@ -30,4 +30,4 @@ architecture-beta
     gold:R -- L:export
     export:B -- T:gold_export
     gold_export:R -- L:consumption
-``
+```
