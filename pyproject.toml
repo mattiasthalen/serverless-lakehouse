@@ -1,5 +1,5 @@
 [project]
-name = "adventure-works"
+name = "serverless-lakehouse"
 version = "0.1.0"
 description = ""
 readme = "README.md"
