@@ -1,0 +1,173 @@
+version: 1
+version_hash: ChjmsRqY5yg9UpU2qR/1JoyWeDxSNHMfTZC8FuFwHOM=
+engine_version: 11
+name: duckdb_silver
+tables:
+  _dlt_version:
+    columns:
+      version:
+        data_type: bigint
+        nullable: false
+      engine_version:
+        data_type: bigint
+        nullable: false
+      inserted_at:
+        data_type: timestamp
+        nullable: false
+      schema_name:
+        data_type: text
+        nullable: false
+      version_hash:
+        data_type: text
+        nullable: false
+      schema:
+        data_type: text
+        nullable: false
+    write_disposition: skip
+    resource: _dlt_version
+    description: Created by DLT. Tracks schema updates
+  _dlt_loads:
+    columns:
+      load_id:
+        data_type: text
+        nullable: false
+      schema_name:
+        data_type: text
+        nullable: true
+      status:
+        data_type: bigint
+        nullable: false
+      inserted_at:
+        data_type: timestamp
+        nullable: false
+      schema_version_hash:
+        data_type: text
+        nullable: true
+    write_disposition: skip
+    resource: _dlt_loads
+    description: Created by DLT. Tracks completed loads
+  bag__adventure_works__addresses:
+    columns: {}
+    write_disposition: replace
+    table_format: delta
+    resource: bag__adventure_works__addresses
+  bag__adventure_works__credit_cards:
+    columns: {}
+    write_disposition: replace
+    table_format: delta
+    resource: bag__adventure_works__credit_cards
+  bag__adventure_works__currency_rates:
+    columns: {}
+    write_disposition: replace
+    table_format: delta
+    resource: bag__adventure_works__currency_rates
+  bag__adventure_works__customers:
+    columns: {}
+    write_disposition: replace
+    table_format: delta
+    resource: bag__adventure_works__customers
+  bag__adventure_works__persons:
+    columns: {}
+    write_disposition: replace
+    table_format: delta
+    resource: bag__adventure_works__persons
+  bag__adventure_works__products:
+    columns: {}
+    write_disposition: replace
+    table_format: delta
+    resource: bag__adventure_works__products
+  bag__adventure_works__product_categories:
+    columns: {}
+    write_disposition: replace
+    table_format: delta
+    resource: bag__adventure_works__product_categories
+  bag__adventure_works__sales_order_details:
+    columns: {}
+    write_disposition: replace
+    table_format: delta
+    resource: bag__adventure_works__sales_order_details
+  bag__adventure_works__sales_order_headers:
+    columns: {}
+    write_disposition: replace
+    table_format: delta
+    resource: bag__adventure_works__sales_order_headers
+  bag__adventure_works__sales_persons:
+    columns: {}
+    write_disposition: replace
+    table_format: delta
+    resource: bag__adventure_works__sales_persons
+  bag__adventure_works__sales_territories:
+    columns: {}
+    write_disposition: replace
+    table_format: delta
+    resource: bag__adventure_works__sales_territories
+  bag__adventure_works__ship_methods:
+    columns: {}
+    write_disposition: replace
+    table_format: delta
+    resource: bag__adventure_works__ship_methods
+  bag__adventure_works__special_offers:
+    columns: {}
+    write_disposition: replace
+    table_format: delta
+    resource: bag__adventure_works__special_offers
+  bag__adventure_works__state_provinces:
+    columns: {}
+    write_disposition: replace
+    table_format: delta
+    resource: bag__adventure_works__state_provinces
+  bag__adventure_works__stores:
+    columns: {}
+    write_disposition: replace
+    table_format: delta
+    resource: bag__adventure_works__stores
+  _dlt_pipeline_state:
+    columns:
+      version:
+        data_type: bigint
+        nullable: false
+      engine_version:
+        data_type: bigint
+        nullable: false
+      pipeline_name:
+        data_type: text
+        nullable: false
+      state:
+        data_type: text
+        nullable: false
+      created_at:
+        data_type: timestamp
+        nullable: false
+      version_hash:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+    write_disposition: append
+    file_format: preferred
+    resource: _dlt_pipeline_state
+settings:
+  detections:
+  - iso_timestamp
+  default_hints:
+    not_null:
+    - _dlt_id
+    - _dlt_root_id
+    - _dlt_parent_id
+    - _dlt_list_idx
+    - _dlt_load_id
+    parent_key:
+    - _dlt_parent_id
+    root_key:
+    - _dlt_root_id
+    unique:
+    - _dlt_id
+    row_key:
+    - _dlt_id
+normalizers:
+  names: snake_case
+  json:
+    module: dlt.common.normalizers.json.relational
+previous_hashes:
+- zGsaTkocvI68aXmREPme78tmPD9CpGoICnpBfaUIRFo=
