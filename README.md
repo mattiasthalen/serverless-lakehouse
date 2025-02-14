@@ -42,3 +42,31 @@ architecture-beta
     export_gold:B -- T:gold
     gold:R -- L:consumption
 ```
+
+## ERDs - Oriented Data Models
+### Bronze
+```mermaid
+flowchart LR
+    raw__adventure_works__sales_order_details --> raw__adventure_works__products
+    raw__adventure_works__sales_order_details --> raw__adventure_works__sales_order_headers
+    raw__adventure_works__sales_order_details --> raw__adventure_works__special_offers
+    
+    raw__adventure_works__products --> raw__adventure_works__product_subcategories
+    raw__adventure_works__product_subcategories --> raw__adventure_works__product_categories
+
+    raw__adventure_works__sales_order_headers --> raw__adventure_works__addresses
+    raw__adventure_works__sales_order_headers --> raw__adventure_works__credit_cards
+    raw__adventure_works__sales_order_headers --> raw__adventure_works__currency_rates
+    raw__adventure_works__sales_order_headers --> raw__adventure_works__customers
+    raw__adventure_works__sales_order_headers --> raw__adventure_works__persons
+    raw__adventure_works__sales_order_headers --> raw__adventure_works__ship_methods
+    raw__adventure_works__customers --> raw__adventure_works__sales_territories
+    raw__adventure_works__sales_order_headers --> raw__adventure_works__sales_territories
+    
+    raw__adventure_works__customers --> raw__adventure_works__persons
+    raw__adventure_works__customers --> raw__adventure_works__stores
+    
+    raw__adventure_works__sales_territories --> raw__adventure_works__state_provinces
+    
+    raw__adventure_works__stores --> raw__adventure_works__persons
+```
