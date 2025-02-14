@@ -39,10 +39,6 @@ def generate_hook_bags():
         primary_key = next((col_name for col_name, col_info in columns.items() 
                         if col_info.get('primary_key')), 'PK_NOT_FOUND')
         
-        # Sort and format columns
-        sorted_columns = sort_columns(columns, primary_key)
-        formatted_columns = ',\n    '.join(sorted_columns)
-        
         # Generate hooks for ID columns
         hook_columns = get_hook_columns(columns)
         hook_statements = []
@@ -50,57 +46,58 @@ def generate_hook_bags():
         # Get entity name from primary key by removing '_id'
         entity_name = primary_key[:-3] if primary_key.endswith('_id') else primary_key
         
-        # Add PIT hook for primary key
-        pit_hook = f"    CONCAT('{entity_name}|adventure_works|', {primary_key}, '~epoch|valid_from|', _sqlmesh__valid_from)::BLOB AS _pit_hook__{entity_name}"
-        hook_statements.append(pit_hook)
+        # Sort and format columns
+        sorted_columns = sort_columns(columns, primary_key)
+        prefixed_columns = [f"{column} AS {entity_name}__{column}" if not column.endswith("_id") else column for column in sorted_columns]
+        formatted_columns = ',\n    '.join(prefixed_columns)
         
         # Add regular hook for primary key
-        primary_hook = f"    CONCAT('{entity_name}|adventure_works|', {primary_key})::BLOB AS _hook__{entity_name}"
+        primary_hook = f"CONCAT('{entity_name}|adventure_works|', {primary_key})::BLOB AS _hook__{entity_name}"
         hook_statements.append(primary_hook)
         
         # Add hooks for foreign keys
         for col in sorted(hook_columns):
             if col != primary_key:  # Skip primary key as it's already handled
                 referenced_entity = col[:-3]  # Remove '_id' suffix
-                hook = f"    CONCAT('{referenced_entity}|adventure_works|', {col})::BLOB AS _hook__{referenced_entity}"
+                hook = f"CONCAT('{referenced_entity}|adventure_works|', {col})::BLOB AS _hook__{referenced_entity}"
                 hook_statements.append(hook)
         
-        hook_definitions = ',\n'.join(hook_statements)
+        hook_definitions = ',\n    '.join(hook_statements)
         
         body = f"""MODEL (
-    kind VIEW
-    );
+  kind VIEW
+);
     
-    WITH staging AS (
-    SELECT
-        {formatted_columns},
-        TO_TIMESTAMP(_dlt_load_id::DOUBLE) AS _sqlmesh__loaded_at
-    FROM DELTA_SCAN("./lakehouse/bronze/{table}")
-    ), validity AS (
-    SELECT
-        *,
-        ROW_NUMBER() OVER (PARTITION BY {primary_key} ORDER BY _sqlmesh__loaded_at) AS _sqlmesh__version,
-        CASE
-        WHEN _sqlmesh__version = 1
-        THEN '1970-01-01 00:00:00'::TIMESTAMP
-        ELSE _sqlmesh__loaded_at
-        END AS _sqlmesh__valid_from,
-        COALESCE(
-        LEAD(_sqlmesh__loaded_at) OVER (PARTITION BY {primary_key} ORDER BY _sqlmesh__loaded_at),
-        '9999-12-31 23:59:59'::TIMESTAMP
-        ) AS _sqlmesh__valid_to,
-        _sqlmesh__valid_to = '9999-12-31 23:59:59'::TIMESTAMP AS _sqlmesh__is_current,
-        CASE WHEN _sqlmesh__is_current THEN _sqlmesh__loaded_at ELSE _sqlmesh__valid_to END AS _sqlmesh__updated_at
-    FROM staging
-    ), hooks AS (
-    SELECT
+WITH staging AS (
+  SELECT
+    {formatted_columns},
+    TO_TIMESTAMP(_dlt_load_id::DOUBLE) AS {entity_name}__record_loaded_at
+  FROM DELTA_SCAN("./lakehouse/bronze/{table}")
+), validity AS (
+  SELECT
+    *,
+    ROW_NUMBER() OVER (PARTITION BY {primary_key} ORDER BY {entity_name}__record_loaded_at) AS {entity_name}__record_version,
+    CASE
+      WHEN {entity_name}__record_version = 1
+      THEN '1970-01-01 00:00:00'::TIMESTAMP
+      ELSE {entity_name}__record_loaded_at
+    END AS {entity_name}__record_valid_from,
+    COALESCE(
+      LEAD({entity_name}__record_loaded_at) OVER (PARTITION BY {primary_key} ORDER BY {entity_name}__record_loaded_at),
+      '9999-12-31 23:59:59'::TIMESTAMP
+    ) AS {entity_name}__record_valid_to,
+    {entity_name}__record_valid_to = '9999-12-31 23:59:59'::TIMESTAMP AS {entity_name}__is_current_record,
+    CASE WHEN {entity_name}__is_current_record THEN {entity_name}__record_loaded_at ELSE {entity_name}__record_valid_to END AS {entity_name}__record_updated_at
+  FROM staging
+), hooks AS (
+  SELECT
     {hook_definitions},
-        *
-    FROM validity
-    )
-    SELECT
     *
-    FROM hooks"""
+  FROM validity
+)
+SELECT
+  *
+FROM hooks"""
         
         # Ensure the models/silver directory exists
         os.makedirs(os.path.dirname(file_path), exist_ok=True)
@@ -146,7 +143,7 @@ def generate_uss_bridges():
     );
     
     SELECT
-        '{stage_name}' AS stage,
+        '{stage_name}' AS stage,record_
         {',\n    '.join(pit_hooks + hooks)},    
         _sqlmesh__loaded_at,
         _sqlmesh__version,
@@ -259,6 +256,6 @@ FROM silver.{filename.replace('.sql', '')}
         
 if __name__ == "__main__":
     generate_hook_bags()
-    generate_uss_bridges()
-    generate_uss_bridge_union()
-    generate_uss_peripherals()
+    # generate_uss_bridges()
+    # generate_uss_bridge_union()
+    # generate_uss_peripherals()
