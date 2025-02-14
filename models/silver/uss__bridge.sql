@@ -12,6 +12,10 @@ FROM silver.uss__adventure_works__sales_order_headers
 UNION ALL BY NAME
 SELECT
   *
+FROM silver.uss__adventure_works__product_subcategories
+UNION ALL BY NAME
+SELECT
+  *
 FROM silver.uss__adventure_works__sales_order_details
 UNION ALL BY NAME
 SELECT

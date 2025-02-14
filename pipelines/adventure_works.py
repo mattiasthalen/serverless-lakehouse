@@ -112,6 +112,15 @@ def adventure_works_source() -> t.Any:
                 },
             },
             {
+                "name": "get__adventure_works__odata__v1__product_subcategories",
+                "table_name": "raw__adventure_works__product_subcategories",
+                "primary_key": "ProductSubcategoryId",
+                "endpoint": {
+                    "path": "/ProductSubcategories",
+                    "paginator": ODataLinkPaginator("@odata.nextLink"),
+                },
+            },
+            {
                 "name": "get__adventure_works__odata__v1__sales_order_details",
                 "table_name": "raw__adventure_works__sales_order_details",
                 "primary_key": "SalesOrderDetailId",

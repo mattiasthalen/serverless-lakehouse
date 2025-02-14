@@ -1,5 +1,5 @@
 version: 3
-version_hash: XdrG3dM12Qegpu1AK6Kt6mT++6FcdRgb1BnecPdvqqY=
+version_hash: zUR/4B44zrpSf+7Q987cPAnXRuUF1d9L6s/mLwyA/tA=
 engine_version: 11
 name: duckdb_silver
 tables:
@@ -1189,6 +1189,63 @@ tables:
     resource: _dlt_pipeline_state
     x-normalizer:
       seen-data: true
+  bag__adventure_works__product_subcategories:
+    columns:
+      _pit_hook__product_subcategory:
+        data_type: text
+        nullable: true
+      _hook__product_subcategory:
+        data_type: text
+        nullable: true
+      _hook__product_category:
+        data_type: text
+        nullable: true
+      product_subcategory_id:
+        data_type: bigint
+        nullable: true
+      product_category_id:
+        data_type: bigint
+        nullable: true
+      modified_date:
+        data_type: text
+        nullable: true
+      name:
+        data_type: text
+        nullable: true
+      rowguid:
+        data_type: text
+        nullable: true
+      _sqlmesh__loaded_at:
+        data_type: timestamp
+        nullable: true
+      _sqlmesh__version:
+        data_type: bigint
+        nullable: true
+      _sqlmesh__valid_from:
+        data_type: timestamp
+        nullable: true
+      _sqlmesh__valid_to:
+        data_type: timestamp
+        nullable: true
+      _sqlmesh__is_current:
+        data_type: bool
+        nullable: true
+      _sqlmesh__updated_at:
+        data_type: timestamp
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    table_format: delta
+    resource: bag__adventure_works__product_subcategories
+    x-normalizer:
+      seen-data: true
   uss__adventure_works__addresses:
     columns:
       stage:
@@ -1499,6 +1556,51 @@ tables:
     write_disposition: replace
     table_format: delta
     resource: uss__adventure_works__product_categories
+    x-normalizer:
+      seen-data: true
+  uss__adventure_works__product_subcategories:
+    columns:
+      stage:
+        data_type: text
+        nullable: true
+      _pit_hook__product_subcategory:
+        data_type: text
+        nullable: true
+      _hook__product_category:
+        data_type: text
+        nullable: true
+      _hook__product_subcategory:
+        data_type: text
+        nullable: true
+      _sqlmesh__loaded_at:
+        data_type: timestamp
+        nullable: true
+      _sqlmesh__version:
+        data_type: bigint
+        nullable: true
+      _sqlmesh__valid_from:
+        data_type: timestamp
+        nullable: true
+      _sqlmesh__valid_to:
+        data_type: timestamp
+        nullable: true
+      _sqlmesh__is_current:
+        data_type: bool
+        nullable: true
+      _sqlmesh__updated_at:
+        data_type: timestamp
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    table_format: delta
+    resource: uss__adventure_works__product_subcategories
     x-normalizer:
       seen-data: true
   uss__adventure_works__sales_order_details:
@@ -1946,6 +2048,12 @@ tables:
       _hook__territory:
         data_type: text
         nullable: true
+      _pit_hook__product_subcategory:
+        data_type: text
+        nullable: true
+      _hook__product_subcategory:
+        data_type: text
+        nullable: true
       _pit_hook__sales_order_detail:
         data_type: text
         nullable: true
@@ -1962,9 +2070,6 @@ tables:
         data_type: text
         nullable: true
       _hook__product_model:
-        data_type: text
-        nullable: true
-      _hook__product_subcategory:
         data_type: text
         nullable: true
       _pit_hook__ship_method:
@@ -2037,6 +2142,6 @@ normalizers:
   json:
     module: dlt.common.normalizers.json.relational
 previous_hashes:
-- VCl87tZ7FAn3885cUDFEVGjlwnpwsowzm180L6I8ISc=
+- 6rxqgaNMiSHfcPxkaDm+zm+HJUF1w1hJTm7Z/9soQWs=
 - ChjmsRqY5yg9UpU2qR/1JoyWeDxSNHMfTZC8FuFwHOM=
 - zGsaTkocvI68aXmREPme78tmPD9CpGoICnpBfaUIRFo=
