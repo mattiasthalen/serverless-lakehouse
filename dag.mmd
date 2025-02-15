@@ -1,0 +1,53 @@
+flowchart LR
+    subgraph lakehouse.silver["lakehouse.silver"]
+        direction LR
+        bag__adventure_works__addresses(["bag__adventure_works__addresses"])
+        bag__adventure_works__credit_cards(["bag__adventure_works__credit_cards"])
+        bag__adventure_works__currency_rates(["bag__adventure_works__currency_rates"])
+        bag__adventure_works__customers(["bag__adventure_works__customers"])
+        bag__adventure_works__persons(["bag__adventure_works__persons"])
+        bag__adventure_works__product_categories(["bag__adventure_works__product_categories"])
+        bag__adventure_works__product_subcategories(["bag__adventure_works__product_subcategories"])
+        bag__adventure_works__products(["bag__adventure_works__products"])
+        bag__adventure_works__sales_order_details(["bag__adventure_works__sales_order_details"])
+        bag__adventure_works__sales_order_headers(["bag__adventure_works__sales_order_headers"])
+        bag__adventure_works__sales_persons(["bag__adventure_works__sales_persons"])
+        bag__adventure_works__sales_territories(["bag__adventure_works__sales_territories"])
+        bag__adventure_works__ship_methods(["bag__adventure_works__ship_methods"])
+        bag__adventure_works__special_offers(["bag__adventure_works__special_offers"])
+        bag__adventure_works__state_provinces(["bag__adventure_works__state_provinces"])
+        bag__adventure_works__stores(["bag__adventure_works__stores"])
+        uss__int__customers(["uss__int__customers"])
+        uss__int__products(["uss__int__products"])
+        uss__int__sales_order_details(["uss__int__sales_order_details"])
+        uss__int__sales_order_headers(["uss__int__sales_order_headers"])
+        uss__int__sales_persons(["uss__int__sales_persons"])
+        uss__int__sales_territories(["uss__int__sales_territories"])
+        uss__int__stores(["uss__int__stores"])
+    end
+
+    %% lakehouse.silver -> lakehouse.silver
+    bag__adventure_works__addresses --> uss__int__sales_order_headers
+    bag__adventure_works__credit_cards --> uss__int__sales_order_headers
+    bag__adventure_works__currency_rates --> uss__int__sales_order_headers
+    bag__adventure_works__customers --> uss__int__customers
+    bag__adventure_works__persons --> uss__int__customers
+    bag__adventure_works__persons --> uss__int__sales_persons
+    bag__adventure_works__product_categories --> uss__int__products
+    bag__adventure_works__product_subcategories --> uss__int__products
+    bag__adventure_works__products --> uss__int__products
+    bag__adventure_works__sales_order_details --> uss__int__sales_order_details
+    bag__adventure_works__sales_order_headers --> uss__int__sales_order_headers
+    bag__adventure_works__sales_persons --> uss__int__sales_persons
+    bag__adventure_works__sales_territories --> uss__int__sales_territories
+    bag__adventure_works__ship_methods --> uss__int__sales_order_headers
+    bag__adventure_works__special_offers --> uss__int__sales_order_details
+    bag__adventure_works__stores --> uss__int__stores
+    uss__int__customers --> uss__int__sales_order_headers
+    uss__int__products --> uss__int__sales_order_details
+    uss__int__sales_order_headers --> uss__int__sales_order_details
+    uss__int__sales_persons --> uss__int__sales_order_headers
+    uss__int__sales_persons --> uss__int__stores
+    uss__int__sales_territories --> uss__int__customers
+    uss__int__sales_territories --> uss__int__sales_order_headers
+    uss__int__stores --> uss__int__customers
