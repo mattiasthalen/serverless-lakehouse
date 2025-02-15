@@ -105,3 +105,6 @@ FROM hooks"""
             file.write(body)
     
     print(f"Generated {len(tables)} hook models in ./models/silver/")
+    
+if __name__ == "__main__":
+    generate_hook_bags()

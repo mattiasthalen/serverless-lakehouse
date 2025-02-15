@@ -55,3 +55,6 @@ def generate_uss_bridges():
             print(f"Generated {target_path}")
     
     print("Done.")
+    
+if __name__ == "__main__":
+    generate_uss_bridges()

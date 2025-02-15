@@ -56,3 +56,6 @@ FROM silver.{filename.replace('.sql', '')}
             print(f"Generated {target_path}.sql")
     
     print("Done.")
+    
+if __name__ == "__main__":
+    generate_uss_peripherals()

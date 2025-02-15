@@ -22,7 +22,7 @@ def generate_uss_bridge_union():
         combined_query = "No matching files found."
     
     # Output the combined query to uss__bridge.sql
-    output_file = os.path.join(sql_folder, 'uss__bridge.sql')
+    output_file = os.path.join("./models/gold", '_bridge__as_of.sql')
     
     # Write the final SQL output with the required format
     final_sql = f"""MODEL (
@@ -36,3 +36,6 @@ def generate_uss_bridge_union():
         f.write(final_sql)
     
     print(f"Generated {output_file}")
+    
+if __name__ == "__main__":
+    generate_uss_bridge_union()
