@@ -1,0 +1,1735 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:DataServices>
+        <Schema Namespace="GrapeCity.DataService.AdventureWorks.Models"
+            xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityType Name="Department">
+                <Key>
+                    <PropertyRef Name="DepartmentId" />
+                </Key>
+                <Property Name="DepartmentId" Type="Edm.Int16" Nullable="false" />
+                <Property Name="Name" Type="Edm.String" Nullable="false" />
+                <Property Name="GroupName" Type="Edm.String" Nullable="false" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="EmployeeDepartmentHistories"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.EmployeeDepartmentHistory)" />
+            </EntityType>
+            <EntityType Name="Employee">
+                <Key>
+                    <PropertyRef Name="BusinessEntityId" />
+                </Key>
+                <Property Name="BusinessEntityId" Type="Edm.Int32" />
+                <Property Name="NationalIdnumber" Type="Edm.String" Nullable="false" />
+                <Property Name="LoginId" Type="Edm.String" Nullable="false" />
+                <Property Name="OrganizationLevel" Type="Edm.Int16" />
+                <Property Name="JobTitle" Type="Edm.String" Nullable="false" />
+                <Property Name="BirthDate" Type="Edm.Date" Nullable="false" />
+                <Property Name="MaritalStatus" Type="Edm.String" Nullable="false" />
+                <Property Name="Gender" Type="Edm.String" Nullable="false" />
+                <Property Name="HireDate" Type="Edm.Date" Nullable="false" />
+                <Property Name="SalariedFlag" Type="Edm.Boolean" Nullable="false" />
+                <Property Name="VacationHours" Type="Edm.Int16" Nullable="false" />
+                <Property Name="SickLeaveHours" Type="Edm.Int16" Nullable="false" />
+                <Property Name="CurrentFlag" Type="Edm.Boolean" Nullable="false" />
+                <Property Name="Rowguid" Type="Edm.Guid" Nullable="false" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="BusinessEntity"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.Person">
+                    <ReferentialConstraint Property="BusinessEntityId"
+                        ReferencedProperty="BusinessEntityId" />
+                </NavigationProperty>
+                <NavigationProperty Name="SalesPerson"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.SalesPerson" />
+                <NavigationProperty Name="EmployeeDepartmentHistories"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.EmployeeDepartmentHistory)" />
+                <NavigationProperty Name="EmployeePayHistories"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.EmployeePayHistory)" />
+                <NavigationProperty Name="JobCandidates"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.JobCandidate)" />
+                <NavigationProperty Name="PurchaseOrderHeaders"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.PurchaseOrderHeader)" />
+            </EntityType>
+            <EntityType Name="EmployeePayHistory">
+                <Key>
+                    <PropertyRef Name="BusinessEntityId" />
+                    <PropertyRef Name="RateChangeDate" />
+                </Key>
+                <Property Name="BusinessEntityId" Type="Edm.Int32" />
+                <Property Name="RateChangeDate" Type="Edm.DateTimeOffset" Nullable="false" />
+                <Property Name="Rate" Type="Edm.Decimal" Nullable="false" Scale="Variable" />
+                <Property Name="PayFrequency" Type="Edm.Byte" Nullable="false" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="BusinessEntity"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.Employee">
+                    <ReferentialConstraint Property="BusinessEntityId"
+                        ReferencedProperty="BusinessEntityId" />
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="EmployeeDepartmentHistory">
+                <Key>
+                    <PropertyRef Name="BusinessEntityId" />
+                    <PropertyRef Name="DepartmentId" />
+                    <PropertyRef Name="ShiftId" />
+                    <PropertyRef Name="StartDate" />
+                </Key>
+                <Property Name="BusinessEntityId" Type="Edm.Int32" />
+                <Property Name="DepartmentId" Type="Edm.Int16" />
+                <Property Name="ShiftId" Type="Edm.Byte" />
+                <Property Name="StartDate" Type="Edm.DateTimeOffset" Nullable="false" />
+                <Property Name="EndDate" Type="Edm.Date" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="BusinessEntity"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.Employee">
+                    <ReferentialConstraint Property="BusinessEntityId"
+                        ReferencedProperty="BusinessEntityId" />
+                </NavigationProperty>
+                <NavigationProperty Name="Department"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.Department">
+                    <ReferentialConstraint Property="DepartmentId" ReferencedProperty="DepartmentId" />
+                </NavigationProperty>
+                <NavigationProperty Name="Shift"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.Shift">
+                    <ReferentialConstraint Property="ShiftId" ReferencedProperty="ShiftId" />
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="JobCandidate">
+                <Key>
+                    <PropertyRef Name="JobCandidateId" />
+                </Key>
+                <Property Name="JobCandidateId" Type="Edm.Int32" Nullable="false" />
+                <Property Name="BusinessEntityId" Type="Edm.Int32" />
+                <Property Name="Resume" Type="Edm.String" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="BusinessEntity"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.Employee">
+                    <ReferentialConstraint Property="BusinessEntityId"
+                        ReferencedProperty="BusinessEntityId" />
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="Shift">
+                <Key>
+                    <PropertyRef Name="ShiftId" />
+                </Key>
+                <Property Name="ShiftId" Type="Edm.Byte" Nullable="false" />
+                <Property Name="Name" Type="Edm.String" Nullable="false" />
+                <Property Name="StartTime" Type="Edm.Duration" Nullable="false" />
+                <Property Name="EndTime" Type="Edm.Duration" Nullable="false" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="EmployeeDepartmentHistories"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.EmployeeDepartmentHistory)" />
+            </EntityType>
+            <EntityType Name="Address">
+                <Key>
+                    <PropertyRef Name="AddressId" />
+                </Key>
+                <Property Name="AddressId" Type="Edm.Int32" Nullable="false" />
+                <Property Name="AddressLine1" Type="Edm.String" Nullable="false" />
+                <Property Name="AddressLine2" Type="Edm.String" />
+                <Property Name="City" Type="Edm.String" Nullable="false" />
+                <Property Name="StateProvinceId" Type="Edm.Int32" />
+                <Property Name="PostalCode" Type="Edm.String" Nullable="false" />
+                <Property Name="Rowguid" Type="Edm.Guid" Nullable="false" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="StateProvince"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.StateProvince">
+                    <ReferentialConstraint Property="StateProvinceId"
+                        ReferencedProperty="StateProvinceId" />
+                </NavigationProperty>
+                <NavigationProperty Name="BusinessEntityAddresses"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.BusinessEntityAddress)" />
+                <NavigationProperty Name="SalesOrdersBilledTo"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.SalesOrderHeader)" />
+                <NavigationProperty Name="SalesOrdersShippedTo"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.SalesOrderHeader)" />
+            </EntityType>
+            <EntityType Name="AddressType">
+                <Key>
+                    <PropertyRef Name="AddressTypeId" />
+                </Key>
+                <Property Name="AddressTypeId" Type="Edm.Int32" Nullable="false" />
+                <Property Name="Name" Type="Edm.String" Nullable="false" />
+                <Property Name="Rowguid" Type="Edm.Guid" Nullable="false" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="BusinessEntityAddresses"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.BusinessEntityAddress)" />
+            </EntityType>
+            <EntityType Name="BusinessEntity">
+                <Key>
+                    <PropertyRef Name="BusinessEntityId" />
+                </Key>
+                <Property Name="BusinessEntityId" Type="Edm.Int32" Nullable="false" />
+                <Property Name="Rowguid" Type="Edm.Guid" Nullable="false" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="Person"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.Person" />
+                <NavigationProperty Name="Store"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.Store" />
+                <NavigationProperty Name="Vendor"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.Vendor" />
+                <NavigationProperty Name="BusinessEntityAddresses"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.BusinessEntityAddress)" />
+                <NavigationProperty Name="BusinessEntityContacts"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.BusinessEntityContact)" />
+            </EntityType>
+            <EntityType Name="BusinessEntityAddress">
+                <Key>
+                    <PropertyRef Name="AddressId" />
+                    <PropertyRef Name="AddressTypeId" />
+                    <PropertyRef Name="BusinessEntityId" />
+                </Key>
+                <Property Name="BusinessEntityId" Type="Edm.Int32" />
+                <Property Name="AddressId" Type="Edm.Int32" />
+                <Property Name="AddressTypeId" Type="Edm.Int32" />
+                <Property Name="Rowguid" Type="Edm.Guid" Nullable="false" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="Address"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.Address">
+                    <ReferentialConstraint Property="AddressId" ReferencedProperty="AddressId" />
+                </NavigationProperty>
+                <NavigationProperty Name="AddressType"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.AddressType">
+                    <ReferentialConstraint Property="AddressTypeId"
+                        ReferencedProperty="AddressTypeId" />
+                </NavigationProperty>
+                <NavigationProperty Name="BusinessEntity"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.BusinessEntity">
+                    <ReferentialConstraint Property="BusinessEntityId"
+                        ReferencedProperty="BusinessEntityId" />
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="BusinessEntityContact">
+                <Key>
+                    <PropertyRef Name="BusinessEntityId" />
+                    <PropertyRef Name="ContactTypeId" />
+                    <PropertyRef Name="PersonId" />
+                </Key>
+                <Property Name="BusinessEntityId" Type="Edm.Int32" />
+                <Property Name="PersonId" Type="Edm.Int32" />
+                <Property Name="ContactTypeId" Type="Edm.Int32" />
+                <Property Name="Rowguid" Type="Edm.Guid" Nullable="false" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="BusinessEntity"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.BusinessEntity">
+                    <ReferentialConstraint Property="BusinessEntityId"
+                        ReferencedProperty="BusinessEntityId" />
+                </NavigationProperty>
+                <NavigationProperty Name="ContactType"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.ContactType">
+                    <ReferentialConstraint Property="ContactTypeId"
+                        ReferencedProperty="ContactTypeId" />
+                </NavigationProperty>
+                <NavigationProperty Name="Person"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.Person">
+                    <ReferentialConstraint Property="PersonId" ReferencedProperty="BusinessEntityId" />
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="ContactType">
+                <Key>
+                    <PropertyRef Name="ContactTypeId" />
+                </Key>
+                <Property Name="ContactTypeId" Type="Edm.Int32" Nullable="false" />
+                <Property Name="Name" Type="Edm.String" Nullable="false" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="BusinessEntityContacts"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.BusinessEntityContact)" />
+            </EntityType>
+            <EntityType Name="CountryRegion">
+                <Key>
+                    <PropertyRef Name="CountryRegionCode" />
+                </Key>
+                <Property Name="CountryRegionCode" Type="Edm.String" Nullable="false" />
+                <Property Name="Name" Type="Edm.String" Nullable="false" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="CountryRegionCurrencies"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.CountryRegionCurrency)" />
+                <NavigationProperty Name="SalesTerritories"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.SalesTerritory)" />
+                <NavigationProperty Name="StateProvinces"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.StateProvince)" />
+            </EntityType>
+            <EntityType Name="EmailAddress">
+                <Key>
+                    <PropertyRef Name="BusinessEntityId" />
+                    <PropertyRef Name="EmailAddressId" />
+                </Key>
+                <Property Name="BusinessEntityId" Type="Edm.Int32" />
+                <Property Name="EmailAddressId" Type="Edm.Int32" Nullable="false" />
+                <Property Name="Email" Type="Edm.String" />
+                <Property Name="Rowguid" Type="Edm.Guid" Nullable="false" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="Person"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.Person">
+                    <ReferentialConstraint Property="BusinessEntityId"
+                        ReferencedProperty="BusinessEntityId" />
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="PersonPhone">
+                <Key>
+                    <PropertyRef Name="BusinessEntityId" />
+                    <PropertyRef Name="PhoneNumber" />
+                    <PropertyRef Name="PhoneNumberTypeId" />
+                </Key>
+                <Property Name="BusinessEntityId" Type="Edm.Int32" />
+                <Property Name="PhoneNumber" Type="Edm.String" Nullable="false" />
+                <Property Name="PhoneNumberTypeId" Type="Edm.Int32" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="Person"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.Person">
+                    <ReferentialConstraint Property="BusinessEntityId"
+                        ReferencedProperty="BusinessEntityId" />
+                </NavigationProperty>
+                <NavigationProperty Name="PhoneNumberType"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.PhoneNumberType">
+                    <ReferentialConstraint Property="PhoneNumberTypeId"
+                        ReferencedProperty="PhoneNumberTypeId" />
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="PhoneNumberType">
+                <Key>
+                    <PropertyRef Name="PhoneNumberTypeId" />
+                </Key>
+                <Property Name="PhoneNumberTypeId" Type="Edm.Int32" Nullable="false" />
+                <Property Name="Name" Type="Edm.String" Nullable="false" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="PersonPhones"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.PersonPhone)" />
+            </EntityType>
+            <EntityType Name="Person">
+                <Key>
+                    <PropertyRef Name="BusinessEntityId" />
+                </Key>
+                <Property Name="BusinessEntityId" Type="Edm.Int32" />
+                <Property Name="PersonType" Type="Edm.String" Nullable="false" />
+                <Property Name="NameStyle" Type="Edm.Boolean" Nullable="false" />
+                <Property Name="Title" Type="Edm.String" />
+                <Property Name="FirstName" Type="Edm.String" Nullable="false" />
+                <Property Name="MiddleName" Type="Edm.String" />
+                <Property Name="LastName" Type="Edm.String" Nullable="false" />
+                <Property Name="Suffix" Type="Edm.String" />
+                <Property Name="EmailPromotion" Type="Edm.Int32" Nullable="false" />
+                <Property Name="AdditionalContactInfo" Type="Edm.String" />
+                <Property Name="Demographics" Type="Edm.String" />
+                <Property Name="Rowguid" Type="Edm.Guid" Nullable="false" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="BusinessEntity"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.BusinessEntity">
+                    <ReferentialConstraint Property="BusinessEntityId"
+                        ReferencedProperty="BusinessEntityId" />
+                </NavigationProperty>
+                <NavigationProperty Name="Employee"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.Employee" />
+                <NavigationProperty Name="Password"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.Password" />
+                <NavigationProperty Name="BusinessEntityContacts"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.BusinessEntityContact)" />
+                <NavigationProperty Name="Customers"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.Customer)" />
+                <NavigationProperty Name="EmailAddresses"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.EmailAddress)" />
+                <NavigationProperty Name="PersonCreditCards"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.PersonCreditCard)" />
+                <NavigationProperty Name="PersonPhones"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.PersonPhone)" />
+            </EntityType>
+            <EntityType Name="StateProvince">
+                <Key>
+                    <PropertyRef Name="StateProvinceId" />
+                </Key>
+                <Property Name="StateProvinceId" Type="Edm.Int32" Nullable="false" />
+                <Property Name="StateProvinceCode" Type="Edm.String" Nullable="false" />
+                <Property Name="CountryRegionCode" Type="Edm.String" />
+                <Property Name="IsOnlyStateProvinceFlag" Type="Edm.Boolean" Nullable="false" />
+                <Property Name="Name" Type="Edm.String" Nullable="false" />
+                <Property Name="TerritoryId" Type="Edm.Int32" />
+                <Property Name="Rowguid" Type="Edm.Guid" Nullable="false" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="Country"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.CountryRegion">
+                    <ReferentialConstraint Property="CountryRegionCode"
+                        ReferencedProperty="CountryRegionCode" />
+                </NavigationProperty>
+                <NavigationProperty Name="Territory"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.SalesTerritory">
+                    <ReferentialConstraint Property="TerritoryId" ReferencedProperty="TerritoryId" />
+                </NavigationProperty>
+                <NavigationProperty Name="Addresses"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.Address)" />
+                <NavigationProperty Name="SalesTaxRates"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.SalesTaxRate)" />
+            </EntityType>
+            <EntityType Name="BillOfMaterial">
+                <Key>
+                    <PropertyRef Name="BillOfMaterialsId" />
+                </Key>
+                <Property Name="BillOfMaterialsId" Type="Edm.Int32" Nullable="false" />
+                <Property Name="ProductAssemblyId" Type="Edm.Int32" />
+                <Property Name="ComponentId" Type="Edm.Int32" />
+                <Property Name="StartDate" Type="Edm.Date" Nullable="false" />
+                <Property Name="EndDate" Type="Edm.Date" />
+                <Property Name="UnitMeasureCode" Type="Edm.String" />
+                <Property Name="Bomlevel" Type="Edm.Int16" Nullable="false" />
+                <Property Name="PerAssemblyQty" Type="Edm.Decimal" Nullable="false" Scale="Variable" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="Component"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.Product">
+                    <ReferentialConstraint Property="ComponentId" ReferencedProperty="ProductId" />
+                </NavigationProperty>
+                <NavigationProperty Name="ProductAssembly"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.Product">
+                    <ReferentialConstraint Property="ProductAssemblyId"
+                        ReferencedProperty="ProductId" />
+                </NavigationProperty>
+                <NavigationProperty Name="QuantityUnit"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.UnitMeasure">
+                    <ReferentialConstraint Property="UnitMeasureCode"
+                        ReferencedProperty="UnitMeasureCode" />
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="Culture">
+                <Key>
+                    <PropertyRef Name="CultureId" />
+                </Key>
+                <Property Name="CultureId" Type="Edm.String" Nullable="false" />
+                <Property Name="Name" Type="Edm.String" Nullable="false" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="ProductModelProductDescriptionCultures"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.ProductModelProductDescriptionCulture)" />
+            </EntityType>
+            <EntityType Name="Illustration">
+                <Key>
+                    <PropertyRef Name="IllustrationId" />
+                </Key>
+                <Property Name="IllustrationId" Type="Edm.Int32" Nullable="false" />
+                <Property Name="Diagram" Type="Edm.String" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="ProductModelIllustrations"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.ProductModelIllustration)" />
+            </EntityType>
+            <EntityType Name="Location">
+                <Key>
+                    <PropertyRef Name="LocationId" />
+                </Key>
+                <Property Name="LocationId" Type="Edm.Int16" Nullable="false" />
+                <Property Name="Name" Type="Edm.String" Nullable="false" />
+                <Property Name="CostRate" Type="Edm.Decimal" Nullable="false" Scale="Variable" />
+                <Property Name="Availability" Type="Edm.Decimal" Nullable="false" Scale="Variable" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="ProductInventories"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.ProductInventory)" />
+                <NavigationProperty Name="WorkOrderRoutings"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.WorkOrderRouting)" />
+            </EntityType>
+            <EntityType Name="ProductCategory">
+                <Key>
+                    <PropertyRef Name="ProductCategoryId" />
+                </Key>
+                <Property Name="ProductCategoryId" Type="Edm.Int32" Nullable="false" />
+                <Property Name="Name" Type="Edm.String" Nullable="false" />
+                <Property Name="Rowguid" Type="Edm.Guid" Nullable="false" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="ProductSubcategories"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.ProductSubcategory)" />
+            </EntityType>
+            <EntityType Name="ProductCostHistory">
+                <Key>
+                    <PropertyRef Name="ProductId" />
+                    <PropertyRef Name="StartDate" />
+                </Key>
+                <Property Name="ProductId" Type="Edm.Int32" />
+                <Property Name="StartDate" Type="Edm.DateTimeOffset" Nullable="false" />
+                <Property Name="EndDate" Type="Edm.Date" />
+                <Property Name="StandardCost" Type="Edm.Decimal" Nullable="false" Scale="Variable" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="Product"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.Product">
+                    <ReferentialConstraint Property="ProductId" ReferencedProperty="ProductId" />
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="ProductDescription">
+                <Key>
+                    <PropertyRef Name="ProductDescriptionId" />
+                </Key>
+                <Property Name="ProductDescriptionId" Type="Edm.Int32" Nullable="false" />
+                <Property Name="Description" Type="Edm.String" Nullable="false" />
+                <Property Name="Rowguid" Type="Edm.Guid" Nullable="false" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="ProductModelProductDescriptionCultures"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.ProductModelProductDescriptionCulture)" />
+            </EntityType>
+            <EntityType Name="ProductInventory">
+                <Key>
+                    <PropertyRef Name="LocationId" />
+                    <PropertyRef Name="ProductId" />
+                </Key>
+                <Property Name="ProductId" Type="Edm.Int32" />
+                <Property Name="LocationId" Type="Edm.Int16" />
+                <Property Name="Shelf" Type="Edm.String" Nullable="false" />
+                <Property Name="Bin" Type="Edm.Byte" Nullable="false" />
+                <Property Name="Quantity" Type="Edm.Int16" Nullable="false" />
+                <Property Name="Rowguid" Type="Edm.Guid" Nullable="false" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="Location"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.Location">
+                    <ReferentialConstraint Property="LocationId" ReferencedProperty="LocationId" />
+                </NavigationProperty>
+                <NavigationProperty Name="Product"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.Product">
+                    <ReferentialConstraint Property="ProductId" ReferencedProperty="ProductId" />
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="ProductListPriceHistory">
+                <Key>
+                    <PropertyRef Name="ProductId" />
+                    <PropertyRef Name="StartDate" />
+                </Key>
+                <Property Name="ProductId" Type="Edm.Int32" />
+                <Property Name="StartDate" Type="Edm.DateTimeOffset" Nullable="false" />
+                <Property Name="EndDate" Type="Edm.Date" />
+                <Property Name="ListPrice" Type="Edm.Decimal" Nullable="false" Scale="Variable" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="Product"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.Product">
+                    <ReferentialConstraint Property="ProductId" ReferencedProperty="ProductId" />
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="ProductModelIllustration">
+                <Key>
+                    <PropertyRef Name="IllustrationId" />
+                    <PropertyRef Name="ProductModelId" />
+                </Key>
+                <Property Name="ProductModelId" Type="Edm.Int32" />
+                <Property Name="IllustrationId" Type="Edm.Int32" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="Illustration"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.Illustration">
+                    <ReferentialConstraint Property="IllustrationId"
+                        ReferencedProperty="IllustrationId" />
+                </NavigationProperty>
+                <NavigationProperty Name="ProductModel"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.ProductModel">
+                    <ReferentialConstraint Property="ProductModelId"
+                        ReferencedProperty="ProductModelId" />
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="ProductModel">
+                <Key>
+                    <PropertyRef Name="ProductModelId" />
+                </Key>
+                <Property Name="ProductModelId" Type="Edm.Int32" Nullable="false" />
+                <Property Name="Name" Type="Edm.String" Nullable="false" />
+                <Property Name="CatalogDescription" Type="Edm.String" />
+                <Property Name="Instructions" Type="Edm.String" />
+                <Property Name="Rowguid" Type="Edm.Guid" Nullable="false" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="ProductModelIllustrations"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.ProductModelIllustration)" />
+                <NavigationProperty Name="ProductModelProductDescriptionCultures"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.ProductModelProductDescriptionCulture)" />
+                <NavigationProperty Name="Products"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.Product)" />
+            </EntityType>
+            <EntityType Name="ProductPhoto">
+                <Key>
+                    <PropertyRef Name="ProductPhotoId" />
+                </Key>
+                <Property Name="ProductPhotoId" Type="Edm.Int32" Nullable="false" />
+                <Property Name="ThumbNailPhoto" Type="Edm.Binary" />
+                <Property Name="ThumbnailPhotoFileName" Type="Edm.String" />
+                <Property Name="LargePhoto" Type="Edm.Binary" />
+                <Property Name="LargePhotoFileName" Type="Edm.String" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="ProductProductPhotos"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.ProductProductPhoto)" />
+            </EntityType>
+            <EntityType Name="ProductReview">
+                <Key>
+                    <PropertyRef Name="ProductReviewId" />
+                </Key>
+                <Property Name="ProductReviewId" Type="Edm.Int32" Nullable="false" />
+                <Property Name="ProductId" Type="Edm.Int32" />
+                <Property Name="ReviewerName" Type="Edm.String" Nullable="false" />
+                <Property Name="ReviewDate" Type="Edm.Date" Nullable="false" />
+                <Property Name="EmailAddress" Type="Edm.String" Nullable="false" />
+                <Property Name="Rating" Type="Edm.Int32" Nullable="false" />
+                <Property Name="Comments" Type="Edm.String" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="Product"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.Product">
+                    <ReferentialConstraint Property="ProductId" ReferencedProperty="ProductId" />
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="Product">
+                <Key>
+                    <PropertyRef Name="ProductId" />
+                </Key>
+                <Property Name="ProductId" Type="Edm.Int32" Nullable="false" />
+                <Property Name="Name" Type="Edm.String" Nullable="false" />
+                <Property Name="ProductNumber" Type="Edm.String" Nullable="false" />
+                <Property Name="MakeFlag" Type="Edm.Boolean" Nullable="false" />
+                <Property Name="FinishedGoodsFlag" Type="Edm.Boolean" Nullable="false" />
+                <Property Name="Color" Type="Edm.String" />
+                <Property Name="SafetyStockLevel" Type="Edm.Int16" Nullable="false" />
+                <Property Name="ReorderPoint" Type="Edm.Int16" Nullable="false" />
+                <Property Name="StandardCost" Type="Edm.Decimal" Nullable="false" Scale="Variable" />
+                <Property Name="ListPrice" Type="Edm.Decimal" Nullable="false" Scale="Variable" />
+                <Property Name="Size" Type="Edm.String" />
+                <Property Name="SizeUnitMeasureCode" Type="Edm.String" />
+                <Property Name="WeightUnitMeasureCode" Type="Edm.String" />
+                <Property Name="Weight" Type="Edm.Decimal" Scale="Variable" />
+                <Property Name="DaysToManufacture" Type="Edm.Int32" Nullable="false" />
+                <Property Name="ProductLine" Type="Edm.String" />
+                <Property Name="Class" Type="Edm.String" />
+                <Property Name="Style" Type="Edm.String" />
+                <Property Name="ProductSubcategoryId" Type="Edm.Int32" />
+                <Property Name="ProductModelId" Type="Edm.Int32" />
+                <Property Name="SellStartDate" Type="Edm.Date" Nullable="false" />
+                <Property Name="SellEndDate" Type="Edm.Date" />
+                <Property Name="DiscontinuedDate" Type="Edm.Date" />
+                <Property Name="Rowguid" Type="Edm.Guid" Nullable="false" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="ProductModel"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.ProductModel">
+                    <ReferentialConstraint Property="ProductModelId"
+                        ReferencedProperty="ProductModelId" />
+                </NavigationProperty>
+                <NavigationProperty Name="ProductSubcategory"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.ProductSubcategory">
+                    <ReferentialConstraint Property="ProductSubcategoryId"
+                        ReferencedProperty="ProductSubcategoryId" />
+                </NavigationProperty>
+                <NavigationProperty Name="UnitOfSize"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.UnitMeasure">
+                    <ReferentialConstraint Property="SizeUnitMeasureCode"
+                        ReferencedProperty="UnitMeasureCode" />
+                </NavigationProperty>
+                <NavigationProperty Name="UnitOfWeight"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.UnitMeasure">
+                    <ReferentialConstraint Property="WeightUnitMeasureCode"
+                        ReferencedProperty="UnitMeasureCode" />
+                </NavigationProperty>
+                <NavigationProperty Name="BillOfMaterialComponents"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.BillOfMaterial)" />
+                <NavigationProperty Name="BillOfMaterialProductAssemblies"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.BillOfMaterial)" />
+                <NavigationProperty Name="ProductCostHistories"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.ProductCostHistory)" />
+                <NavigationProperty Name="ProductInventories"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.ProductInventory)" />
+                <NavigationProperty Name="ProductListPriceHistories"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.ProductListPriceHistory)" />
+                <NavigationProperty Name="ProductProductPhotos"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.ProductProductPhoto)" />
+                <NavigationProperty Name="ProductReviews"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.ProductReview)" />
+                <NavigationProperty Name="ProductVendors"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.ProductVendor)" />
+                <NavigationProperty Name="PurchaseOrderDetails"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.PurchaseOrderDetail)" />
+                <NavigationProperty Name="ShoppingCartItems"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.ShoppingCartItem)" />
+                <NavigationProperty Name="SpecialOfferProducts"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.SpecialOfferProduct)" />
+                <NavigationProperty Name="TransactionHistories"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.TransactionHistory)" />
+                <NavigationProperty Name="WorkOrders"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.WorkOrder)" />
+            </EntityType>
+            <EntityType Name="ProductSubcategory">
+                <Key>
+                    <PropertyRef Name="ProductSubcategoryId" />
+                </Key>
+                <Property Name="ProductSubcategoryId" Type="Edm.Int32" Nullable="false" />
+                <Property Name="ProductCategoryId" Type="Edm.Int32" />
+                <Property Name="Name" Type="Edm.String" Nullable="false" />
+                <Property Name="Rowguid" Type="Edm.Guid" Nullable="false" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="ProductCategory"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.ProductCategory">
+                    <ReferentialConstraint Property="ProductCategoryId"
+                        ReferencedProperty="ProductCategoryId" />
+                </NavigationProperty>
+                <NavigationProperty Name="Products"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.Product)" />
+            </EntityType>
+            <EntityType Name="ScrapReason">
+                <Key>
+                    <PropertyRef Name="ScrapReasonId" />
+                </Key>
+                <Property Name="ScrapReasonId" Type="Edm.Int16" Nullable="false" />
+                <Property Name="Name" Type="Edm.String" Nullable="false" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="WorkOrders"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.WorkOrder)" />
+            </EntityType>
+            <EntityType Name="TransactionHistory">
+                <Key>
+                    <PropertyRef Name="TransactionId" />
+                </Key>
+                <Property Name="TransactionId" Type="Edm.Int32" Nullable="false" />
+                <Property Name="ProductId" Type="Edm.Int32" />
+                <Property Name="ReferenceOrderId" Type="Edm.Int32" Nullable="false" />
+                <Property Name="ReferenceOrderLineId" Type="Edm.Int32" Nullable="false" />
+                <Property Name="TransactionDate" Type="Edm.Date" Nullable="false" />
+                <Property Name="TransactionType" Type="Edm.String" Nullable="false" />
+                <Property Name="Quantity" Type="Edm.Int32" Nullable="false" />
+                <Property Name="ActualCost" Type="Edm.Decimal" Nullable="false" Scale="Variable" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="Product"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.Product">
+                    <ReferentialConstraint Property="ProductId" ReferencedProperty="ProductId" />
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="TransactionHistoryArchive">
+                <Key>
+                    <PropertyRef Name="TransactionId" />
+                </Key>
+                <Property Name="TransactionId" Type="Edm.Int32" Nullable="false" />
+                <Property Name="ProductId" Type="Edm.Int32" Nullable="false" />
+                <Property Name="ReferenceOrderId" Type="Edm.Int32" Nullable="false" />
+                <Property Name="ReferenceOrderLineId" Type="Edm.Int32" Nullable="false" />
+                <Property Name="TransactionDate" Type="Edm.Date" Nullable="false" />
+                <Property Name="TransactionType" Type="Edm.String" Nullable="false" />
+                <Property Name="Quantity" Type="Edm.Int32" Nullable="false" />
+                <Property Name="ActualCost" Type="Edm.Decimal" Nullable="false" Scale="Variable" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+            </EntityType>
+            <EntityType Name="UnitMeasure">
+                <Key>
+                    <PropertyRef Name="UnitMeasureCode" />
+                </Key>
+                <Property Name="UnitMeasureCode" Type="Edm.String" Nullable="false" />
+                <Property Name="Name" Type="Edm.String" Nullable="false" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="BillOfMaterials"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.BillOfMaterial)" />
+                <NavigationProperty Name="SizeUnitProducts"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.Product)" />
+                <NavigationProperty Name="ProductVendors"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.ProductVendor)" />
+                <NavigationProperty Name="WeightUnitProducts"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.Product)" />
+            </EntityType>
+            <EntityType Name="WorkOrder">
+                <Key>
+                    <PropertyRef Name="WorkOrderId" />
+                </Key>
+                <Property Name="WorkOrderId" Type="Edm.Int32" Nullable="false" />
+                <Property Name="ProductId" Type="Edm.Int32" />
+                <Property Name="OrderQty" Type="Edm.Int32" Nullable="false" />
+                <Property Name="StockedQty" Type="Edm.Int32" Nullable="false" />
+                <Property Name="ScrappedQty" Type="Edm.Int16" Nullable="false" />
+                <Property Name="StartDate" Type="Edm.Date" Nullable="false" />
+                <Property Name="EndDate" Type="Edm.Date" />
+                <Property Name="DueDate" Type="Edm.Date" Nullable="false" />
+                <Property Name="ScrapReasonId" Type="Edm.Int16" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="Product"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.Product">
+                    <ReferentialConstraint Property="ProductId" ReferencedProperty="ProductId" />
+                </NavigationProperty>
+                <NavigationProperty Name="ScrapReason"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.ScrapReason">
+                    <ReferentialConstraint Property="ScrapReasonId"
+                        ReferencedProperty="ScrapReasonId" />
+                </NavigationProperty>
+                <NavigationProperty Name="WorkOrderRoutings"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.WorkOrderRouting)" />
+            </EntityType>
+            <EntityType Name="WorkOrderRouting">
+                <Key>
+                    <PropertyRef Name="OperationSequence" />
+                    <PropertyRef Name="ProductId" />
+                    <PropertyRef Name="WorkOrderId" />
+                </Key>
+                <Property Name="WorkOrderId" Type="Edm.Int32" />
+                <Property Name="ProductId" Type="Edm.Int32" Nullable="false" />
+                <Property Name="OperationSequence" Type="Edm.Int16" Nullable="false" />
+                <Property Name="LocationId" Type="Edm.Int16" />
+                <Property Name="ScheduledStartDate" Type="Edm.Date" Nullable="false" />
+                <Property Name="ScheduledEndDate" Type="Edm.Date" Nullable="false" />
+                <Property Name="ActualStartDate" Type="Edm.Date" />
+                <Property Name="ActualEndDate" Type="Edm.Date" />
+                <Property Name="ActualResourceHrs" Type="Edm.Decimal" Scale="Variable" />
+                <Property Name="PlannedCost" Type="Edm.Decimal" Nullable="false" Scale="Variable" />
+                <Property Name="ActualCost" Type="Edm.Decimal" Scale="Variable" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="Location"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.Location">
+                    <ReferentialConstraint Property="LocationId" ReferencedProperty="LocationId" />
+                </NavigationProperty>
+                <NavigationProperty Name="WorkOrder"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.WorkOrder">
+                    <ReferentialConstraint Property="WorkOrderId" ReferencedProperty="WorkOrderId" />
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="ProductVendor">
+                <Key>
+                    <PropertyRef Name="BusinessEntityId" />
+                    <PropertyRef Name="ProductId" />
+                </Key>
+                <Property Name="ProductId" Type="Edm.Int32" />
+                <Property Name="BusinessEntityId" Type="Edm.Int32" />
+                <Property Name="AverageLeadTime" Type="Edm.Int32" Nullable="false" />
+                <Property Name="StandardPrice" Type="Edm.Decimal" Nullable="false" Scale="Variable" />
+                <Property Name="LastReceiptCost" Type="Edm.Decimal" Scale="Variable" />
+                <Property Name="LastReceiptDate" Type="Edm.Date" />
+                <Property Name="MinOrderQty" Type="Edm.Int32" Nullable="false" />
+                <Property Name="MaxOrderQty" Type="Edm.Int32" Nullable="false" />
+                <Property Name="OnOrderQty" Type="Edm.Int32" />
+                <Property Name="UnitMeasureCode" Type="Edm.String" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="BusinessEntity"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.Vendor">
+                    <ReferentialConstraint Property="BusinessEntityId"
+                        ReferencedProperty="BusinessEntityId" />
+                </NavigationProperty>
+                <NavigationProperty Name="Product"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.Product">
+                    <ReferentialConstraint Property="ProductId" ReferencedProperty="ProductId" />
+                </NavigationProperty>
+                <NavigationProperty Name="UnitOfMeasure"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.UnitMeasure">
+                    <ReferentialConstraint Property="UnitMeasureCode"
+                        ReferencedProperty="UnitMeasureCode" />
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="PurchaseOrderDetail">
+                <Key>
+                    <PropertyRef Name="PurchaseOrderDetailId" />
+                    <PropertyRef Name="PurchaseOrderId" />
+                </Key>
+                <Property Name="PurchaseOrderId" Type="Edm.Int32" />
+                <Property Name="PurchaseOrderDetailId" Type="Edm.Int32" Nullable="false" />
+                <Property Name="DueDate" Type="Edm.Date" Nullable="false" />
+                <Property Name="OrderQty" Type="Edm.Int16" Nullable="false" />
+                <Property Name="ProductId" Type="Edm.Int32" />
+                <Property Name="UnitPrice" Type="Edm.Decimal" Nullable="false" Scale="Variable" />
+                <Property Name="LineTotal" Type="Edm.Decimal" Nullable="false" Scale="Variable" />
+                <Property Name="ReceivedQty" Type="Edm.Decimal" Nullable="false" Scale="Variable" />
+                <Property Name="RejectedQty" Type="Edm.Decimal" Nullable="false" Scale="Variable" />
+                <Property Name="StockedQty" Type="Edm.Decimal" Nullable="false" Scale="Variable" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="Product"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.Product">
+                    <ReferentialConstraint Property="ProductId" ReferencedProperty="ProductId" />
+                </NavigationProperty>
+                <NavigationProperty Name="PurchaseOrder"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.PurchaseOrderHeader">
+                    <ReferentialConstraint Property="PurchaseOrderId"
+                        ReferencedProperty="PurchaseOrderId" />
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="PurchaseOrderHeader">
+                <Key>
+                    <PropertyRef Name="PurchaseOrderId" />
+                </Key>
+                <Property Name="PurchaseOrderId" Type="Edm.Int32" Nullable="false" />
+                <Property Name="RevisionNumber" Type="Edm.Byte" Nullable="false" />
+                <Property Name="Status" Type="Edm.Byte" Nullable="false" />
+                <Property Name="EmployeeId" Type="Edm.Int32" />
+                <Property Name="VendorId" Type="Edm.Int32" />
+                <Property Name="ShipMethodId" Type="Edm.Int32" />
+                <Property Name="OrderDate" Type="Edm.Date" Nullable="false" />
+                <Property Name="ShipDate" Type="Edm.Date" />
+                <Property Name="SubTotal" Type="Edm.Decimal" Nullable="false" Scale="Variable" />
+                <Property Name="TaxAmt" Type="Edm.Decimal" Nullable="false" Scale="Variable" />
+                <Property Name="Freight" Type="Edm.Decimal" Nullable="false" Scale="Variable" />
+                <Property Name="TotalDue" Type="Edm.Decimal" Nullable="false" Scale="Variable" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="Employee"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.Employee">
+                    <ReferentialConstraint Property="EmployeeId"
+                        ReferencedProperty="BusinessEntityId" />
+                </NavigationProperty>
+                <NavigationProperty Name="ShipMethod"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.ShipMethod">
+                    <ReferentialConstraint Property="ShipMethodId" ReferencedProperty="ShipMethodId" />
+                </NavigationProperty>
+                <NavigationProperty Name="Vendor"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.Vendor">
+                    <ReferentialConstraint Property="VendorId" ReferencedProperty="BusinessEntityId" />
+                </NavigationProperty>
+                <NavigationProperty Name="PurchaseOrderDetails"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.PurchaseOrderDetail)" />
+            </EntityType>
+            <EntityType Name="ShipMethod">
+                <Key>
+                    <PropertyRef Name="ShipMethodId" />
+                </Key>
+                <Property Name="ShipMethodId" Type="Edm.Int32" Nullable="false" />
+                <Property Name="Name" Type="Edm.String" Nullable="false" />
+                <Property Name="ShipBase" Type="Edm.Decimal" Nullable="false" Scale="Variable" />
+                <Property Name="ShipRate" Type="Edm.Decimal" Nullable="false" Scale="Variable" />
+                <Property Name="Rowguid" Type="Edm.Guid" Nullable="false" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="PurchaseOrderHeaders"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.PurchaseOrderHeader)" />
+                <NavigationProperty Name="SalesOrderHeaders"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.SalesOrderHeader)" />
+            </EntityType>
+            <EntityType Name="Vendor">
+                <Key>
+                    <PropertyRef Name="BusinessEntityId" />
+                </Key>
+                <Property Name="BusinessEntityId" Type="Edm.Int32" />
+                <Property Name="AccountNumber" Type="Edm.String" Nullable="false" />
+                <Property Name="Name" Type="Edm.String" Nullable="false" />
+                <Property Name="CreditRating" Type="Edm.Byte" Nullable="false" />
+                <Property Name="PreferredVendorStatus" Type="Edm.Boolean" Nullable="false" />
+                <Property Name="ActiveFlag" Type="Edm.Boolean" Nullable="false" />
+                <Property Name="PurchasingWebServiceUrl" Type="Edm.String" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="BusinessEntity"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.BusinessEntity">
+                    <ReferentialConstraint Property="BusinessEntityId"
+                        ReferencedProperty="BusinessEntityId" />
+                </NavigationProperty>
+                <NavigationProperty Name="ProductVendors"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.ProductVendor)" />
+                <NavigationProperty Name="PurchaseOrderHeaders"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.PurchaseOrderHeader)" />
+            </EntityType>
+            <EntityType Name="CreditCard">
+                <Key>
+                    <PropertyRef Name="CreditCardId" />
+                </Key>
+                <Property Name="CreditCardId" Type="Edm.Int32" Nullable="false" />
+                <Property Name="CardType" Type="Edm.String" Nullable="false" />
+                <Property Name="CardNumber" Type="Edm.String" Nullable="false" />
+                <Property Name="ExpMonth" Type="Edm.Byte" Nullable="false" />
+                <Property Name="ExpYear" Type="Edm.Int16" Nullable="false" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="PersonCreditCards"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.PersonCreditCard)" />
+                <NavigationProperty Name="SalesOrderHeaders"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.SalesOrderHeader)" />
+            </EntityType>
+            <EntityType Name="Currency">
+                <Key>
+                    <PropertyRef Name="CurrencyCode" />
+                </Key>
+                <Property Name="CurrencyCode" Type="Edm.String" Nullable="false" />
+                <Property Name="Name" Type="Edm.String" Nullable="false" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="CountryRegionCurrencies"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.CountryRegionCurrency)" />
+                <NavigationProperty Name="CurrencyRatesFrom"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.CurrencyRate)" />
+                <NavigationProperty Name="CurrencyRatesTo"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.CurrencyRate)" />
+            </EntityType>
+            <EntityType Name="CurrencyRate">
+                <Key>
+                    <PropertyRef Name="CurrencyRateId" />
+                </Key>
+                <Property Name="CurrencyRateId" Type="Edm.Int32" Nullable="false" />
+                <Property Name="CurrencyRateDate" Type="Edm.Date" Nullable="false" />
+                <Property Name="FromCurrencyCode" Type="Edm.String" />
+                <Property Name="ToCurrencyCode" Type="Edm.String" />
+                <Property Name="AverageRate" Type="Edm.Decimal" Nullable="false" Scale="Variable" />
+                <Property Name="EndOfDayRate" Type="Edm.Decimal" Nullable="false" Scale="Variable" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="CurrencyFrom"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.Currency">
+                    <ReferentialConstraint Property="FromCurrencyCode"
+                        ReferencedProperty="CurrencyCode" />
+                </NavigationProperty>
+                <NavigationProperty Name="CurrencyTo"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.Currency">
+                    <ReferentialConstraint Property="ToCurrencyCode"
+                        ReferencedProperty="CurrencyCode" />
+                </NavigationProperty>
+                <NavigationProperty Name="SalesOrderHeaders"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.SalesOrderHeader)" />
+            </EntityType>
+            <EntityType Name="Customer">
+                <Key>
+                    <PropertyRef Name="CustomerId" />
+                </Key>
+                <Property Name="CustomerId" Type="Edm.Int32" Nullable="false" />
+                <Property Name="PersonId" Type="Edm.Int32" />
+                <Property Name="StoreId" Type="Edm.Int32" />
+                <Property Name="TerritoryId" Type="Edm.Int32" />
+                <Property Name="AccountNumber" Type="Edm.String" Nullable="false" />
+                <Property Name="Rowguid" Type="Edm.Guid" Nullable="false" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="Person"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.Person">
+                    <ReferentialConstraint Property="PersonId" ReferencedProperty="BusinessEntityId" />
+                </NavigationProperty>
+                <NavigationProperty Name="Store"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.Store">
+                    <ReferentialConstraint Property="StoreId" ReferencedProperty="BusinessEntityId" />
+                </NavigationProperty>
+                <NavigationProperty Name="Territory"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.SalesTerritory">
+                    <ReferentialConstraint Property="TerritoryId" ReferencedProperty="TerritoryId" />
+                </NavigationProperty>
+                <NavigationProperty Name="SalesOrderHeaders"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.SalesOrderHeader)" />
+            </EntityType>
+            <EntityType Name="SalesOrderHeader">
+                <Key>
+                    <PropertyRef Name="SalesOrderId" />
+                </Key>
+                <Property Name="SalesOrderId" Type="Edm.Int32" Nullable="false" />
+                <Property Name="RevisionNumber" Type="Edm.Byte" Nullable="false" />
+                <Property Name="OrderDate" Type="Edm.Date" Nullable="false" />
+                <Property Name="DueDate" Type="Edm.Date" Nullable="false" />
+                <Property Name="ShipDate" Type="Edm.Date" />
+                <Property Name="Status" Type="Edm.Byte" Nullable="false" />
+                <Property Name="OnlineOrderFlag" Type="Edm.Boolean" Nullable="false" />
+                <Property Name="SalesOrderNumber" Type="Edm.String" Nullable="false" />
+                <Property Name="PurchaseOrderNumber" Type="Edm.String" />
+                <Property Name="AccountNumber" Type="Edm.String" />
+                <Property Name="CustomerId" Type="Edm.Int32" />
+                <Property Name="SalesPersonId" Type="Edm.Int32" />
+                <Property Name="TerritoryId" Type="Edm.Int32" />
+                <Property Name="BillToAddressId" Type="Edm.Int32" />
+                <Property Name="ShipToAddressId" Type="Edm.Int32" />
+                <Property Name="ShipMethodId" Type="Edm.Int32" />
+                <Property Name="CreditCardId" Type="Edm.Int32" />
+                <Property Name="CreditCardApprovalCode" Type="Edm.String" />
+                <Property Name="CurrencyRateId" Type="Edm.Int32" />
+                <Property Name="SubTotal" Type="Edm.Decimal" Nullable="false" Scale="Variable" />
+                <Property Name="TaxAmt" Type="Edm.Decimal" Nullable="false" Scale="Variable" />
+                <Property Name="Freight" Type="Edm.Decimal" Nullable="false" Scale="Variable" />
+                <Property Name="TotalDue" Type="Edm.Decimal" Nullable="false" Scale="Variable" />
+                <Property Name="Comment" Type="Edm.String" />
+                <Property Name="Rowguid" Type="Edm.Guid" Nullable="false" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="BillToAddress"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.Address">
+                    <ReferentialConstraint Property="BillToAddressId" ReferencedProperty="AddressId" />
+                </NavigationProperty>
+                <NavigationProperty Name="CreditCard"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.CreditCard">
+                    <ReferentialConstraint Property="CreditCardId" ReferencedProperty="CreditCardId" />
+                </NavigationProperty>
+                <NavigationProperty Name="CurrencyRate"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.CurrencyRate">
+                    <ReferentialConstraint Property="CurrencyRateId"
+                        ReferencedProperty="CurrencyRateId" />
+                </NavigationProperty>
+                <NavigationProperty Name="Customer"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.Customer">
+                    <ReferentialConstraint Property="CustomerId" ReferencedProperty="CustomerId" />
+                </NavigationProperty>
+                <NavigationProperty Name="SalesPerson"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.SalesPerson">
+                    <ReferentialConstraint Property="SalesPersonId"
+                        ReferencedProperty="BusinessEntityId" />
+                </NavigationProperty>
+                <NavigationProperty Name="ShipMethod"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.ShipMethod">
+                    <ReferentialConstraint Property="ShipMethodId" ReferencedProperty="ShipMethodId" />
+                </NavigationProperty>
+                <NavigationProperty Name="ShipToAddress"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.Address">
+                    <ReferentialConstraint Property="ShipToAddressId" ReferencedProperty="AddressId" />
+                </NavigationProperty>
+                <NavigationProperty Name="Territory"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.SalesTerritory">
+                    <ReferentialConstraint Property="TerritoryId" ReferencedProperty="TerritoryId" />
+                </NavigationProperty>
+                <NavigationProperty Name="SalesOrderDetails"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.SalesOrderDetail)" />
+                <NavigationProperty Name="SalesOrderHeaderSalesReasons"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.SalesOrderHeaderSalesReason)" />
+            </EntityType>
+            <EntityType Name="SalesOrderDetail">
+                <Key>
+                    <PropertyRef Name="SalesOrderDetailId" />
+                    <PropertyRef Name="SalesOrderId" />
+                </Key>
+                <Property Name="SalesOrderId" Type="Edm.Int32" />
+                <Property Name="SalesOrderDetailId" Type="Edm.Int32" Nullable="false" />
+                <Property Name="CarrierTrackingNumber" Type="Edm.String" />
+                <Property Name="OrderQty" Type="Edm.Int16" Nullable="false" />
+                <Property Name="ProductId" Type="Edm.Int32" />
+                <Property Name="SpecialOfferId" Type="Edm.Int32" />
+                <Property Name="UnitPrice" Type="Edm.Decimal" Nullable="false" Scale="Variable" />
+                <Property Name="UnitPriceDiscount" Type="Edm.Decimal" Nullable="false"
+                    Scale="Variable" />
+                <Property Name="LineTotal" Type="Edm.Decimal" Nullable="false" Scale="Variable" />
+                <Property Name="Rowguid" Type="Edm.Guid" Nullable="false" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="SalesOrder"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.SalesOrderHeader">
+                    <ReferentialConstraint Property="SalesOrderId" ReferencedProperty="SalesOrderId" />
+                </NavigationProperty>
+                <NavigationProperty Name="SpecialOfferProduct"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.SpecialOfferProduct">
+                    <ReferentialConstraint Property="SpecialOfferId"
+                        ReferencedProperty="SpecialOfferId" />
+                    <ReferentialConstraint Property="ProductId" ReferencedProperty="ProductId" />
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="SalesPerson">
+                <Key>
+                    <PropertyRef Name="BusinessEntityId" />
+                </Key>
+                <Property Name="BusinessEntityId" Type="Edm.Int32" />
+                <Property Name="TerritoryId" Type="Edm.Int32" />
+                <Property Name="SalesQuota" Type="Edm.Decimal" Scale="Variable" />
+                <Property Name="Bonus" Type="Edm.Decimal" Nullable="false" Scale="Variable" />
+                <Property Name="CommissionPct" Type="Edm.Decimal" Nullable="false" Scale="Variable" />
+                <Property Name="SalesYtd" Type="Edm.Decimal" Nullable="false" Scale="Variable" />
+                <Property Name="SalesLastYear" Type="Edm.Decimal" Nullable="false" Scale="Variable" />
+                <Property Name="Rowguid" Type="Edm.Guid" Nullable="false" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="BusinessEntity"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.Employee">
+                    <ReferentialConstraint Property="BusinessEntityId"
+                        ReferencedProperty="BusinessEntityId" />
+                </NavigationProperty>
+                <NavigationProperty Name="Territory"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.SalesTerritory">
+                    <ReferentialConstraint Property="TerritoryId" ReferencedProperty="TerritoryId" />
+                </NavigationProperty>
+                <NavigationProperty Name="SalesOrderHeaders"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.SalesOrderHeader)" />
+                <NavigationProperty Name="SalesPersonQuotaHistories"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.SalesPersonQuotaHistory)" />
+                <NavigationProperty Name="SalesTerritoryHistories"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.SalesTerritoryHistory)" />
+                <NavigationProperty Name="Stores"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.Store)" />
+            </EntityType>
+            <EntityType Name="SalesPersonQuotaHistory">
+                <Key>
+                    <PropertyRef Name="BusinessEntityId" />
+                    <PropertyRef Name="QuotaDate" />
+                </Key>
+                <Property Name="BusinessEntityId" Type="Edm.Int32" />
+                <Property Name="QuotaDate" Type="Edm.Date" Nullable="false" />
+                <Property Name="SalesQuota" Type="Edm.Decimal" Nullable="false" Scale="Variable" />
+                <Property Name="Rowguid" Type="Edm.Guid" Nullable="false" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="SalesPerson"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.SalesPerson">
+                    <ReferentialConstraint Property="BusinessEntityId"
+                        ReferencedProperty="BusinessEntityId" />
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="SalesReason">
+                <Key>
+                    <PropertyRef Name="SalesReasonId" />
+                </Key>
+                <Property Name="SalesReasonId" Type="Edm.Int32" Nullable="false" />
+                <Property Name="Name" Type="Edm.String" Nullable="false" />
+                <Property Name="ReasonType" Type="Edm.String" Nullable="false" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="SalesOrderHeaderSalesReasons"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.SalesOrderHeaderSalesReason)" />
+            </EntityType>
+            <EntityType Name="SalesTaxRate">
+                <Key>
+                    <PropertyRef Name="SalesTaxRateId" />
+                </Key>
+                <Property Name="SalesTaxRateId" Type="Edm.Int32" Nullable="false" />
+                <Property Name="StateProvinceId" Type="Edm.Int32" />
+                <Property Name="TaxType" Type="Edm.Byte" Nullable="false" />
+                <Property Name="TaxRate" Type="Edm.Decimal" Nullable="false" Scale="Variable" />
+                <Property Name="Name" Type="Edm.String" Nullable="false" />
+                <Property Name="Rowguid" Type="Edm.Guid" Nullable="false" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="StateProvince"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.StateProvince">
+                    <ReferentialConstraint Property="StateProvinceId"
+                        ReferencedProperty="StateProvinceId" />
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="SalesTerritory">
+                <Key>
+                    <PropertyRef Name="TerritoryId" />
+                </Key>
+                <Property Name="TerritoryId" Type="Edm.Int32" Nullable="false" />
+                <Property Name="Name" Type="Edm.String" Nullable="false" />
+                <Property Name="CountryRegionCode" Type="Edm.String" />
+                <Property Name="Group" Type="Edm.String" Nullable="false" />
+                <Property Name="SalesYtd" Type="Edm.Decimal" Nullable="false" Scale="Variable" />
+                <Property Name="SalesLastYear" Type="Edm.Decimal" Nullable="false" Scale="Variable" />
+                <Property Name="CostYtd" Type="Edm.Decimal" Nullable="false" Scale="Variable" />
+                <Property Name="CostLastYear" Type="Edm.Decimal" Nullable="false" Scale="Variable" />
+                <Property Name="Rowguid" Type="Edm.Guid" Nullable="false" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="Country"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.CountryRegion">
+                    <ReferentialConstraint Property="CountryRegionCode"
+                        ReferencedProperty="CountryRegionCode" />
+                </NavigationProperty>
+                <NavigationProperty Name="Customers"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.Customer)" />
+                <NavigationProperty Name="SalesOrderHeaders"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.SalesOrderHeader)" />
+                <NavigationProperty Name="SalesPeople"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.SalesPerson)" />
+                <NavigationProperty Name="SalesTerritoryHistories"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.SalesTerritoryHistory)" />
+                <NavigationProperty Name="StateProvinces"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.StateProvince)" />
+            </EntityType>
+            <EntityType Name="SalesTerritoryHistory">
+                <Key>
+                    <PropertyRef Name="BusinessEntityId" />
+                    <PropertyRef Name="StartDate" />
+                    <PropertyRef Name="TerritoryId" />
+                </Key>
+                <Property Name="BusinessEntityId" Type="Edm.Int32" />
+                <Property Name="TerritoryId" Type="Edm.Int32" />
+                <Property Name="StartDate" Type="Edm.Date" Nullable="false" />
+                <Property Name="EndDate" Type="Edm.Date" />
+                <Property Name="Rowguid" Type="Edm.Guid" Nullable="false" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="SalesPerson"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.SalesPerson">
+                    <ReferentialConstraint Property="BusinessEntityId"
+                        ReferencedProperty="BusinessEntityId" />
+                </NavigationProperty>
+                <NavigationProperty Name="Territory"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.SalesTerritory">
+                    <ReferentialConstraint Property="TerritoryId" ReferencedProperty="TerritoryId" />
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="ShoppingCartItem">
+                <Key>
+                    <PropertyRef Name="ShoppingCartItemId" />
+                </Key>
+                <Property Name="ShoppingCartItemId" Type="Edm.Int32" Nullable="false" />
+                <Property Name="ShoppingCartId" Type="Edm.String" Nullable="false" />
+                <Property Name="Quantity" Type="Edm.Int32" Nullable="false" />
+                <Property Name="ProductId" Type="Edm.Int32" />
+                <Property Name="DateCreated" Type="Edm.Date" Nullable="false" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="Product"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.Product">
+                    <ReferentialConstraint Property="ProductId" ReferencedProperty="ProductId" />
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="SpecialOffer">
+                <Key>
+                    <PropertyRef Name="SpecialOfferId" />
+                </Key>
+                <Property Name="SpecialOfferId" Type="Edm.Int32" Nullable="false" />
+                <Property Name="Description" Type="Edm.String" Nullable="false" />
+                <Property Name="DiscountPercentage" Type="Edm.Decimal" Nullable="false"
+                    Scale="Variable" />
+                <Property Name="Type" Type="Edm.String" Nullable="false" />
+                <Property Name="Category" Type="Edm.String" Nullable="false" />
+                <Property Name="StartDate" Type="Edm.Date" Nullable="false" />
+                <Property Name="EndDate" Type="Edm.Date" Nullable="false" />
+                <Property Name="MinimumQuantity" Type="Edm.Int32" Nullable="false" />
+                <Property Name="MaximumQuantity" Type="Edm.Int32" />
+                <Property Name="Rowguid" Type="Edm.Guid" Nullable="false" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="SpecialOfferProducts"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.SpecialOfferProduct)" />
+            </EntityType>
+            <EntityType Name="Store">
+                <Key>
+                    <PropertyRef Name="BusinessEntityId" />
+                </Key>
+                <Property Name="BusinessEntityId" Type="Edm.Int32" />
+                <Property Name="Name" Type="Edm.String" Nullable="false" />
+                <Property Name="SalesPersonId" Type="Edm.Int32" />
+                <Property Name="Demographics" Type="Edm.String" />
+                <Property Name="Rowguid" Type="Edm.Guid" Nullable="false" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="BusinessEntity"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.BusinessEntity">
+                    <ReferentialConstraint Property="BusinessEntityId"
+                        ReferencedProperty="BusinessEntityId" />
+                </NavigationProperty>
+                <NavigationProperty Name="SalesPerson"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.SalesPerson">
+                    <ReferentialConstraint Property="SalesPersonId"
+                        ReferencedProperty="BusinessEntityId" />
+                </NavigationProperty>
+                <NavigationProperty Name="Customers"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.Customer)" />
+            </EntityType>
+            <EntityType Name="CountryRegionCurrency">
+                <Key>
+                    <PropertyRef Name="CountryRegionCode" />
+                    <PropertyRef Name="CurrencyCode" />
+                </Key>
+                <Property Name="CountryRegionCode" Type="Edm.String" />
+                <Property Name="CurrencyCode" Type="Edm.String" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="Country"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.CountryRegion">
+                    <ReferentialConstraint Property="CountryRegionCode"
+                        ReferencedProperty="CountryRegionCode" />
+                </NavigationProperty>
+                <NavigationProperty Name="Currency"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.Currency">
+                    <ReferentialConstraint Property="CurrencyCode" ReferencedProperty="CurrencyCode" />
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="PersonCreditCard">
+                <Key>
+                    <PropertyRef Name="BusinessEntityId" />
+                    <PropertyRef Name="CreditCardId" />
+                </Key>
+                <Property Name="BusinessEntityId" Type="Edm.Int32" />
+                <Property Name="CreditCardId" Type="Edm.Int32" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="BusinessEntity"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.Person">
+                    <ReferentialConstraint Property="BusinessEntityId"
+                        ReferencedProperty="BusinessEntityId" />
+                </NavigationProperty>
+                <NavigationProperty Name="CreditCard"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.CreditCard">
+                    <ReferentialConstraint Property="CreditCardId" ReferencedProperty="CreditCardId" />
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="ProductModelProductDescriptionCulture">
+                <Key>
+                    <PropertyRef Name="CultureId" />
+                    <PropertyRef Name="ProductDescriptionId" />
+                    <PropertyRef Name="ProductModelId" />
+                </Key>
+                <Property Name="ProductModelId" Type="Edm.Int32" />
+                <Property Name="ProductDescriptionId" Type="Edm.Int32" />
+                <Property Name="CultureId" Type="Edm.String" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="Culture"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.Culture">
+                    <ReferentialConstraint Property="CultureId" ReferencedProperty="CultureId" />
+                </NavigationProperty>
+                <NavigationProperty Name="ProductDescription"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.ProductDescription">
+                    <ReferentialConstraint Property="ProductDescriptionId"
+                        ReferencedProperty="ProductDescriptionId" />
+                </NavigationProperty>
+                <NavigationProperty Name="ProductModel"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.ProductModel">
+                    <ReferentialConstraint Property="ProductModelId"
+                        ReferencedProperty="ProductModelId" />
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="ProductProductPhoto">
+                <Key>
+                    <PropertyRef Name="ProductId" />
+                    <PropertyRef Name="ProductPhotoId" />
+                </Key>
+                <Property Name="ProductId" Type="Edm.Int32" />
+                <Property Name="ProductPhotoId" Type="Edm.Int32" />
+                <Property Name="Primary" Type="Edm.Boolean" Nullable="false" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="Product"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.Product">
+                    <ReferentialConstraint Property="ProductId" ReferencedProperty="ProductId" />
+                </NavigationProperty>
+                <NavigationProperty Name="ProductPhoto"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.ProductPhoto">
+                    <ReferentialConstraint Property="ProductPhotoId"
+                        ReferencedProperty="ProductPhotoId" />
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="SpecialOfferProduct">
+                <Key>
+                    <PropertyRef Name="ProductId" />
+                    <PropertyRef Name="SpecialOfferId" />
+                </Key>
+                <Property Name="SpecialOfferId" Type="Edm.Int32" />
+                <Property Name="ProductId" Type="Edm.Int32" />
+                <Property Name="Rowguid" Type="Edm.Guid" Nullable="false" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="Product"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.Product">
+                    <ReferentialConstraint Property="ProductId" ReferencedProperty="ProductId" />
+                </NavigationProperty>
+                <NavigationProperty Name="SpecialOffer"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.SpecialOffer">
+                    <ReferentialConstraint Property="SpecialOfferId"
+                        ReferencedProperty="SpecialOfferId" />
+                </NavigationProperty>
+                <NavigationProperty Name="SalesOrderDetails"
+                    Type="Collection(GrapeCity.DataService.AdventureWorks.Models.SalesOrderDetail)" />
+            </EntityType>
+            <EntityType Name="SalesOrderHeaderSalesReason">
+                <Key>
+                    <PropertyRef Name="SalesOrderId" />
+                    <PropertyRef Name="SalesReasonId" />
+                </Key>
+                <Property Name="SalesOrderId" Type="Edm.Int32" />
+                <Property Name="SalesReasonId" Type="Edm.Int32" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="SalesOrder"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.SalesOrderHeader">
+                    <ReferentialConstraint Property="SalesOrderId" ReferencedProperty="SalesOrderId" />
+                </NavigationProperty>
+                <NavigationProperty Name="SalesReason"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.SalesReason">
+                    <ReferentialConstraint Property="SalesReasonId"
+                        ReferencedProperty="SalesReasonId" />
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="Password">
+                <Key>
+                    <PropertyRef Name="BusinessEntityId" />
+                </Key>
+                <Property Name="BusinessEntityId" Type="Edm.Int32" />
+                <Property Name="PasswordHash" Type="Edm.String" Nullable="false" />
+                <Property Name="PasswordSalt" Type="Edm.String" Nullable="false" />
+                <Property Name="Rowguid" Type="Edm.Guid" Nullable="false" />
+                <Property Name="ModifiedDate" Type="Edm.Date" Nullable="false" />
+                <NavigationProperty Name="Person"
+                    Type="GrapeCity.DataService.AdventureWorks.Models.Person">
+                    <ReferentialConstraint Property="BusinessEntityId"
+                        ReferencedProperty="BusinessEntityId" />
+                </NavigationProperty>
+            </EntityType>
+        </Schema>
+        <Schema Namespace="Default" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="Container">
+                <EntitySet Name="Departments"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.Department">
+                    <NavigationPropertyBinding Path="EmployeeDepartmentHistories"
+                        Target="EmployeeDepartmentHistories" />
+                </EntitySet>
+                <EntitySet Name="Employees"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.Employee">
+                    <NavigationPropertyBinding Path="BusinessEntity" Target="Persons" />
+                    <NavigationPropertyBinding Path="EmployeeDepartmentHistories"
+                        Target="EmployeeDepartmentHistories" />
+                    <NavigationPropertyBinding Path="EmployeePayHistories"
+                        Target="EmployeePayHistories" />
+                    <NavigationPropertyBinding Path="JobCandidates" Target="JobCandidates" />
+                    <NavigationPropertyBinding Path="PurchaseOrderHeaders"
+                        Target="PurchaseOrderHeaders" />
+                    <NavigationPropertyBinding Path="SalesPerson" Target="SalesPersons" />
+                </EntitySet>
+                <EntitySet Name="EmployeePayHistories"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.EmployeePayHistory">
+                    <NavigationPropertyBinding Path="BusinessEntity" Target="Employees" />
+                </EntitySet>
+                <EntitySet Name="EmployeeDepartmentHistories"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.EmployeeDepartmentHistory">
+                    <NavigationPropertyBinding Path="BusinessEntity" Target="Employees" />
+                    <NavigationPropertyBinding Path="Department" Target="Departments" />
+                    <NavigationPropertyBinding Path="Shift" Target="Shifts" />
+                </EntitySet>
+                <EntitySet Name="JobCandidates"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.JobCandidate">
+                    <NavigationPropertyBinding Path="BusinessEntity" Target="Employees" />
+                </EntitySet>
+                <EntitySet Name="Shifts"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.Shift">
+                    <NavigationPropertyBinding Path="EmployeeDepartmentHistories"
+                        Target="EmployeeDepartmentHistories" />
+                </EntitySet>
+                <EntitySet Name="Addresses"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.Address">
+                    <NavigationPropertyBinding Path="BusinessEntityAddresses"
+                        Target="BusinessEntityAddresses" />
+                    <NavigationPropertyBinding Path="SalesOrdersBilledTo" Target="SalesOrderHeaders" />
+                    <NavigationPropertyBinding Path="SalesOrdersShippedTo"
+                        Target="SalesOrderHeaders" />
+                    <NavigationPropertyBinding Path="StateProvince" Target="StateProvinces" />
+                </EntitySet>
+                <EntitySet Name="AddressTypes"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.AddressType">
+                    <NavigationPropertyBinding Path="BusinessEntityAddresses"
+                        Target="BusinessEntityAddresses" />
+                </EntitySet>
+                <EntitySet Name="BusinessEntities"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.BusinessEntity">
+                    <NavigationPropertyBinding Path="BusinessEntityAddresses"
+                        Target="BusinessEntityAddresses" />
+                    <NavigationPropertyBinding Path="BusinessEntityContacts"
+                        Target="BusinessEntityContacts" />
+                    <NavigationPropertyBinding Path="Person" Target="Persons" />
+                    <NavigationPropertyBinding Path="Store" Target="Stores" />
+                    <NavigationPropertyBinding Path="Vendor" Target="Vendors" />
+                </EntitySet>
+                <EntitySet Name="BusinessEntityAddresses"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.BusinessEntityAddress">
+                    <NavigationPropertyBinding Path="Address" Target="Addresses" />
+                    <NavigationPropertyBinding Path="AddressType" Target="AddressTypes" />
+                    <NavigationPropertyBinding Path="BusinessEntity" Target="BusinessEntities" />
+                </EntitySet>
+                <EntitySet Name="BusinessEntityContacts"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.BusinessEntityContact">
+                    <NavigationPropertyBinding Path="BusinessEntity" Target="BusinessEntities" />
+                    <NavigationPropertyBinding Path="ContactType" Target="ContactTypes" />
+                    <NavigationPropertyBinding Path="Person" Target="Persons" />
+                </EntitySet>
+                <EntitySet Name="ContactTypes"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.ContactType">
+                    <NavigationPropertyBinding Path="BusinessEntityContacts"
+                        Target="BusinessEntityContacts" />
+                </EntitySet>
+                <EntitySet Name="CountryRegions"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.CountryRegion">
+                    <NavigationPropertyBinding Path="SalesTerritories" Target="SalesTerritories" />
+                    <NavigationPropertyBinding Path="StateProvinces" Target="StateProvinces" />
+                </EntitySet>
+                <EntitySet Name="EmailAddresses"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.EmailAddress">
+                    <NavigationPropertyBinding Path="Person" Target="Persons" />
+                </EntitySet>
+                <EntitySet Name="PersonPhones"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.PersonPhone">
+                    <NavigationPropertyBinding Path="Person" Target="Persons" />
+                    <NavigationPropertyBinding Path="PhoneNumberType" Target="PhoneNumberTypes" />
+                </EntitySet>
+                <EntitySet Name="PhoneNumberTypes"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.PhoneNumberType">
+                    <NavigationPropertyBinding Path="PersonPhones" Target="PersonPhones" />
+                </EntitySet>
+                <EntitySet Name="Persons"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.Person">
+                    <NavigationPropertyBinding Path="BusinessEntity" Target="BusinessEntities" />
+                    <NavigationPropertyBinding Path="BusinessEntityContacts"
+                        Target="BusinessEntityContacts" />
+                    <NavigationPropertyBinding Path="Customers" Target="Customers" />
+                    <NavigationPropertyBinding Path="EmailAddresses" Target="EmailAddresses" />
+                    <NavigationPropertyBinding Path="Employee" Target="Employees" />
+                    <NavigationPropertyBinding Path="PersonPhones" Target="PersonPhones" />
+                </EntitySet>
+                <EntitySet Name="StateProvinces"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.StateProvince">
+                    <NavigationPropertyBinding Path="Addresses" Target="Addresses" />
+                    <NavigationPropertyBinding Path="Country" Target="CountryRegions" />
+                    <NavigationPropertyBinding Path="SalesTaxRates" Target="SalesTaxRates" />
+                    <NavigationPropertyBinding Path="Territory" Target="SalesTerritories" />
+                </EntitySet>
+                <EntitySet Name="BillOfMaterials"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.BillOfMaterial">
+                    <NavigationPropertyBinding Path="Component" Target="Products" />
+                    <NavigationPropertyBinding Path="ProductAssembly" Target="Products" />
+                    <NavigationPropertyBinding Path="QuantityUnit" Target="UnitMeasures" />
+                </EntitySet>
+                <EntitySet Name="Cultures"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.Culture" />
+                <EntitySet Name="Illustrations"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.Illustration">
+                    <NavigationPropertyBinding Path="ProductModelIllustrations"
+                        Target="ProductModelIllustrations" />
+                </EntitySet>
+                <EntitySet Name="Locations"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.Location">
+                    <NavigationPropertyBinding Path="ProductInventories" Target="ProductInventories" />
+                    <NavigationPropertyBinding Path="WorkOrderRoutings" Target="WorkOrderRoutings" />
+                </EntitySet>
+                <EntitySet Name="ProductCategories"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.ProductCategory">
+                    <NavigationPropertyBinding Path="ProductSubcategories"
+                        Target="ProductSubcategories" />
+                </EntitySet>
+                <EntitySet Name="ProductCostHistories"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.ProductCostHistory">
+                    <NavigationPropertyBinding Path="Product" Target="Products" />
+                </EntitySet>
+                <EntitySet Name="ProductDescriptions"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.ProductDescription" />
+                <EntitySet Name="ProductInventories"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.ProductInventory">
+                    <NavigationPropertyBinding Path="Location" Target="Locations" />
+                    <NavigationPropertyBinding Path="Product" Target="Products" />
+                </EntitySet>
+                <EntitySet Name="ProductListPriceHistories"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.ProductListPriceHistory">
+                    <NavigationPropertyBinding Path="Product" Target="Products" />
+                </EntitySet>
+                <EntitySet Name="ProductModelIllustrations"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.ProductModelIllustration">
+                    <NavigationPropertyBinding Path="Illustration" Target="Illustrations" />
+                    <NavigationPropertyBinding Path="ProductModel" Target="ProductModels" />
+                </EntitySet>
+                <EntitySet Name="ProductModels"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.ProductModel">
+                    <NavigationPropertyBinding Path="ProductModelIllustrations"
+                        Target="ProductModelIllustrations" />
+                    <NavigationPropertyBinding Path="Products" Target="Products" />
+                </EntitySet>
+                <EntitySet Name="ProductPhotos"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.ProductPhoto" />
+                <EntitySet Name="ProductReviews"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.ProductReview">
+                    <NavigationPropertyBinding Path="Product" Target="Products" />
+                </EntitySet>
+                <EntitySet Name="Products"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.Product">
+                    <NavigationPropertyBinding Path="BillOfMaterialComponents"
+                        Target="BillOfMaterials" />
+                    <NavigationPropertyBinding Path="BillOfMaterialProductAssemblies"
+                        Target="BillOfMaterials" />
+                    <NavigationPropertyBinding Path="ProductCostHistories"
+                        Target="ProductCostHistories" />
+                    <NavigationPropertyBinding Path="ProductInventories" Target="ProductInventories" />
+                    <NavigationPropertyBinding Path="ProductListPriceHistories"
+                        Target="ProductListPriceHistories" />
+                    <NavigationPropertyBinding Path="ProductModel" Target="ProductModels" />
+                    <NavigationPropertyBinding Path="ProductReviews" Target="ProductReviews" />
+                    <NavigationPropertyBinding Path="ProductSubcategory"
+                        Target="ProductSubcategories" />
+                    <NavigationPropertyBinding Path="ProductVendors" Target="ProductVendors" />
+                    <NavigationPropertyBinding Path="PurchaseOrderDetails"
+                        Target="PurchaseOrderDetails" />
+                    <NavigationPropertyBinding Path="ShoppingCartItems" Target="ShoppingCartItems" />
+                    <NavigationPropertyBinding Path="TransactionHistories"
+                        Target="TransactionHistories" />
+                    <NavigationPropertyBinding Path="UnitOfSize" Target="UnitMeasures" />
+                    <NavigationPropertyBinding Path="UnitOfWeight" Target="UnitMeasures" />
+                    <NavigationPropertyBinding Path="WorkOrders" Target="WorkOrders" />
+                </EntitySet>
+                <EntitySet Name="ProductSubcategories"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.ProductSubcategory">
+                    <NavigationPropertyBinding Path="ProductCategory" Target="ProductCategories" />
+                    <NavigationPropertyBinding Path="Products" Target="Products" />
+                </EntitySet>
+                <EntitySet Name="ScrapReasons"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.ScrapReason">
+                    <NavigationPropertyBinding Path="WorkOrders" Target="WorkOrders" />
+                </EntitySet>
+                <EntitySet Name="TransactionHistories"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.TransactionHistory">
+                    <NavigationPropertyBinding Path="Product" Target="Products" />
+                </EntitySet>
+                <EntitySet Name="TransactionHistoryArchives"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.TransactionHistoryArchive" />
+                <EntitySet Name="UnitMeasures"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.UnitMeasure">
+                    <NavigationPropertyBinding Path="BillOfMaterials" Target="BillOfMaterials" />
+                    <NavigationPropertyBinding Path="ProductVendors" Target="ProductVendors" />
+                    <NavigationPropertyBinding Path="SizeUnitProducts" Target="Products" />
+                    <NavigationPropertyBinding Path="WeightUnitProducts" Target="Products" />
+                </EntitySet>
+                <EntitySet Name="WorkOrders"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.WorkOrder">
+                    <NavigationPropertyBinding Path="Product" Target="Products" />
+                    <NavigationPropertyBinding Path="ScrapReason" Target="ScrapReasons" />
+                    <NavigationPropertyBinding Path="WorkOrderRoutings" Target="WorkOrderRoutings" />
+                </EntitySet>
+                <EntitySet Name="WorkOrderRoutings"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.WorkOrderRouting">
+                    <NavigationPropertyBinding Path="Location" Target="Locations" />
+                    <NavigationPropertyBinding Path="WorkOrder" Target="WorkOrders" />
+                </EntitySet>
+                <EntitySet Name="ProductVendors"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.ProductVendor">
+                    <NavigationPropertyBinding Path="BusinessEntity" Target="Vendors" />
+                    <NavigationPropertyBinding Path="Product" Target="Products" />
+                    <NavigationPropertyBinding Path="UnitOfMeasure" Target="UnitMeasures" />
+                </EntitySet>
+                <EntitySet Name="PurchaseOrderDetails"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.PurchaseOrderDetail">
+                    <NavigationPropertyBinding Path="Product" Target="Products" />
+                    <NavigationPropertyBinding Path="PurchaseOrder" Target="PurchaseOrderHeaders" />
+                </EntitySet>
+                <EntitySet Name="PurchaseOrderHeaders"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.PurchaseOrderHeader">
+                    <NavigationPropertyBinding Path="Employee" Target="Employees" />
+                    <NavigationPropertyBinding Path="PurchaseOrderDetails"
+                        Target="PurchaseOrderDetails" />
+                    <NavigationPropertyBinding Path="ShipMethod" Target="ShipMethods" />
+                    <NavigationPropertyBinding Path="Vendor" Target="Vendors" />
+                </EntitySet>
+                <EntitySet Name="ShipMethods"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.ShipMethod">
+                    <NavigationPropertyBinding Path="PurchaseOrderHeaders"
+                        Target="PurchaseOrderHeaders" />
+                    <NavigationPropertyBinding Path="SalesOrderHeaders" Target="SalesOrderHeaders" />
+                </EntitySet>
+                <EntitySet Name="Vendors"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.Vendor">
+                    <NavigationPropertyBinding Path="BusinessEntity" Target="BusinessEntities" />
+                    <NavigationPropertyBinding Path="ProductVendors" Target="ProductVendors" />
+                    <NavigationPropertyBinding Path="PurchaseOrderHeaders"
+                        Target="PurchaseOrderHeaders" />
+                </EntitySet>
+                <EntitySet Name="CreditCards"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.CreditCard">
+                    <NavigationPropertyBinding Path="SalesOrderHeaders" Target="SalesOrderHeaders" />
+                </EntitySet>
+                <EntitySet Name="Currencies"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.Currency">
+                    <NavigationPropertyBinding Path="CurrencyRatesFrom" Target="CurrencyRates" />
+                    <NavigationPropertyBinding Path="CurrencyRatesTo" Target="CurrencyRates" />
+                </EntitySet>
+                <EntitySet Name="CurrencyRates"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.CurrencyRate">
+                    <NavigationPropertyBinding Path="CurrencyFrom" Target="Currencies" />
+                    <NavigationPropertyBinding Path="CurrencyTo" Target="Currencies" />
+                    <NavigationPropertyBinding Path="SalesOrderHeaders" Target="SalesOrderHeaders" />
+                </EntitySet>
+                <EntitySet Name="Customers"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.Customer">
+                    <NavigationPropertyBinding Path="Person" Target="Persons" />
+                    <NavigationPropertyBinding Path="SalesOrderHeaders" Target="SalesOrderHeaders" />
+                    <NavigationPropertyBinding Path="Store" Target="Stores" />
+                    <NavigationPropertyBinding Path="Territory" Target="SalesTerritories" />
+                </EntitySet>
+                <EntitySet Name="SalesOrderHeaders"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.SalesOrderHeader">
+                    <NavigationPropertyBinding Path="BillToAddress" Target="Addresses" />
+                    <NavigationPropertyBinding Path="CreditCard" Target="CreditCards" />
+                    <NavigationPropertyBinding Path="CurrencyRate" Target="CurrencyRates" />
+                    <NavigationPropertyBinding Path="Customer" Target="Customers" />
+                    <NavigationPropertyBinding Path="SalesOrderDetails" Target="SalesOrderDetails" />
+                    <NavigationPropertyBinding Path="SalesPerson" Target="SalesPersons" />
+                    <NavigationPropertyBinding Path="ShipMethod" Target="ShipMethods" />
+                    <NavigationPropertyBinding Path="ShipToAddress" Target="Addresses" />
+                    <NavigationPropertyBinding Path="Territory" Target="SalesTerritories" />
+                </EntitySet>
+                <EntitySet Name="SalesOrderDetails"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.SalesOrderDetail">
+                    <NavigationPropertyBinding Path="SalesOrder" Target="SalesOrderHeaders" />
+                </EntitySet>
+                <EntitySet Name="SalesPersons"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.SalesPerson">
+                    <NavigationPropertyBinding Path="BusinessEntity" Target="Employees" />
+                    <NavigationPropertyBinding Path="SalesOrderHeaders" Target="SalesOrderHeaders" />
+                    <NavigationPropertyBinding Path="SalesPersonQuotaHistories"
+                        Target="SalesPersonQuotaHistories" />
+                    <NavigationPropertyBinding Path="SalesTerritoryHistories"
+                        Target="SalesTerritoryHistories" />
+                    <NavigationPropertyBinding Path="Stores" Target="Stores" />
+                    <NavigationPropertyBinding Path="Territory" Target="SalesTerritories" />
+                </EntitySet>
+                <EntitySet Name="SalesPersonQuotaHistories"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.SalesPersonQuotaHistory">
+                    <NavigationPropertyBinding Path="SalesPerson" Target="SalesPersons" />
+                </EntitySet>
+                <EntitySet Name="SalesReasons"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.SalesReason" />
+                <EntitySet Name="SalesTaxRates"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.SalesTaxRate">
+                    <NavigationPropertyBinding Path="StateProvince" Target="StateProvinces" />
+                </EntitySet>
+                <EntitySet Name="SalesTerritories"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.SalesTerritory">
+                    <NavigationPropertyBinding Path="Country" Target="CountryRegions" />
+                    <NavigationPropertyBinding Path="Customers" Target="Customers" />
+                    <NavigationPropertyBinding Path="SalesOrderHeaders" Target="SalesOrderHeaders" />
+                    <NavigationPropertyBinding Path="SalesPeople" Target="SalesPersons" />
+                    <NavigationPropertyBinding Path="SalesTerritoryHistories"
+                        Target="SalesTerritoryHistories" />
+                    <NavigationPropertyBinding Path="StateProvinces" Target="StateProvinces" />
+                </EntitySet>
+                <EntitySet Name="SalesTerritoryHistories"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.SalesTerritoryHistory">
+                    <NavigationPropertyBinding Path="SalesPerson" Target="SalesPersons" />
+                    <NavigationPropertyBinding Path="Territory" Target="SalesTerritories" />
+                </EntitySet>
+                <EntitySet Name="ShoppingCartItems"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.ShoppingCartItem">
+                    <NavigationPropertyBinding Path="Product" Target="Products" />
+                </EntitySet>
+                <EntitySet Name="SpecialOffers"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.SpecialOffer" />
+                <EntitySet Name="Stores"
+                    EntityType="GrapeCity.DataService.AdventureWorks.Models.Store">
+                    <NavigationPropertyBinding Path="BusinessEntity" Target="BusinessEntities" />
+                    <NavigationPropertyBinding Path="Customers" Target="Customers" />
+                    <NavigationPropertyBinding Path="SalesPerson" Target="SalesPersons" />
+                </EntitySet>
+            </EntityContainer>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
