@@ -1,7 +1,7 @@
 MODEL (
   kind VIEW
 );
-    
+
 WITH staging AS (
   SELECT
     sales_order_id,
@@ -45,7 +45,11 @@ WITH staging AS (
       '9999-12-31 23:59:59'::TIMESTAMP
     ) AS sales_order__record_valid_to,
     sales_order__record_valid_to = '9999-12-31 23:59:59'::TIMESTAMP AS sales_order__is_current_record,
-    CASE WHEN sales_order__is_current_record THEN sales_order__record_loaded_at ELSE sales_order__record_valid_to END AS sales_order__record_updated_at
+    CASE
+      WHEN sales_order__is_current_record
+      THEN sales_order__record_loaded_at
+      ELSE sales_order__record_valid_to
+    END AS sales_order__record_updated_at
   FROM staging
 ), hooks AS (
   SELECT

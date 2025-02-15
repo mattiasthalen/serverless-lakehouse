@@ -1,7 +1,7 @@
 MODEL (
   kind VIEW
 );
-    
+
 WITH staging AS (
   SELECT
     customer_id,
@@ -27,7 +27,11 @@ WITH staging AS (
       '9999-12-31 23:59:59'::TIMESTAMP
     ) AS customer__record_valid_to,
     customer__record_valid_to = '9999-12-31 23:59:59'::TIMESTAMP AS customer__is_current_record,
-    CASE WHEN customer__is_current_record THEN customer__record_loaded_at ELSE customer__record_valid_to END AS customer__record_updated_at
+    CASE
+      WHEN customer__is_current_record
+      THEN customer__record_loaded_at
+      ELSE customer__record_valid_to
+    END AS customer__record_updated_at
   FROM staging
 ), hooks AS (
   SELECT

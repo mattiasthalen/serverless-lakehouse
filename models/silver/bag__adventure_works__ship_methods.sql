@@ -1,7 +1,7 @@
 MODEL (
   kind VIEW
 );
-    
+
 WITH staging AS (
   SELECT
     ship_method_id,
@@ -26,7 +26,11 @@ WITH staging AS (
       '9999-12-31 23:59:59'::TIMESTAMP
     ) AS ship_method__record_valid_to,
     ship_method__record_valid_to = '9999-12-31 23:59:59'::TIMESTAMP AS ship_method__is_current_record,
-    CASE WHEN ship_method__is_current_record THEN ship_method__record_loaded_at ELSE ship_method__record_valid_to END AS ship_method__record_updated_at
+    CASE
+      WHEN ship_method__is_current_record
+      THEN ship_method__record_loaded_at
+      ELSE ship_method__record_valid_to
+    END AS ship_method__record_updated_at
   FROM staging
 ), hooks AS (
   SELECT

@@ -1,7 +1,7 @@
 MODEL (
   kind VIEW
 );
-    
+
 WITH staging AS (
   SELECT
     address_id,
@@ -28,7 +28,11 @@ WITH staging AS (
       '9999-12-31 23:59:59'::TIMESTAMP
     ) AS address__record_valid_to,
     address__record_valid_to = '9999-12-31 23:59:59'::TIMESTAMP AS address__is_current_record,
-    CASE WHEN address__is_current_record THEN address__record_loaded_at ELSE address__record_valid_to END AS address__record_updated_at
+    CASE
+      WHEN address__is_current_record
+      THEN address__record_loaded_at
+      ELSE address__record_valid_to
+    END AS address__record_updated_at
   FROM staging
 ), hooks AS (
   SELECT

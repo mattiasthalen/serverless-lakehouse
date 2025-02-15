@@ -1,7 +1,7 @@
 MODEL (
   kind VIEW
 );
-    
+
 WITH staging AS (
   SELECT
     product_id,
@@ -44,7 +44,11 @@ WITH staging AS (
       '9999-12-31 23:59:59'::TIMESTAMP
     ) AS product__record_valid_to,
     product__record_valid_to = '9999-12-31 23:59:59'::TIMESTAMP AS product__is_current_record,
-    CASE WHEN product__is_current_record THEN product__record_loaded_at ELSE product__record_valid_to END AS product__record_updated_at
+    CASE
+      WHEN product__is_current_record
+      THEN product__record_loaded_at
+      ELSE product__record_valid_to
+    END AS product__record_updated_at
   FROM staging
 ), hooks AS (
   SELECT

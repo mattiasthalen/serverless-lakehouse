@@ -82,5 +82,6 @@ flowchart LR
     _bridge --> sales_order_details
     _bridge --> sales_order_headers
     _bridge --> sales_persons
+    _bridge --> sales_territories
     _bridge --> stores
 ```
