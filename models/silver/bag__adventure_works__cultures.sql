@@ -1,5 +1,6 @@
 MODEL (
-  kind VIEW
+  kind VIEW,
+  enabled FALSE
 );
     
 WITH staging AS (
