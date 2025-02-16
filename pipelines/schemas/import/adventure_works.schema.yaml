@@ -1,0 +1,682 @@
+version: 2
+version_hash: bE6+6CHZTCu/zPUCOi1Y+BiTSW4y1iCXt3EdAceLdVA=
+engine_version: 11
+name: adventure_works
+tables:
+  _dlt_version:
+    columns:
+      version:
+        data_type: bigint
+        nullable: false
+      engine_version:
+        data_type: bigint
+        nullable: false
+      inserted_at:
+        data_type: timestamp
+        nullable: false
+      schema_name:
+        data_type: text
+        nullable: false
+      version_hash:
+        data_type: text
+        nullable: false
+      schema:
+        data_type: text
+        nullable: false
+    write_disposition: skip
+    resource: _dlt_version
+    description: Created by DLT. Tracks schema updates
+  _dlt_loads:
+    columns:
+      load_id:
+        data_type: text
+        nullable: false
+      schema_name:
+        data_type: text
+        nullable: true
+      status:
+        data_type: bigint
+        nullable: false
+      inserted_at:
+        data_type: timestamp
+        nullable: false
+      schema_version_hash:
+        data_type: text
+        nullable: true
+    write_disposition: skip
+    resource: _dlt_loads
+    description: Created by DLT. Tracks completed loads
+  raw__adventure_works__addresses:
+    columns:
+      address_id:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__addresses
+  raw__adventure_works__credit_cards:
+    columns:
+      credit_card_id:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__credit_cards
+  raw__adventure_works__currency_rates:
+    columns:
+      currency_rate_id:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__currency_rates
+  raw__adventure_works__customers:
+    columns:
+      customer_id:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__customers
+  raw__adventure_works__persons:
+    columns:
+      business_entity_id:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__persons
+  raw__adventure_works__products:
+    columns:
+      product_id:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__products
+  raw__adventure_works__product_categories:
+    columns:
+      product_category_id:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__product_categories
+  raw__adventure_works__sales_order_details:
+    columns:
+      sales_order_detail_id:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__sales_order_details
+  raw__adventure_works__sales_order_headers:
+    columns:
+      sales_order_id:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__sales_order_headers
+  raw__adventure_works__sales_persons:
+    columns:
+      business_entity_id:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__sales_persons
+  raw__adventure_works__sales_territories:
+    columns:
+      territory_id:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__sales_territories
+  raw__adventure_works__ship_methods:
+    columns:
+      ship_method_id:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__ship_methods
+  raw__adventure_works__special_offers:
+    columns:
+      special_offer_id:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__special_offers
+  raw__adventure_works__state_provinces:
+    columns:
+      state_province_id:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__state_provinces
+  raw__adventure_works__stores:
+    columns:
+      business_entity_id:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__stores
+  _dlt_pipeline_state:
+    columns:
+      version:
+        data_type: bigint
+        nullable: false
+      engine_version:
+        data_type: bigint
+        nullable: false
+      pipeline_name:
+        data_type: text
+        nullable: false
+      state:
+        data_type: text
+        nullable: false
+      created_at:
+        data_type: timestamp
+        nullable: false
+      version_hash:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+    write_disposition: append
+    file_format: preferred
+    resource: _dlt_pipeline_state
+  raw__adventure_works__departments:
+    columns:
+      department_id:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__departments
+  raw__adventure_works__employees:
+    columns:
+      business_entity_id:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__employees
+  raw__adventure_works__employee_pay_histories:
+    columns:
+      business_entity_id:
+        nullable: false
+        primary_key: true
+      rate_change_date:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__employee_pay_histories
+  raw__adventure_works__employee_department_histories:
+    columns:
+      business_entity_id:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__employee_department_histories
+  raw__adventure_works__job_candidates:
+    columns:
+      job_candidate_id:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__job_candidates
+  raw__adventure_works__shifts:
+    columns:
+      shift_id:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__shifts
+  raw__adventure_works__address_types:
+    columns:
+      address_type_id:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__address_types
+  raw__adventure_works__business_entity_addresses:
+    columns:
+      address_id:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__business_entity_addresses
+  raw__adventure_works__business_entity_contacts:
+    columns:
+      business_entity_id:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__business_entity_contacts
+  raw__adventure_works__contact_types:
+    columns:
+      contact_type_id:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__contact_types
+  raw__adventure_works__country_regions:
+    columns:
+      country_region_code:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__country_regions
+  raw__adventure_works__email_addresses:
+    columns:
+      business_entity_id:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__email_addresses
+  raw__adventure_works__person_phones:
+    columns:
+      business_entity_id:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__person_phones
+  raw__adventure_works__phone_number_types:
+    columns:
+      phone_number_type_id:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__phone_number_types
+  raw__adventure_works__bill_of_materials:
+    columns:
+      bill_of_materials_id:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__bill_of_materials
+  raw__adventure_works__cultures:
+    columns:
+      culture_id:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__cultures
+  raw__adventure_works__illustrations:
+    columns:
+      illustration_id:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__illustrations
+  raw__adventure_works__locations:
+    columns:
+      location_id:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__locations
+  raw__adventure_works__product_cost_histories:
+    columns:
+      product_id:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__product_cost_histories
+  raw__adventure_works__product_descriptions:
+    columns:
+      product_description_id:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__product_descriptions
+  raw__adventure_works__product_inventories:
+    columns:
+      location_id:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__product_inventories
+  raw__adventure_works__product_list_price_histories:
+    columns:
+      product_id:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__product_list_price_histories
+  raw__adventure_works__product_model_illustrations:
+    columns:
+      illustration_id:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__product_model_illustrations
+  raw__adventure_works__product_models:
+    columns:
+      product_model_id:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__product_models
+  raw__adventure_works__product_photos:
+    columns:
+      product_photo_id:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__product_photos
+  raw__adventure_works__product_reviews:
+    columns:
+      product_review_id:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__product_reviews
+  raw__adventure_works__product_subcategories:
+    columns:
+      product_subcategory_id:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__product_subcategories
+  raw__adventure_works__scrap_reasons:
+    columns:
+      scrap_reason_id:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__scrap_reasons
+  raw__adventure_works__transaction_histories:
+    columns:
+      transaction_id:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__transaction_histories
+  raw__adventure_works__transaction_history_archives:
+    columns:
+      transaction_id:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__transaction_history_archives
+  raw__adventure_works__unit_measures:
+    columns:
+      unit_measure_code:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__unit_measures
+  raw__adventure_works__work_orders:
+    columns:
+      work_order_id:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__work_orders
+  raw__adventure_works__work_order_routings:
+    columns:
+      operation_sequence:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__work_order_routings
+  raw__adventure_works__product_vendors:
+    columns:
+      business_entity_id:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__product_vendors
+  raw__adventure_works__purchase_order_details:
+    columns:
+      purchase_order_detail_id:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__purchase_order_details
+  raw__adventure_works__purchase_order_headers:
+    columns:
+      purchase_order_id:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__purchase_order_headers
+  raw__adventure_works__vendors:
+    columns:
+      business_entity_id:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__vendors
+  raw__adventure_works__currencies:
+    columns:
+      currency_code:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__currencies
+  raw__adventure_works__sales_person_quota_histories:
+    columns:
+      business_entity_id:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__sales_person_quota_histories
+  raw__adventure_works__sales_reasons:
+    columns:
+      sales_reason_id:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__sales_reasons
+  raw__adventure_works__sales_tax_rates:
+    columns:
+      sales_tax_rate_id:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__sales_tax_rates
+  raw__adventure_works__sales_territory_histories:
+    columns:
+      business_entity_id:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__sales_territory_histories
+  raw__adventure_works__shopping_cart_items:
+    columns:
+      shopping_cart_item_id:
+        nullable: false
+        primary_key: true
+      modified_date:
+        incremental: true
+    write_disposition: append
+    table_format: delta
+    resource: get__adventure_works__odata__v1__shopping_cart_items
+settings:
+  detections:
+  - iso_timestamp
+  default_hints:
+    not_null:
+    - _dlt_id
+    - _dlt_root_id
+    - _dlt_parent_id
+    - _dlt_list_idx
+    - _dlt_load_id
+    parent_key:
+    - _dlt_parent_id
+    root_key:
+    - _dlt_root_id
+    unique:
+    - _dlt_id
+    row_key:
+    - _dlt_id
+normalizers:
+  names: snake_case
+  json:
+    module: dlt.common.normalizers.json.relational
+previous_hashes:
+- 4fzSraeXKSu7h+imSDnIyZcedETTuZFvOKhZQFx03rM=
+- r35lcST6OCm7DCyj6bdpgbVAWm0TnmuPo7FA8lJbfcA=
