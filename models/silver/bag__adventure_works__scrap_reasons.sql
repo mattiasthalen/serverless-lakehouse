@@ -27,6 +27,7 @@ WITH staging AS (
   FROM staging
 ), hooks AS (
   SELECT
+    CONCAT('scrap_reason|adventure_works|', scrap_reason_id, '~epoch|valid_from|', scrap_reason__valid_from)::BLOB AS _pit_hook__scrap_reason,
     CONCAT('scrap_reason|adventure_works|', scrap_reason_id)::BLOB AS _hook__scrap_reason,
     *
   FROM validity

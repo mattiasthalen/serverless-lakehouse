@@ -27,6 +27,7 @@ WITH staging AS (
   FROM staging
 ), hooks AS (
   SELECT
+    CONCAT('culture|adventure_works|', culture_id, '~epoch|valid_from|', culture__valid_from)::BLOB AS _pit_hook__culture,
     CONCAT('culture|adventure_works|', culture_id)::BLOB AS _hook__culture,
     *
   FROM validity

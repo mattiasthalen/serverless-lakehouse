@@ -29,6 +29,7 @@ WITH staging AS (
   FROM staging
 ), hooks AS (
   SELECT
+    CONCAT('shift|adventure_works|', shift_id, '~epoch|valid_from|', shift__valid_from)::BLOB AS _pit_hook__shift,
     CONCAT('shift|adventure_works|', shift_id)::BLOB AS _hook__shift,
     *
   FROM validity

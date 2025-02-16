@@ -31,6 +31,7 @@ WITH staging AS (
   FROM staging
 ), hooks AS (
   SELECT
+    CONCAT('currency_rate|adventure_works|', currency_rate_id, '~epoch|valid_from|', currency_rate__valid_from)::BLOB AS _pit_hook__currency_rate,
     CONCAT('currency_rate|adventure_works|', currency_rate_id)::BLOB AS _hook__currency_rate,
     *
   FROM validity

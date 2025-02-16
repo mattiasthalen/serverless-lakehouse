@@ -35,6 +35,7 @@ WITH staging AS (
   FROM staging
 ), hooks AS (
   SELECT
+    CONCAT('special_offer|adventure_works|', special_offer_id, '~epoch|valid_from|', special_offer__valid_from)::BLOB AS _pit_hook__special_offer,
     CONCAT('special_offer|adventure_works|', special_offer_id)::BLOB AS _hook__special_offer,
     *
   FROM validity

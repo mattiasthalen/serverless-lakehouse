@@ -27,6 +27,7 @@ WITH staging AS (
   FROM staging
 ), hooks AS (
   SELECT
+    CONCAT('currency_code|adventure_works|', currency_code, '~epoch|valid_from|', currency_code__valid_from)::BLOB AS _pit_hook__currency_code,
     CONCAT('currency_code|adventure_works|', currency_code)::BLOB AS _hook__currency_code,
     *
   FROM validity

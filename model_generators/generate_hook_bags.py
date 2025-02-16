@@ -50,6 +50,10 @@ def generate_hook_bags():
         prefixed_columns = [f"{column} AS {entity_name}__{column}" if not column.endswith("_id") else column for column in sorted_columns]
         formatted_columns = ',\n    '.join(prefixed_columns)
         
+        # Add PIT hook for primary key
+        pit_hook = f"CONCAT('{entity_name}|adventure_works|', {primary_key}, '~epoch|valid_from|', {entity_name}__valid_from)::BLOB AS _pit_hook__{entity_name}"
+        hook_statements.append(pit_hook)
+                
         # Add regular hook for primary key
         primary_hook = f"CONCAT('{entity_name}|adventure_works|', {primary_key})::BLOB AS _hook__{entity_name}"
         hook_statements.append(primary_hook)

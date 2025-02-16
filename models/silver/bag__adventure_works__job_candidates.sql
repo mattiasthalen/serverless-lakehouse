@@ -28,6 +28,7 @@ WITH staging AS (
   FROM staging
 ), hooks AS (
   SELECT
+    CONCAT('job_candidate|adventure_works|', job_candidate_id, '~epoch|valid_from|', job_candidate__valid_from)::BLOB AS _pit_hook__job_candidate,
     CONCAT('job_candidate|adventure_works|', job_candidate_id)::BLOB AS _hook__job_candidate,
     CONCAT('business_entity|adventure_works|', business_entity_id)::BLOB AS _hook__business_entity,
     *

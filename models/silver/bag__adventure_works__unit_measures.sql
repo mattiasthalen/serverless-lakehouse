@@ -27,6 +27,7 @@ WITH staging AS (
   FROM staging
 ), hooks AS (
   SELECT
+    CONCAT('unit_measure_code|adventure_works|', unit_measure_code, '~epoch|valid_from|', unit_measure_code__valid_from)::BLOB AS _pit_hook__unit_measure_code,
     CONCAT('unit_measure_code|adventure_works|', unit_measure_code)::BLOB AS _hook__unit_measure_code,
     *
   FROM validity

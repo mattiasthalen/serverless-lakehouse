@@ -27,6 +27,7 @@ WITH staging AS (
   FROM staging
 ), hooks AS (
   SELECT
+    CONCAT('illustration|adventure_works|', illustration_id, '~epoch|valid_from|', illustration__valid_from)::BLOB AS _pit_hook__illustration,
     CONCAT('illustration|adventure_works|', illustration_id)::BLOB AS _hook__illustration,
     *
   FROM validity

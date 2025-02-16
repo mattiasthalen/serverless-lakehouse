@@ -33,6 +33,7 @@ WITH staging AS (
   FROM staging
 ), hooks AS (
   SELECT
+    CONCAT('transaction|adventure_works|', transaction_id, '~epoch|valid_from|', transaction__valid_from)::BLOB AS _pit_hook__transaction,
     CONCAT('transaction|adventure_works|', transaction_id)::BLOB AS _hook__transaction,
     CONCAT('product|adventure_works|', product_id)::BLOB AS _hook__product,
     CONCAT('reference_order|adventure_works|', reference_order_id)::BLOB AS _hook__reference_order,

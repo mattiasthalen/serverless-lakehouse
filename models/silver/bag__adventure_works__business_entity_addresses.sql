@@ -29,6 +29,7 @@ WITH staging AS (
   FROM staging
 ), hooks AS (
   SELECT
+    CONCAT('address|adventure_works|', address_id, '~epoch|valid_from|', address__valid_from)::BLOB AS _pit_hook__address,
     CONCAT('address|adventure_works|', address_id)::BLOB AS _hook__address,
     CONCAT('address_type|adventure_works|', address_type_id)::BLOB AS _hook__address_type,
     CONCAT('business_entity|adventure_works|', business_entity_id)::BLOB AS _hook__business_entity,

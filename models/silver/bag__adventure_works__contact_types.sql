@@ -27,6 +27,7 @@ WITH staging AS (
   FROM staging
 ), hooks AS (
   SELECT
+    CONCAT('contact_type|adventure_works|', contact_type_id, '~epoch|valid_from|', contact_type__valid_from)::BLOB AS _pit_hook__contact_type,
     CONCAT('contact_type|adventure_works|', contact_type_id)::BLOB AS _hook__contact_type,
     *
   FROM validity

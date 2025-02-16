@@ -34,6 +34,7 @@ WITH staging AS (
   FROM staging
 ), hooks AS (
   SELECT
+    CONCAT('territory|adventure_works|', territory_id, '~epoch|valid_from|', territory__valid_from)::BLOB AS _pit_hook__territory,
     CONCAT('territory|adventure_works|', territory_id)::BLOB AS _hook__territory,
     *
   FROM validity

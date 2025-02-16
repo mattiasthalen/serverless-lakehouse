@@ -30,6 +30,7 @@ WITH staging AS (
   FROM staging
 ), hooks AS (
   SELECT
+    CONCAT('ship_method|adventure_works|', ship_method_id, '~epoch|valid_from|', ship_method__valid_from)::BLOB AS _pit_hook__ship_method,
     CONCAT('ship_method|adventure_works|', ship_method_id)::BLOB AS _hook__ship_method,
     *
   FROM validity

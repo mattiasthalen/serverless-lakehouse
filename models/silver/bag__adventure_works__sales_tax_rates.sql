@@ -31,6 +31,7 @@ WITH staging AS (
   FROM staging
 ), hooks AS (
   SELECT
+    CONCAT('sales_tax_rate|adventure_works|', sales_tax_rate_id, '~epoch|valid_from|', sales_tax_rate__valid_from)::BLOB AS _pit_hook__sales_tax_rate,
     CONCAT('sales_tax_rate|adventure_works|', sales_tax_rate_id)::BLOB AS _hook__sales_tax_rate,
     CONCAT('state_province|adventure_works|', state_province_id)::BLOB AS _hook__state_province,
     *

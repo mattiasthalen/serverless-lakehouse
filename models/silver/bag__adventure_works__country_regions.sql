@@ -27,6 +27,7 @@ WITH staging AS (
   FROM staging
 ), hooks AS (
   SELECT
+    CONCAT('country_region_code|adventure_works|', country_region_code, '~epoch|valid_from|', country_region_code__valid_from)::BLOB AS _pit_hook__country_region_code,
     CONCAT('country_region_code|adventure_works|', country_region_code)::BLOB AS _hook__country_region_code,
     *
   FROM validity

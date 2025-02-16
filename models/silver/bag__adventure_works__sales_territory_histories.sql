@@ -30,6 +30,7 @@ WITH staging AS (
   FROM staging
 ), hooks AS (
   SELECT
+    CONCAT('business_entity|adventure_works|', business_entity_id, '~epoch|valid_from|', business_entity__valid_from)::BLOB AS _pit_hook__business_entity,
     CONCAT('business_entity|adventure_works|', business_entity_id)::BLOB AS _hook__business_entity,
     CONCAT('territory|adventure_works|', territory_id)::BLOB AS _hook__territory,
     *
