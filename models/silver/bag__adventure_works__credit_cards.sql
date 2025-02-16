@@ -30,7 +30,7 @@ WITH staging AS (
   FROM staging
 ), hooks AS (
   SELECT
-    CONCAT('credit_card|adventure_works|', credit_card_id, '~epoch|valid_from|', credit_card__valid_from)::BLOB AS _pit_hook__credit_card,
+    CONCAT('credit_card|adventure_works|', credit_card_id, '~epoch|valid_from|', credit_card__record_valid_from)::BLOB AS _pit_hook__credit_card,
     CONCAT('credit_card|adventure_works|', credit_card_id)::BLOB AS _hook__credit_card,
     *
   FROM validity

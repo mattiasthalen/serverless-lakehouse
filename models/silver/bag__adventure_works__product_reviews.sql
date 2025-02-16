@@ -32,7 +32,7 @@ WITH staging AS (
   FROM staging
 ), hooks AS (
   SELECT
-    CONCAT('product_review|adventure_works|', product_review_id, '~epoch|valid_from|', product_review__valid_from)::BLOB AS _pit_hook__product_review,
+    CONCAT('product_review|adventure_works|', product_review_id, '~epoch|valid_from|', product_review__record_valid_from)::BLOB AS _pit_hook__product_review,
     CONCAT('product_review|adventure_works|', product_review_id)::BLOB AS _hook__product_review,
     CONCAT('product|adventure_works|', product_id)::BLOB AS _hook__product,
     *

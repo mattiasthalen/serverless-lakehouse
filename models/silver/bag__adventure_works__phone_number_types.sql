@@ -27,7 +27,7 @@ WITH staging AS (
   FROM staging
 ), hooks AS (
   SELECT
-    CONCAT('phone_number_type|adventure_works|', phone_number_type_id, '~epoch|valid_from|', phone_number_type__valid_from)::BLOB AS _pit_hook__phone_number_type,
+    CONCAT('phone_number_type|adventure_works|', phone_number_type_id, '~epoch|valid_from|', phone_number_type__record_valid_from)::BLOB AS _pit_hook__phone_number_type,
     CONCAT('phone_number_type|adventure_works|', phone_number_type_id)::BLOB AS _hook__phone_number_type,
     *
   FROM validity

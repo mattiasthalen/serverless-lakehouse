@@ -34,7 +34,7 @@ WITH staging AS (
   FROM staging
 ), hooks AS (
   SELECT
-    CONCAT('work_order|adventure_works|', work_order_id, '~epoch|valid_from|', work_order__valid_from)::BLOB AS _pit_hook__work_order,
+    CONCAT('work_order|adventure_works|', work_order_id, '~epoch|valid_from|', work_order__record_valid_from)::BLOB AS _pit_hook__work_order,
     CONCAT('work_order|adventure_works|', work_order_id)::BLOB AS _hook__work_order,
     CONCAT('product|adventure_works|', product_id)::BLOB AS _hook__product,
     CONCAT('scrap_reason|adventure_works|', scrap_reason_id)::BLOB AS _hook__scrap_reason,

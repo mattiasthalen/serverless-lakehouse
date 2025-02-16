@@ -28,7 +28,7 @@ WITH staging AS (
   FROM staging
 ), hooks AS (
   SELECT
-    CONCAT('sales_reason|adventure_works|', sales_reason_id, '~epoch|valid_from|', sales_reason__valid_from)::BLOB AS _pit_hook__sales_reason,
+    CONCAT('sales_reason|adventure_works|', sales_reason_id, '~epoch|valid_from|', sales_reason__record_valid_from)::BLOB AS _pit_hook__sales_reason,
     CONCAT('sales_reason|adventure_works|', sales_reason_id)::BLOB AS _hook__sales_reason,
     *
   FROM validity

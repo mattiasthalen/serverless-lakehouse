@@ -28,7 +28,7 @@ WITH staging AS (
   FROM staging
 ), hooks AS (
   SELECT
-    CONCAT('product_description|adventure_works|', product_description_id, '~epoch|valid_from|', product_description__valid_from)::BLOB AS _pit_hook__product_description,
+    CONCAT('product_description|adventure_works|', product_description_id, '~epoch|valid_from|', product_description__record_valid_from)::BLOB AS _pit_hook__product_description,
     CONCAT('product_description|adventure_works|', product_description_id)::BLOB AS _hook__product_description,
     *
   FROM validity

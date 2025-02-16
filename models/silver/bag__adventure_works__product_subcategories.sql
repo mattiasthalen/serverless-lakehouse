@@ -29,7 +29,7 @@ WITH staging AS (
   FROM staging
 ), hooks AS (
   SELECT
-    CONCAT('product_subcategory|adventure_works|', product_subcategory_id, '~epoch|valid_from|', product_subcategory__valid_from)::BLOB AS _pit_hook__product_subcategory,
+    CONCAT('product_subcategory|adventure_works|', product_subcategory_id, '~epoch|valid_from|', product_subcategory__record_valid_from)::BLOB AS _pit_hook__product_subcategory,
     CONCAT('product_subcategory|adventure_works|', product_subcategory_id)::BLOB AS _hook__product_subcategory,
     CONCAT('product_category|adventure_works|', product_category_id)::BLOB AS _hook__product_category,
     *

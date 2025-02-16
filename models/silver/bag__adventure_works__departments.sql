@@ -28,7 +28,7 @@ WITH staging AS (
   FROM staging
 ), hooks AS (
   SELECT
-    CONCAT('department|adventure_works|', department_id, '~epoch|valid_from|', department__valid_from)::BLOB AS _pit_hook__department,
+    CONCAT('department|adventure_works|', department_id, '~epoch|valid_from|', department__record_valid_from)::BLOB AS _pit_hook__department,
     CONCAT('department|adventure_works|', department_id)::BLOB AS _hook__department,
     *
   FROM validity

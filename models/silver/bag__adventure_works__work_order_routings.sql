@@ -4,7 +4,7 @@ MODEL (
     
 WITH staging AS (
   SELECT
-    operation_sequence AS operation_sequence__operation_sequence,
+    operation_sequence,
     location_id,
     product_id,
     work_order_id,
@@ -36,7 +36,7 @@ WITH staging AS (
   FROM staging
 ), hooks AS (
   SELECT
-    CONCAT('operation_sequence|adventure_works|', operation_sequence, '~epoch|valid_from|', operation_sequence__valid_from)::BLOB AS _pit_hook__operation_sequence,
+    CONCAT('operation_sequence|adventure_works|', operation_sequence, '~epoch|valid_from|', operation_sequence__record_valid_from)::BLOB AS _pit_hook__operation_sequence,
     CONCAT('operation_sequence|adventure_works|', operation_sequence)::BLOB AS _hook__operation_sequence,
     CONCAT('location|adventure_works|', location_id)::BLOB AS _hook__location,
     CONCAT('product|adventure_works|', product_id)::BLOB AS _hook__product,

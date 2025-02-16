@@ -30,7 +30,7 @@ WITH staging AS (
   FROM staging
 ), hooks AS (
   SELECT
-    CONCAT('shopping_cart_item|adventure_works|', shopping_cart_item_id, '~epoch|valid_from|', shopping_cart_item__valid_from)::BLOB AS _pit_hook__shopping_cart_item,
+    CONCAT('shopping_cart_item|adventure_works|', shopping_cart_item_id, '~epoch|valid_from|', shopping_cart_item__record_valid_from)::BLOB AS _pit_hook__shopping_cart_item,
     CONCAT('shopping_cart_item|adventure_works|', shopping_cart_item_id)::BLOB AS _hook__shopping_cart_item,
     CONCAT('product|adventure_works|', product_id)::BLOB AS _hook__product,
     CONCAT('shopping_cart|adventure_works|', shopping_cart_id)::BLOB AS _hook__shopping_cart,

@@ -32,7 +32,7 @@ WITH staging AS (
   FROM staging
 ), hooks AS (
   SELECT
-    CONCAT('address|adventure_works|', address_id, '~epoch|valid_from|', address__valid_from)::BLOB AS _pit_hook__address,
+    CONCAT('address|adventure_works|', address_id, '~epoch|valid_from|', address__record_valid_from)::BLOB AS _pit_hook__address,
     CONCAT('address|adventure_works|', address_id)::BLOB AS _hook__address,
     CONCAT('state_province|adventure_works|', state_province_id)::BLOB AS _hook__state_province,
     *

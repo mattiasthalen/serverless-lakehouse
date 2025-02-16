@@ -4,7 +4,7 @@ MODEL (
     
 WITH staging AS (
   SELECT
-    country_region_code AS country_region_code__country_region_code,
+    country_region_code,
     modified_date AS country_region_code__modified_date,
     name AS country_region_code__name,
     TO_TIMESTAMP(_dlt_load_id::DOUBLE) AS country_region_code__record_loaded_at
@@ -27,7 +27,7 @@ WITH staging AS (
   FROM staging
 ), hooks AS (
   SELECT
-    CONCAT('country_region_code|adventure_works|', country_region_code, '~epoch|valid_from|', country_region_code__valid_from)::BLOB AS _pit_hook__country_region_code,
+    CONCAT('country_region_code|adventure_works|', country_region_code, '~epoch|valid_from|', country_region_code__record_valid_from)::BLOB AS _pit_hook__country_region_code,
     CONCAT('country_region_code|adventure_works|', country_region_code)::BLOB AS _hook__country_region_code,
     *
   FROM validity

@@ -29,7 +29,7 @@ WITH staging AS (
   FROM staging
 ), hooks AS (
   SELECT
-    CONCAT('business_entity|adventure_works|', business_entity_id, '~epoch|valid_from|', business_entity__valid_from)::BLOB AS _pit_hook__business_entity,
+    CONCAT('business_entity|adventure_works|', business_entity_id, '~epoch|valid_from|', business_entity__record_valid_from)::BLOB AS _pit_hook__business_entity,
     CONCAT('business_entity|adventure_works|', business_entity_id)::BLOB AS _hook__business_entity,
     CONCAT('email_address|adventure_works|', email_address_id)::BLOB AS _hook__email_address,
     *

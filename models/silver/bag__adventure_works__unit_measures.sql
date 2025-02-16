@@ -4,7 +4,7 @@ MODEL (
     
 WITH staging AS (
   SELECT
-    unit_measure_code AS unit_measure_code__unit_measure_code,
+    unit_measure_code,
     modified_date AS unit_measure_code__modified_date,
     name AS unit_measure_code__name,
     TO_TIMESTAMP(_dlt_load_id::DOUBLE) AS unit_measure_code__record_loaded_at
@@ -27,7 +27,7 @@ WITH staging AS (
   FROM staging
 ), hooks AS (
   SELECT
-    CONCAT('unit_measure_code|adventure_works|', unit_measure_code, '~epoch|valid_from|', unit_measure_code__valid_from)::BLOB AS _pit_hook__unit_measure_code,
+    CONCAT('unit_measure_code|adventure_works|', unit_measure_code, '~epoch|valid_from|', unit_measure_code__record_valid_from)::BLOB AS _pit_hook__unit_measure_code,
     CONCAT('unit_measure_code|adventure_works|', unit_measure_code)::BLOB AS _hook__unit_measure_code,
     *
   FROM validity

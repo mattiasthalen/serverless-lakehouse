@@ -4,7 +4,7 @@ MODEL (
     
 WITH staging AS (
   SELECT
-    currency_code AS currency_code__currency_code,
+    currency_code,
     modified_date AS currency_code__modified_date,
     name AS currency_code__name,
     TO_TIMESTAMP(_dlt_load_id::DOUBLE) AS currency_code__record_loaded_at
@@ -27,7 +27,7 @@ WITH staging AS (
   FROM staging
 ), hooks AS (
   SELECT
-    CONCAT('currency_code|adventure_works|', currency_code, '~epoch|valid_from|', currency_code__valid_from)::BLOB AS _pit_hook__currency_code,
+    CONCAT('currency_code|adventure_works|', currency_code, '~epoch|valid_from|', currency_code__record_valid_from)::BLOB AS _pit_hook__currency_code,
     CONCAT('currency_code|adventure_works|', currency_code)::BLOB AS _hook__currency_code,
     *
   FROM validity

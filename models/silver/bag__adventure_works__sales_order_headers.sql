@@ -49,7 +49,7 @@ WITH staging AS (
   FROM staging
 ), hooks AS (
   SELECT
-    CONCAT('sales_order|adventure_works|', sales_order_id, '~epoch|valid_from|', sales_order__valid_from)::BLOB AS _pit_hook__sales_order,
+    CONCAT('sales_order|adventure_works|', sales_order_id, '~epoch|valid_from|', sales_order__record_valid_from)::BLOB AS _pit_hook__sales_order,
     CONCAT('sales_order|adventure_works|', sales_order_id)::BLOB AS _hook__sales_order,
     CONCAT('bill_to_address|adventure_works|', bill_to_address_id)::BLOB AS _hook__bill_to_address,
     CONCAT('credit_card|adventure_works|', credit_card_id)::BLOB AS _hook__credit_card,

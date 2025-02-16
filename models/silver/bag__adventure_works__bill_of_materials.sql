@@ -33,7 +33,7 @@ WITH staging AS (
   FROM staging
 ), hooks AS (
   SELECT
-    CONCAT('bill_of_materials|adventure_works|', bill_of_materials_id, '~epoch|valid_from|', bill_of_materials__valid_from)::BLOB AS _pit_hook__bill_of_materials,
+    CONCAT('bill_of_materials|adventure_works|', bill_of_materials_id, '~epoch|valid_from|', bill_of_materials__record_valid_from)::BLOB AS _pit_hook__bill_of_materials,
     CONCAT('bill_of_materials|adventure_works|', bill_of_materials_id)::BLOB AS _hook__bill_of_materials,
     CONCAT('component|adventure_works|', component_id)::BLOB AS _hook__component,
     CONCAT('product_assembly|adventure_works|', product_assembly_id)::BLOB AS _hook__product_assembly,
