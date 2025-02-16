@@ -63,4 +63,4 @@ def load_schema(schema: str) -> None:
 
 if __name__ == "__main__":
     load_schema("silver")
-    load_schema("gold")
+    #load_schema("gold")
