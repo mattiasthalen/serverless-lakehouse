@@ -11,6 +11,7 @@ WITH bridge AS (
     uss__bridge__adventure_works__products._pit_hook__product_subcategory,
     uss__bridge__adventure_works__products._pit_hook__product_category,
     uss__bridge__adventure_works__sales_order_headers._pit_hook__sales_order,
+    uss__bridge__adventure_works__sales_order_headers._pit_hook__credit_card,
     uss__bridge__adventure_works__special_offers._pit_hook__special_offer,
     GREATEST(
         bag__adventure_works__sales_order_details.sales_order_detail__record_loaded_at,
