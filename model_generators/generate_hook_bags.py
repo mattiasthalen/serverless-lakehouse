@@ -51,7 +51,7 @@ def generate_hook_bags():
         formatted_columns = ',\n    '.join(prefixed_columns)
         
         # Add PIT hook for primary key
-        pit_hook = f"CONCAT('{entity_name}|adventure_works|', {primary_key}, '~epoch|valid_from|', {entity_name}__valid_from)::BLOB AS _pit_hook__{entity_name}"
+        pit_hook = f"CONCAT('{entity_name}|adventure_works|', {primary_key}, '~epoch|valid_from|', {entity_name}__record_valid_from)::BLOB AS _pit_hook__{entity_name}"
         hook_statements.append(pit_hook)
                 
         # Add regular hook for primary key
