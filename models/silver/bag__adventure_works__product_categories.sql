@@ -1,7 +1,7 @@
 MODEL (
   kind VIEW
 );
-    
+
 WITH staging AS (
   SELECT
     product_category_id,
@@ -24,11 +24,20 @@ WITH staging AS (
       '9999-12-31 23:59:59'::TIMESTAMP
     ) AS product_category__record_valid_to,
     product_category__record_valid_to = '9999-12-31 23:59:59'::TIMESTAMP AS product_category__is_current_record,
-    CASE WHEN product_category__is_current_record THEN product_category__record_loaded_at ELSE product_category__record_valid_to END AS product_category__record_updated_at
+    CASE
+      WHEN product_category__is_current_record
+      THEN product_category__record_loaded_at
+      ELSE product_category__record_valid_to
+    END AS product_category__record_updated_at
   FROM staging
 ), hooks AS (
   SELECT
-    CONCAT('product_category|adventure_works|', product_category_id, '~epoch|valid_from|', product_category__record_valid_from)::BLOB AS _pit_hook__product_category,
+    CONCAT(
+      'product_category|adventure_works|',
+      product_category_id,
+      '~epoch|valid_from|',
+      product_category__record_valid_from
+    )::BLOB AS _pit_hook__product_category,
     CONCAT('product_category|adventure_works|', product_category_id)::BLOB AS _hook__product_category,
     *
   FROM validity

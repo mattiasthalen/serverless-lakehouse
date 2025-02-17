@@ -3,5 +3,6 @@ MODEL (
 );
 
 SELECT
-  * EXCLUDE(_hook__product_category)
+  *
+  EXCLUDE (_hook__product_category)
 FROM silver.bag__adventure_works__product_categories

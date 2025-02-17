@@ -1,7 +1,7 @@
 MODEL (
   kind VIEW
 );
-    
+
 WITH staging AS (
   SELECT
     state_province_id,
@@ -28,11 +28,20 @@ WITH staging AS (
       '9999-12-31 23:59:59'::TIMESTAMP
     ) AS state_province__record_valid_to,
     state_province__record_valid_to = '9999-12-31 23:59:59'::TIMESTAMP AS state_province__is_current_record,
-    CASE WHEN state_province__is_current_record THEN state_province__record_loaded_at ELSE state_province__record_valid_to END AS state_province__record_updated_at
+    CASE
+      WHEN state_province__is_current_record
+      THEN state_province__record_loaded_at
+      ELSE state_province__record_valid_to
+    END AS state_province__record_updated_at
   FROM staging
 ), hooks AS (
   SELECT
-    CONCAT('state_province|adventure_works|', state_province_id, '~epoch|valid_from|', state_province__record_valid_from)::BLOB AS _pit_hook__state_province,
+    CONCAT(
+      'state_province|adventure_works|',
+      state_province_id,
+      '~epoch|valid_from|',
+      state_province__record_valid_from
+    )::BLOB AS _pit_hook__state_province,
     CONCAT('state_province|adventure_works|', state_province_id)::BLOB AS _hook__state_province,
     CONCAT('territory|adventure_works|', territory_id)::BLOB AS _hook__territory,
     *

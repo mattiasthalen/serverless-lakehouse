@@ -10,20 +10,20 @@ WITH bridge AS (
     uss_bridge__product_subcategories._pit_hook__product_subcategory,
     uss_bridge__product_subcategories._pit_hook__product_category,
     GREATEST(
-        bag__adventure_works__products.product__record_loaded_at,
-        uss_bridge__product_subcategories.bridge__record_loaded_at
+      bag__adventure_works__products.product__record_loaded_at,
+      uss_bridge__product_subcategories.bridge__record_loaded_at
     ) AS bridge__record_loaded_at,
     GREATEST(
-        bag__adventure_works__products.product__record_updated_at,
-        uss_bridge__product_subcategories.bridge__record_updated_at
+      bag__adventure_works__products.product__record_updated_at,
+      uss_bridge__product_subcategories.bridge__record_updated_at
     ) AS bridge__record_updated_at,
     GREATEST(
-        bag__adventure_works__products.product__record_valid_from,
-        uss_bridge__product_subcategories.bridge__record_valid_from
+      bag__adventure_works__products.product__record_valid_from,
+      uss_bridge__product_subcategories.bridge__record_valid_from
     ) AS bridge__record_valid_from,
     LEAST(
-        bag__adventure_works__products.product__record_valid_to,
-        uss_bridge__product_subcategories.bridge__record_valid_to
+      bag__adventure_works__products.product__record_valid_to,
+      uss_bridge__product_subcategories.bridge__record_valid_to
     ) AS bridge__record_valid_to
   FROM silver.bag__adventure_works__products
   LEFT JOIN silver.uss_bridge__product_subcategories

@@ -1,7 +1,7 @@
 MODEL (
   kind VIEW
 );
-    
+
 WITH staging AS (
   SELECT
     currency_rate_id,
@@ -27,11 +27,20 @@ WITH staging AS (
       '9999-12-31 23:59:59'::TIMESTAMP
     ) AS currency_rate__record_valid_to,
     currency_rate__record_valid_to = '9999-12-31 23:59:59'::TIMESTAMP AS currency_rate__is_current_record,
-    CASE WHEN currency_rate__is_current_record THEN currency_rate__record_loaded_at ELSE currency_rate__record_valid_to END AS currency_rate__record_updated_at
+    CASE
+      WHEN currency_rate__is_current_record
+      THEN currency_rate__record_loaded_at
+      ELSE currency_rate__record_valid_to
+    END AS currency_rate__record_updated_at
   FROM staging
 ), hooks AS (
   SELECT
-    CONCAT('currency_rate|adventure_works|', currency_rate_id, '~epoch|valid_from|', currency_rate__record_valid_from)::BLOB AS _pit_hook__currency_rate,
+    CONCAT(
+      'currency_rate|adventure_works|',
+      currency_rate_id,
+      '~epoch|valid_from|',
+      currency_rate__record_valid_from
+    )::BLOB AS _pit_hook__currency_rate,
     CONCAT('currency_rate|adventure_works|', currency_rate_id)::BLOB AS _hook__currency_rate,
     *
   FROM validity

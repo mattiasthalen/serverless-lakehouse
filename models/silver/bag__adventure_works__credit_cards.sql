@@ -1,7 +1,7 @@
 MODEL (
   kind VIEW
 );
-    
+
 WITH staging AS (
   SELECT
     credit_card_id,
@@ -26,11 +26,20 @@ WITH staging AS (
       '9999-12-31 23:59:59'::TIMESTAMP
     ) AS credit_card__record_valid_to,
     credit_card__record_valid_to = '9999-12-31 23:59:59'::TIMESTAMP AS credit_card__is_current_record,
-    CASE WHEN credit_card__is_current_record THEN credit_card__record_loaded_at ELSE credit_card__record_valid_to END AS credit_card__record_updated_at
+    CASE
+      WHEN credit_card__is_current_record
+      THEN credit_card__record_loaded_at
+      ELSE credit_card__record_valid_to
+    END AS credit_card__record_updated_at
   FROM staging
 ), hooks AS (
   SELECT
-    CONCAT('credit_card|adventure_works|', credit_card_id, '~epoch|valid_from|', credit_card__record_valid_from)::BLOB AS _pit_hook__credit_card,
+    CONCAT(
+      'credit_card|adventure_works|',
+      credit_card_id,
+      '~epoch|valid_from|',
+      credit_card__record_valid_from
+    )::BLOB AS _pit_hook__credit_card,
     CONCAT('credit_card|adventure_works|', credit_card_id)::BLOB AS _hook__credit_card,
     *
   FROM validity

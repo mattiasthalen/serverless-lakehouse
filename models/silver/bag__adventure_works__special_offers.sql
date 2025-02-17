@@ -1,7 +1,7 @@
 MODEL (
   kind VIEW
 );
-    
+
 WITH staging AS (
   SELECT
     special_offer_id,
@@ -31,11 +31,20 @@ WITH staging AS (
       '9999-12-31 23:59:59'::TIMESTAMP
     ) AS special_offer__record_valid_to,
     special_offer__record_valid_to = '9999-12-31 23:59:59'::TIMESTAMP AS special_offer__is_current_record,
-    CASE WHEN special_offer__is_current_record THEN special_offer__record_loaded_at ELSE special_offer__record_valid_to END AS special_offer__record_updated_at
+    CASE
+      WHEN special_offer__is_current_record
+      THEN special_offer__record_loaded_at
+      ELSE special_offer__record_valid_to
+    END AS special_offer__record_updated_at
   FROM staging
 ), hooks AS (
   SELECT
-    CONCAT('special_offer|adventure_works|', special_offer_id, '~epoch|valid_from|', special_offer__record_valid_from)::BLOB AS _pit_hook__special_offer,
+    CONCAT(
+      'special_offer|adventure_works|',
+      special_offer_id,
+      '~epoch|valid_from|',
+      special_offer__record_valid_from
+    )::BLOB AS _pit_hook__special_offer,
     CONCAT('special_offer|adventure_works|', special_offer_id)::BLOB AS _hook__special_offer,
     *
   FROM validity

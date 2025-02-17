@@ -10,20 +10,20 @@ WITH bridge AS (
     uss_bridge__state_provinces._pit_hook__state_province,
     uss_bridge__state_provinces._pit_hook__territory,
     GREATEST(
-        bag__adventure_works__addresses.address__record_loaded_at,
-        uss_bridge__state_provinces.bridge__record_loaded_at
+      bag__adventure_works__addresses.address__record_loaded_at,
+      uss_bridge__state_provinces.bridge__record_loaded_at
     ) AS bridge__record_loaded_at,
     GREATEST(
-        bag__adventure_works__addresses.address__record_updated_at,
-        uss_bridge__state_provinces.bridge__record_updated_at
+      bag__adventure_works__addresses.address__record_updated_at,
+      uss_bridge__state_provinces.bridge__record_updated_at
     ) AS bridge__record_updated_at,
     GREATEST(
-        bag__adventure_works__addresses.address__record_valid_from,
-        uss_bridge__state_provinces.bridge__record_valid_from
+      bag__adventure_works__addresses.address__record_valid_from,
+      uss_bridge__state_provinces.bridge__record_valid_from
     ) AS bridge__record_valid_from,
     LEAST(
-        bag__adventure_works__addresses.address__record_valid_to,
-        uss_bridge__state_provinces.bridge__record_valid_to
+      bag__adventure_works__addresses.address__record_valid_to,
+      uss_bridge__state_provinces.bridge__record_valid_to
     ) AS bridge__record_valid_to
   FROM silver.bag__adventure_works__addresses
   LEFT JOIN silver.uss_bridge__state_provinces

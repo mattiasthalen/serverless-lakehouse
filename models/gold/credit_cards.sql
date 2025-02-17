@@ -3,5 +3,6 @@ MODEL (
 );
 
 SELECT
-  * EXCLUDE(_hook__credit_card)
+  *
+  EXCLUDE (_hook__credit_card)
 FROM silver.bag__adventure_works__credit_cards

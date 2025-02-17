@@ -1,7 +1,7 @@
 MODEL (
   kind VIEW
 );
-    
+
 SELECT
   *
 FROM silver.uss_bridge__currency_rates
@@ -57,4 +57,3 @@ UNION ALL BY NAME
 SELECT
   *
 FROM silver.uss_bridge__credit_cards
-    
