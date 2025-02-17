@@ -11,33 +11,38 @@ WITH bridge AS (
     uss_bridge__currency_rates._pit_hook__currency_rate,
     uss_bridge__customers._pit_hook__customer,
     uss_bridge__sales_persons._pit_hook__sales_person,
+    uss_bridge__ship_methods._pit_hook__ship_method,
     GREATEST(
         bag__adventure_works__sales_order_headers.sales_order__record_loaded_at,
         uss_bridge__credit_cards.bridge__record_loaded_at,
         uss_bridge__currency_rates.bridge__record_loaded_at,
         uss_bridge__customers.bridge__record_loaded_at,
-        uss_bridge__sales_persons.bridge__record_loaded_at
+        uss_bridge__sales_persons.bridge__record_loaded_at,
+        uss_bridge__ship_methods.bridge__record_loaded_at
        ) AS bridge__record_loaded_at,
     GREATEST(
         bag__adventure_works__sales_order_headers.sales_order__record_updated_at,
         uss_bridge__credit_cards.bridge__record_updated_at,
         uss_bridge__currency_rates.bridge__record_updated_at,
         uss_bridge__customers.bridge__record_updated_at,
-        uss_bridge__sales_persons.bridge__record_updated_at
+        uss_bridge__sales_persons.bridge__record_updated_at,
+        uss_bridge__ship_methods.bridge__record_updated_at
        ) AS bridge__record_updated_at,
     GREATEST(
         bag__adventure_works__sales_order_headers.sales_order__record_valid_from,
         uss_bridge__credit_cards.bridge__record_valid_from,
         uss_bridge__currency_rates.bridge__record_valid_from,
         uss_bridge__customers.bridge__record_valid_from,
-        uss_bridge__sales_persons.bridge__record_valid_from
+        uss_bridge__sales_persons.bridge__record_valid_from,
+        uss_bridge__ship_methods.bridge__record_valid_from
        ) AS bridge__record_valid_from,
     LEAST(
         bag__adventure_works__sales_order_headers.sales_order__record_valid_to,
         uss_bridge__credit_cards.bridge__record_valid_to,
         uss_bridge__currency_rates.bridge__record_valid_to,
         uss_bridge__customers.bridge__record_valid_to,
-        uss_bridge__sales_persons.bridge__record_valid_to
+        uss_bridge__sales_persons.bridge__record_valid_to,
+        uss_bridge__ship_methods.bridge__record_valid_to
        ) AS bridge__record_valid_to
   FROM silver.bag__adventure_works__sales_order_headers
   LEFT JOIN silver.uss_bridge__credit_cards
@@ -55,10 +60,13 @@ WITH bridge AS (
     ON bag__adventure_works__sales_order_headers._hook__sales_person = uss_bridge__sales_persons._hook__sales_person
     AND bag__adventure_works__sales_order_headers.sales_order__record_valid_from <= uss_bridge__sales_persons.bridge__record_valid_to
     AND bag__adventure_works__sales_order_headers.sales_order__record_valid_to >= uss_bridge__sales_persons.bridge__record_valid_from
+  LEFT JOIN silver.uss_bridge__ship_methods
+    ON bag__adventure_works__sales_order_headers._hook__ship_method = uss_bridge__ship_methods._hook__ship_method
+    AND bag__adventure_works__sales_order_headers.sales_order__record_valid_from <= uss_bridge__ship_methods.bridge__record_valid_to
+    AND bag__adventure_works__sales_order_headers.sales_order__record_valid_to >= uss_bridge__ship_methods.bridge__record_valid_from
 
     /*
 _hook__bill_to_address,
-_hook__ship_method,
 _hook__ship_to_address,
 _hook__territory,
     */

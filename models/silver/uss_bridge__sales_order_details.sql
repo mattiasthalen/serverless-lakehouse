@@ -15,6 +15,7 @@ WITH bridge AS (
     uss_bridge__sales_order_headers._pit_hook__currency_rate,
     uss_bridge__sales_order_headers._pit_hook__customer,
     uss_bridge__sales_order_headers._pit_hook__sales_person,
+    uss_bridge__sales_order_headers._pit_hook__ship_method,
     uss_bridge__special_offers._pit_hook__special_offer,
     GREATEST(
         bag__adventure_works__sales_order_details.sales_order_detail__record_loaded_at,

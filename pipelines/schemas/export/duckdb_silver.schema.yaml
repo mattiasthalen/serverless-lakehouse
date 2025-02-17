@@ -1,5 +1,5 @@
-version: 2
-version_hash: RtGL6k9+JGzZbGUhH+J05nJzggNIg3pRZP7jrX2iuro=
+version: 3
+version_hash: /u+T5OjEYM4faopgyPIRiu2tiLuZvbB3ppPLSWyLFwI=
 engine_version: 11
 name: duckdb_silver
 tables:
@@ -486,6 +486,9 @@ tables:
       special_offer_id:
         data_type: bigint
         nullable: true
+      sales_order_detail__carrier_tracking_number:
+        data_type: text
+        nullable: true
       sales_order_detail__line_total:
         data_type: double
         nullable: true
@@ -530,9 +533,6 @@ tables:
         nullable: false
         unique: true
         row_key: true
-      sales_order_detail__carrier_tracking_number:
-        data_type: text
-        nullable: true
     write_disposition: replace
     table_format: delta
     resource: bag__adventure_works__sales_order_details
@@ -1311,5 +1311,6 @@ normalizers:
   json:
     module: dlt.common.normalizers.json.relational
 previous_hashes:
+- Q2kBPKnRHym258C28n3U2/QJeErohagLAuMJk2EnNVQ=
 - lHn9Nq23yNTo/kSB7CFnAtibMmK9jvZQveExGE5isgA=
 - bID2pHs7BlXS1VoU5jKgO8+vZ5GsBp/Zw5JUocSdbE8=
