@@ -16,7 +16,6 @@ architecture-beta
     service api(cloud)[Adventure Works API]
     service extract(server)[dlt]
     service load(server)[SQLMesh]
-    service transform(server)[SQLMesh]
     service export_silver(server)[dlt]
     service export_gold(server)[dlt]
     service consumption(cloud)[BI]
@@ -27,15 +26,20 @@ architecture-beta
         service gold(disk)[Gold] in storage
 
     group engine(database)[DuckDB]
+        service bronze_view(database)[Bronze] in engine
+        service l1_transform(server)[SQLMesh] in engine
         service silver_view(database)[Silver] in engine
+        service l2_transform(server)[SQLMesh] in engine
         service gold_view(database)[Gold] in engine
 
     api:R -- L:extract
     extract:R -- L:bronze
     bronze:T -- B:load
-    load:T -- L:silver_view
-    silver_view:T -- L:transform
-    transform:B -- T:gold_view
+    load:T -- B:bronze_view
+    bronze_view:R -- L:l1_transform
+    l1_transform:R -- L:silver_view
+    silver_view:R -- L:l2_transform
+    l2_transform:R -- L:gold_view
     silver_view:B -- T:export_silver
     export_silver:B -- T:silver
     gold_view:B -- T:export_gold

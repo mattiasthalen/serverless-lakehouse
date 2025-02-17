@@ -1,5 +1,5 @@
 version: 2
-version_hash: wpXUaWwCWrORRItgELlJEhW5GHy4FYAxblZFyFlIujw=
+version_hash: lkvy//Y4bzN5Qu1Q2p0nsK3fn5s9XmmxdCOGQkbSuiM=
 engine_version: 11
 name: duckdb_gold
 tables:
@@ -344,28 +344,28 @@ tables:
         nullable: false
         unique: true
         row_key: true
+      product__class:
+        data_type: text
+        nullable: true
+      product__color:
+        data_type: text
+        nullable: true
       product_model_id:
         data_type: double
         nullable: true
       product_subcategory_id:
         data_type: double
         nullable: true
-      product__color:
-        data_type: text
-        nullable: true
       product__product_line:
-        data_type: text
-        nullable: true
-      product__style:
-        data_type: text
-        nullable: true
-      product__class:
         data_type: text
         nullable: true
       product__size:
         data_type: text
         nullable: true
       product__size_unit_measure_code:
+        data_type: text
+        nullable: true
+      product__style:
         data_type: text
         nullable: true
       product__weight:
@@ -498,9 +498,6 @@ tables:
       special_offer_id:
         data_type: bigint
         nullable: true
-      sales_order_detail__carrier_tracking_number:
-        data_type: text
-        nullable: true
       sales_order_detail__line_total:
         data_type: double
         nullable: true
@@ -545,6 +542,9 @@ tables:
         nullable: false
         unique: true
         row_key: true
+      sales_order_detail__carrier_tracking_number:
+        data_type: text
+        nullable: true
     write_disposition: replace
     table_format: delta
     resource: sales_order_details
@@ -1007,84 +1007,6 @@ tables:
         nullable: false
         unique: true
         row_key: true
-      _pit_hook__sales_order:
-        data_type: text
-        nullable: true
-      _hook__sales_order:
-        data_type: text
-        nullable: true
-      _pit_hook__credit_card:
-        data_type: text
-        nullable: true
-      _pit_hook__customer:
-        data_type: text
-        nullable: true
-      _pit_hook__sales_person:
-        data_type: text
-        nullable: true
-      _pit_hook__ship_method:
-        data_type: text
-        nullable: true
-      _pit_hook__product_subcategory:
-        data_type: text
-        nullable: true
-      _hook__product_subcategory:
-        data_type: text
-        nullable: true
-      _pit_hook__product_category:
-        data_type: text
-        nullable: true
-      _hook__sales_person:
-        data_type: text
-        nullable: true
-      _pit_hook__product:
-        data_type: text
-        nullable: true
-      _hook__product:
-        data_type: text
-        nullable: true
-      _pit_hook__state_province:
-        data_type: text
-        nullable: true
-      _pit_hook__territory:
-        data_type: text
-        nullable: true
-      _hook__state_province:
-        data_type: text
-        nullable: true
-      _hook__territory:
-        data_type: text
-        nullable: true
-      _pit_hook__sales_order_detail:
-        data_type: text
-        nullable: true
-      _hook__sales_order_detail:
-        data_type: text
-        nullable: true
-      _pit_hook__special_offer:
-        data_type: text
-        nullable: true
-      _hook__ship_method:
-        data_type: text
-        nullable: true
-      _hook__special_offer:
-        data_type: text
-        nullable: true
-      _hook__product_category:
-        data_type: text
-        nullable: true
-      _hook__customer:
-        data_type: text
-        nullable: true
-      _pit_hook__address:
-        data_type: text
-        nullable: true
-      _hook__address:
-        data_type: text
-        nullable: true
-      _hook__credit_card:
-        data_type: text
-        nullable: true
     write_disposition: replace
     table_format: delta
     resource: _bridge__as_is
@@ -1124,84 +1046,6 @@ tables:
         nullable: false
         unique: true
         row_key: true
-      _pit_hook__sales_order:
-        data_type: text
-        nullable: true
-      _hook__sales_order:
-        data_type: text
-        nullable: true
-      _pit_hook__credit_card:
-        data_type: text
-        nullable: true
-      _pit_hook__customer:
-        data_type: text
-        nullable: true
-      _pit_hook__sales_person:
-        data_type: text
-        nullable: true
-      _pit_hook__ship_method:
-        data_type: text
-        nullable: true
-      _pit_hook__product_subcategory:
-        data_type: text
-        nullable: true
-      _hook__product_subcategory:
-        data_type: text
-        nullable: true
-      _pit_hook__product_category:
-        data_type: text
-        nullable: true
-      _hook__sales_person:
-        data_type: text
-        nullable: true
-      _pit_hook__product:
-        data_type: text
-        nullable: true
-      _hook__product:
-        data_type: text
-        nullable: true
-      _pit_hook__state_province:
-        data_type: text
-        nullable: true
-      _pit_hook__territory:
-        data_type: text
-        nullable: true
-      _hook__state_province:
-        data_type: text
-        nullable: true
-      _hook__territory:
-        data_type: text
-        nullable: true
-      _pit_hook__sales_order_detail:
-        data_type: text
-        nullable: true
-      _hook__sales_order_detail:
-        data_type: text
-        nullable: true
-      _pit_hook__special_offer:
-        data_type: text
-        nullable: true
-      _hook__ship_method:
-        data_type: text
-        nullable: true
-      _hook__special_offer:
-        data_type: text
-        nullable: true
-      _hook__product_category:
-        data_type: text
-        nullable: true
-      _hook__customer:
-        data_type: text
-        nullable: true
-      _pit_hook__address:
-        data_type: text
-        nullable: true
-      _hook__address:
-        data_type: text
-        nullable: true
-      _hook__credit_card:
-        data_type: text
-        nullable: true
     write_disposition: replace
     table_format: delta
     resource: _bridge__as_of
