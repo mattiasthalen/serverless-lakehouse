@@ -15,8 +15,6 @@ def generate_uss_bridges():
     # Process each SQL file in the source directory
     for filename in filenames:
         source_path = os.path.join(source_dir, filename)
-        target_filename = filename.replace("bag__", "uss__bridge__")
-        target_path = os.path.join(source_dir, target_filename)
 
         with open(source_path, "r", encoding="utf-8") as f:
             content = f.read()
@@ -52,6 +50,9 @@ SELECT * FROM bridge
 """
 
         # Write to new file
+        target_filename = f"uss_bridge__{stage_name}"
+        target_path = os.path.join(source_dir, target_filename)
+        
         with open(target_path, "w", encoding="utf-8") as f:
             f.write(sql_content)
     
