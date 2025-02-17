@@ -1,5 +1,5 @@
 flowchart LR
-    subgraph lakehouse.bronze["lakehouse.bronze"]
+    subgraph bronze["bronze"]
         direction LR
         raw__adventure_works__addresses(["raw__adventure_works__addresses"])
         raw__adventure_works__credit_cards(["raw__adventure_works__credit_cards"])
@@ -17,9 +17,9 @@ flowchart LR
         raw__adventure_works__state_provinces(["raw__adventure_works__state_provinces"])
     end
 
-    subgraph lakehouse.silver["lakehouse.silver"]
+    subgraph silver["silver"]
         direction LR
-
+        
         subgraph bags
             bag__adventure_works__addresses(["bag__adventure_works__addresses"])
             bag__adventure_works__credit_cards(["bag__adventure_works__credit_cards"])
@@ -36,7 +36,6 @@ flowchart LR
             bag__adventure_works__special_offers(["bag__adventure_works__special_offers"])
             bag__adventure_works__state_provinces(["bag__adventure_works__state_provinces"])
         end
-        
         uss_bridge(["uss_bridge"])
         uss_bridge__addresses(["uss_bridge__addresses"])
         uss_bridge__credit_cards(["uss_bridge__credit_cards"])
@@ -54,11 +53,13 @@ flowchart LR
         uss_bridge__state_provinces(["uss_bridge__state_provinces"])
     end
 
-    subgraph lakehouse.gold["lakehouse.gold"]
+    subgraph gold["gold"]
         direction LR
         _bridge__as_is(["_bridge__as_is"])
         _bridge__as_of(["_bridge__as_of"])
+        _bridge__as_of_event(["_bridge__as_of_event"])
         addresses(["addresses"])
+        calendar(["calendar"])
         credit_cards(["credit_cards"])
         currency_rates(["currency_rates"])
         customers(["customers"])
@@ -74,7 +75,7 @@ flowchart LR
         state_provinces(["state_provinces"])
     end
 
-    %% lakehouse.bronze -> lakehouse.silver
+    %% bronze -> silver
     raw__adventure_works__addresses --> bag__adventure_works__addresses
     raw__adventure_works__credit_cards --> bag__adventure_works__credit_cards
     raw__adventure_works__currency_rates --> bag__adventure_works__currency_rates
@@ -90,7 +91,7 @@ flowchart LR
     raw__adventure_works__special_offers --> bag__adventure_works__special_offers
     raw__adventure_works__state_provinces --> bag__adventure_works__state_provinces
 
-    %% lakehouse.silver -> lakehouse.silver
+    %% silver -> silver
     bag__adventure_works__addresses --> uss_bridge__addresses
     bag__adventure_works__credit_cards --> uss_bridge__credit_cards
     bag__adventure_works__currency_rates --> uss_bridge__currency_rates
@@ -133,7 +134,7 @@ flowchart LR
     uss_bridge__state_provinces --> uss_bridge
     uss_bridge__state_provinces --> uss_bridge__addresses
 
-    %% lakehouse.silver -> lakehouse.gold
+    %% silver -> gold
     bag__adventure_works__addresses --> addresses
     bag__adventure_works__credit_cards --> credit_cards
     bag__adventure_works__currency_rates --> currency_rates
@@ -150,14 +151,16 @@ flowchart LR
     bag__adventure_works__state_provinces --> state_provinces
     uss_bridge --> _bridge__as_is
     uss_bridge --> _bridge__as_of
-
+    uss_bridge --> _bridge__as_of_event
+    uss_bridge --> calendar
+    
     linkStyle default stroke:#666,stroke-width:2px
 
     %% Bronze shades
-    classDef bronze_classic fill:#CD7F32,color:white
-    classDef bronze_dark fill:#B87333,color:white
-    classDef bronze_light fill:#E09756,color:white
-    classDef bronze_antique fill:#966B47,color:white
+    classDef bronze_classic fill:#CD7F32,color:black
+    classDef bronze_dark fill:#B87333,color:black
+    classDef bronze_light fill:#E09756,color:black
+    classDef bronze_antique fill:#966B47,color:black
     
     %% Silver shades
     classDef silver_classic fill:#C0C0C0,color:black
@@ -171,9 +174,9 @@ flowchart LR
     classDef gold_light fill:#FFE55C,color:black
     classDef gold_antique fill:#CFB53B,color:black
 
-    class lakehouse.bronze bronze_classic
+    class bronze bronze_classic
 
-    class lakehouse.silver silver_classic
+    class silver silver_classic
     class bags silver_antique
 
-    class lakehouse.gold gold_classic
+    class gold gold_classic

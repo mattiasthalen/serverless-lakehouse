@@ -1,5 +1,5 @@
 version: 5
-version_hash: 2d46qOKgu1tOoi223q7WTyTnTzUragAUt3q6las9+5w=
+version_hash: XmfDQ8hlnyqWg/Vp76U+mb6OEjsKuZ/bCnZZSKoHTi0=
 engine_version: 11
 name: duckdb_silver
 tables:
@@ -486,9 +486,6 @@ tables:
       special_offer_id:
         data_type: bigint
         nullable: true
-      sales_order_detail__carrier_tracking_number:
-        data_type: text
-        nullable: true
       sales_order_detail__line_total:
         data_type: double
         nullable: true
@@ -533,6 +530,9 @@ tables:
         nullable: false
         unique: true
         row_key: true
+      sales_order_detail__carrier_tracking_number:
+        data_type: text
+        nullable: true
     write_disposition: replace
     table_format: delta
     resource: bag__adventure_works__sales_order_details
@@ -690,6 +690,9 @@ tables:
       sales_person_id:
         data_type: bigint
         nullable: true
+      territory_id:
+        data_type: double
+        nullable: true
       sales_person__bonus:
         data_type: double
         nullable: true
@@ -703,6 +706,9 @@ tables:
         data_type: text
         nullable: true
       sales_person__sales_last_year:
+        data_type: double
+        nullable: true
+      sales_person__sales_quota:
         data_type: double
         nullable: true
       sales_person__sales_ytd:
@@ -734,12 +740,6 @@ tables:
         nullable: false
         unique: true
         row_key: true
-      territory_id:
-        data_type: double
-        nullable: true
-      sales_person__sales_quota:
-        data_type: double
-        nullable: true
     write_disposition: replace
     table_format: delta
     resource: bag__adventure_works__sales_persons
@@ -767,9 +767,6 @@ tables:
         nullable: true
       special_offer__end_date:
         data_type: text
-        nullable: true
-      special_offer__maximum_quantity:
-        data_type: double
         nullable: true
       special_offer__minimum_quantity:
         data_type: bigint
@@ -812,6 +809,9 @@ tables:
         nullable: false
         unique: true
         row_key: true
+      special_offer__maximum_quantity:
+        data_type: double
+        nullable: true
     write_disposition: replace
     table_format: delta
     resource: bag__adventure_works__special_offers
@@ -1089,9 +1089,6 @@ tables:
       _pit_hook__customer:
         data_type: text
         nullable: true
-      _pit_hook__sales_person:
-        data_type: text
-        nullable: true
       _pit_hook__ship_method:
         data_type: text
         nullable: true
@@ -1122,6 +1119,9 @@ tables:
         unique: true
         row_key: true
       _pit_hook__currency_rate:
+        data_type: text
+        nullable: true
+      _pit_hook__sales_person:
         data_type: text
         nullable: true
     write_disposition: replace
@@ -1155,6 +1155,12 @@ tables:
       _pit_hook__ship_method:
         data_type: text
         nullable: true
+      _hook__calendar__date:
+        data_type: text
+        nullable: true
+      measure__sales_order_placed:
+        data_type: double
+        nullable: true
       bridge__record_loaded_at:
         data_type: timestamp
         nullable: true
@@ -1178,6 +1184,12 @@ tables:
         nullable: false
         unique: true
         row_key: true
+      measure__sales_order_due:
+        data_type: double
+        nullable: true
+      measure__sales_order_shipped:
+        data_type: double
+        nullable: true
     write_disposition: replace
     table_format: delta
     resource: uss_bridge__sales_order_headers
@@ -1768,6 +1780,18 @@ tables:
         nullable: true
       _pit_hook__ship_method:
         data_type: text
+        nullable: true
+      _hook__calendar__date:
+        data_type: text
+        nullable: true
+      measure__sales_order_placed:
+        data_type: double
+        nullable: true
+      measure__sales_order_due:
+        data_type: double
+        nullable: true
+      measure__sales_order_shipped:
+        data_type: double
         nullable: true
       _pit_hook__product_subcategory:
         data_type: text

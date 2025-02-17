@@ -1,5 +1,5 @@
-version: 2
-version_hash: lkvy//Y4bzN5Qu1Q2p0nsK3fn5s9XmmxdCOGQkbSuiM=
+version: 3
+version_hash: ERVcyAiXOzpbAGbuks6aqyvKgop4UkDD3iLLscT3oPA=
 engine_version: 11
 name: duckdb_gold
 tables:
@@ -1084,6 +1084,135 @@ tables:
     resource: _dlt_pipeline_state
     x-normalizer:
       seen-data: true
+  calendar:
+    columns:
+      _hook__calendar__date:
+        data_type: text
+        nullable: true
+      calendar_grain:
+        data_type: text
+        nullable: true
+      date:
+        data_type: timestamp
+        nullable: true
+      year:
+        data_type: bigint
+        nullable: true
+      iso_year:
+        data_type: bigint
+        nullable: true
+      quarter:
+        data_type: bigint
+        nullable: true
+      month:
+        data_type: bigint
+        nullable: true
+      month__name:
+        data_type: text
+        nullable: true
+      week:
+        data_type: bigint
+        nullable: true
+      weekday:
+        data_type: bigint
+        nullable: true
+      weekday__name:
+        data_type: text
+        nullable: true
+      year_quarter:
+        data_type: text
+        nullable: true
+      year_month:
+        data_type: text
+        nullable: true
+      year_month__name:
+        data_type: text
+        nullable: true
+      year_week:
+        data_type: text
+        nullable: true
+      iso_week_date:
+        data_type: text
+        nullable: true
+      ordinal_date:
+        data_type: text
+        nullable: true
+      is_leap_year:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    table_format: delta
+    resource: calendar
+    x-normalizer:
+      seen-data: true
+  _bridge__as_of_event:
+    columns:
+      stage:
+        data_type: text
+        nullable: true
+      _pit_hook__currency_rate:
+        data_type: text
+        nullable: true
+      bridge__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      bridge__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      bridge__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      bridge__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      bridge__is_current_record:
+        data_type: bool
+        nullable: true
+      _pit_hook__sales_order:
+        data_type: text
+        nullable: true
+      _hook__sales_order:
+        data_type: text
+        nullable: true
+      _pit_hook__credit_card:
+        data_type: text
+        nullable: true
+      _pit_hook__customer:
+        data_type: text
+        nullable: true
+      _pit_hook__sales_person:
+        data_type: text
+        nullable: true
+      _pit_hook__ship_method:
+        data_type: text
+        nullable: true
+      _hook__calendar__date:
+        data_type: text
+        nullable: true
+      measure__sales_order_placed:
+        data_type: bigint
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    table_format: delta
+    resource: _bridge__as_of_event
+    x-normalizer:
+      seen-data: true
 settings:
   detections:
   - iso_timestamp
@@ -1107,5 +1236,6 @@ normalizers:
   json:
     module: dlt.common.normalizers.json.relational
 previous_hashes:
+- eZk9KMWCnzzB5g3y3oLlPUMNsurGBOyYSPF7STRtaZI=
 - SdrcW5LaSuMWEbWY7Cyv/9tre+CAmXbVfeIVnB6GSPU=
 - nb2FhtthJhjsABSdT27hgOCW9M+UPnxgDJ5WOhxoGXc=
