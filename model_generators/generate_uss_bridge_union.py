@@ -10,7 +10,7 @@ def generate_uss_bridge_union():
     # Loop through the files in the directory
     for filename in os.listdir(sql_folder):
         # Check if the file matches the pattern uss__bridge__*.sql but skip uss__bridge.sql
-        if filename.startswith('uss__bridge__') and filename.endswith('.sql'):
+        if filename.startswith('uss_bridge__') and filename.endswith('.sql'):
             table_name = filename.replace('.sql', '')  # Remove the '.sql' to get the table name
             # Build the SQL query for each file, adding the silver schema and file name
             sql_queries.append(f"SELECT\n  *\nFROM silver.{table_name}")
@@ -26,10 +26,10 @@ def generate_uss_bridge_union():
     
     # Write the final SQL output with the required format
     final_sql = f"""MODEL (
-    kind VIEW
-    );
+  kind VIEW
+);
     
-    {combined_query}
+{combined_query}
     """
     
     with open(output_file, 'w', encoding='utf-8') as f:
