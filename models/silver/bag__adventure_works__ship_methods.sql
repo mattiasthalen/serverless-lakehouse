@@ -12,7 +12,7 @@ WITH staging AS (
     ship_base AS ship_method__ship_base,
     ship_rate AS ship_method__ship_rate,
     TO_TIMESTAMP(_dlt_load_id::DOUBLE) AS ship_method__record_loaded_at
-  FROM DELTA_SCAN("./lakehouse/bronze/raw__adventure_works__ship_methods")
+  FROM bronze.raw__adventure_works__ship_methods
 ), validity AS (
   SELECT
     *,

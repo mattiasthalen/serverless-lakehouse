@@ -16,7 +16,7 @@ WITH staging AS (
     unit_price AS sales_order_detail__unit_price,
     unit_price_discount AS sales_order_detail__unit_price_discount,
     TO_TIMESTAMP(_dlt_load_id::DOUBLE) AS sales_order_detail__record_loaded_at
-  FROM DELTA_SCAN("./lakehouse/bronze/raw__adventure_works__sales_order_details")
+  FROM bronze.raw__adventure_works__sales_order_details
 ), validity AS (
   SELECT
     *,

@@ -13,5 +13,6 @@ SELECT
   order_qty,
   rowguid,
   unit_price,
-  unit_price_discount
+  unit_price_discount,
+  _dlt_load_id
 FROM DELTA_SCAN("./lakehouse/bronze/raw__adventure_works__sales_order_details")

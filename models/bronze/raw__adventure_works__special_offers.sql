@@ -13,5 +13,6 @@ SELECT
   modified_date,
   rowguid,
   start_date,
-  type
+  type,
+  _dlt_load_id
 FROM DELTA_SCAN("./lakehouse/bronze/raw__adventure_works__special_offers")

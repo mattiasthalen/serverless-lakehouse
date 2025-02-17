@@ -26,5 +26,6 @@ SELECT
   standard_cost,
   style,
   weight,
-  weight_unit_measure_code
+  weight_unit_measure_code,
+  _dlt_load_id
 FROM DELTA_SCAN("./lakehouse/bronze/raw__adventure_works__products")

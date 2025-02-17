@@ -12,7 +12,7 @@ WITH staging AS (
     modified_date AS currency_rate__modified_date,
     to_currency_code AS currency_rate__to_currency_code,
     TO_TIMESTAMP(_dlt_load_id::DOUBLE) AS currency_rate__record_loaded_at
-  FROM DELTA_SCAN("./lakehouse/bronze/raw__adventure_works__currency_rates")
+  FROM bronze.raw__adventure_works__currency_rates
 ), validity AS (
   SELECT
     *,

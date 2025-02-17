@@ -11,7 +11,7 @@ WITH staging AS (
     exp_year AS credit_card__exp_year,
     modified_date AS credit_card__modified_date,
     TO_TIMESTAMP(_dlt_load_id::DOUBLE) AS credit_card__record_loaded_at
-  FROM DELTA_SCAN("./lakehouse/bronze/raw__adventure_works__credit_cards")
+  FROM bronze.raw__adventure_works__credit_cards
 ), validity AS (
   SELECT
     *,

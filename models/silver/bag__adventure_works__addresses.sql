@@ -13,7 +13,7 @@ WITH staging AS (
     postal_code AS address__postal_code,
     rowguid AS address__rowguid,
     TO_TIMESTAMP(_dlt_load_id::DOUBLE) AS address__record_loaded_at
-  FROM DELTA_SCAN("./lakehouse/bronze/raw__adventure_works__addresses")
+  FROM bronze.raw__adventure_works__addresses
 ), validity AS (
   SELECT
     *,

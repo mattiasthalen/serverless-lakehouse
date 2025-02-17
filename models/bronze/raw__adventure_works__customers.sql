@@ -9,5 +9,6 @@ SELECT
   territory_id,
   account_number,
   modified_date,
-  rowguid
+  rowguid,
+  _dlt_load_id
 FROM DELTA_SCAN("./lakehouse/bronze/raw__adventure_works__customers")

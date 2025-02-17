@@ -15,7 +15,7 @@ WITH staging AS (
     sales_last_year AS territory__sales_last_year,
     sales_ytd AS territory__sales_ytd,
     TO_TIMESTAMP(_dlt_load_id::DOUBLE) AS territory__record_loaded_at
-  FROM DELTA_SCAN("./lakehouse/bronze/raw__adventure_works__sales_territories")
+  FROM bronze.raw__adventure_works__sales_territories
 ), validity AS (
   SELECT
     *,

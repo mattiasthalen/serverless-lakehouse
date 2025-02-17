@@ -1,4 +1,22 @@
 flowchart LR
+    subgraph lakehouse.bronze["lakehouse.bronze"]
+        direction LR
+        raw__adventure_works__addresses(["raw__adventure_works__addresses"])
+        raw__adventure_works__credit_cards(["raw__adventure_works__credit_cards"])
+        raw__adventure_works__currency_rates(["raw__adventure_works__currency_rates"])
+        raw__adventure_works__customers(["raw__adventure_works__customers"])
+        raw__adventure_works__product_categories(["raw__adventure_works__product_categories"])
+        raw__adventure_works__product_subcategories(["raw__adventure_works__product_subcategories"])
+        raw__adventure_works__products(["raw__adventure_works__products"])
+        raw__adventure_works__sales_order_details(["raw__adventure_works__sales_order_details"])
+        raw__adventure_works__sales_order_headers(["raw__adventure_works__sales_order_headers"])
+        raw__adventure_works__sales_persons(["raw__adventure_works__sales_persons"])
+        raw__adventure_works__sales_territories(["raw__adventure_works__sales_territories"])
+        raw__adventure_works__ship_methods(["raw__adventure_works__ship_methods"])
+        raw__adventure_works__special_offers(["raw__adventure_works__special_offers"])
+        raw__adventure_works__state_provinces(["raw__adventure_works__state_provinces"])
+    end
+
     subgraph lakehouse.silver["lakehouse.silver"]
         direction LR
 
@@ -55,6 +73,22 @@ flowchart LR
         special_offers(["special_offers"])
         state_provinces(["state_provinces"])
     end
+
+    %% lakehouse.bronze -> lakehouse.silver
+    raw__adventure_works__addresses --> bag__adventure_works__addresses
+    raw__adventure_works__credit_cards --> bag__adventure_works__credit_cards
+    raw__adventure_works__currency_rates --> bag__adventure_works__currency_rates
+    raw__adventure_works__customers --> bag__adventure_works__customers
+    raw__adventure_works__product_categories --> bag__adventure_works__product_categories
+    raw__adventure_works__product_subcategories --> bag__adventure_works__product_subcategories
+    raw__adventure_works__products --> bag__adventure_works__products
+    raw__adventure_works__sales_order_details --> bag__adventure_works__sales_order_details
+    raw__adventure_works__sales_order_headers --> bag__adventure_works__sales_order_headers
+    raw__adventure_works__sales_persons --> bag__adventure_works__sales_persons
+    raw__adventure_works__sales_territories --> bag__adventure_works__sales_territories
+    raw__adventure_works__ship_methods --> bag__adventure_works__ship_methods
+    raw__adventure_works__special_offers --> bag__adventure_works__special_offers
+    raw__adventure_works__state_provinces --> bag__adventure_works__state_provinces
 
     %% lakehouse.silver -> lakehouse.silver
     bag__adventure_works__addresses --> uss_bridge__addresses
@@ -136,6 +170,8 @@ flowchart LR
     classDef gold_dark fill:#DAA520,color:black
     classDef gold_light fill:#FFE55C,color:black
     classDef gold_antique fill:#CFB53B,color:black
+
+    class lakehouse.bronze bronze_classic
 
     class lakehouse.silver silver_classic
     class bags silver_antique

@@ -29,7 +29,7 @@ WITH staging AS (
     weight AS product__weight,
     weight_unit_measure_code AS product__weight_unit_measure_code,
     TO_TIMESTAMP(_dlt_load_id::DOUBLE) AS product__record_loaded_at
-  FROM DELTA_SCAN("./lakehouse/bronze/raw__adventure_works__products")
+  FROM bronze.raw__adventure_works__products
 ), validity AS (
   SELECT
     *,

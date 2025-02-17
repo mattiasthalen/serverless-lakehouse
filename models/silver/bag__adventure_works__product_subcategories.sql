@@ -10,7 +10,7 @@ WITH staging AS (
     name AS product_subcategory__name,
     rowguid AS product_subcategory__rowguid,
     TO_TIMESTAMP(_dlt_load_id::DOUBLE) AS product_subcategory__record_loaded_at
-  FROM DELTA_SCAN("./lakehouse/bronze/raw__adventure_works__product_subcategories")
+  FROM bronze.raw__adventure_works__product_subcategories
 ), validity AS (
   SELECT
     *,

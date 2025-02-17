@@ -16,7 +16,7 @@ WITH staging AS (
     start_date AS special_offer__start_date,
     type AS special_offer__type,
     TO_TIMESTAMP(_dlt_load_id::DOUBLE) AS special_offer__record_loaded_at
-  FROM DELTA_SCAN("./lakehouse/bronze/raw__adventure_works__special_offers")
+  FROM bronze.raw__adventure_works__special_offers
 ), validity AS (
   SELECT
     *,

@@ -13,7 +13,7 @@ WITH staging AS (
     rowguid AS state_province__rowguid,
     state_province_code AS state_province__state_province_code,
     TO_TIMESTAMP(_dlt_load_id::DOUBLE) AS state_province__record_loaded_at
-  FROM DELTA_SCAN("./lakehouse/bronze/raw__adventure_works__state_provinces")
+  FROM bronze.raw__adventure_works__state_provinces
 ), validity AS (
   SELECT
     *,

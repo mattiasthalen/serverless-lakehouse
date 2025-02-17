@@ -14,7 +14,7 @@ WITH staging AS (
     sales_quota AS sales_person__sales_quota,
     sales_ytd AS sales_person__sales_ytd,
     TO_TIMESTAMP(_dlt_load_id::DOUBLE) AS sales_person__record_loaded_at
-  FROM DELTA_SCAN("./lakehouse/bronze/raw__adventure_works__sales_persons")
+  FROM bronze.raw__adventure_works__sales_persons
 ), validity AS (
   SELECT
     *,

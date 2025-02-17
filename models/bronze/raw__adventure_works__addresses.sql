@@ -10,5 +10,6 @@ SELECT
   city,
   modified_date,
   postal_code,
-  rowguid
+  rowguid,
+  _dlt_load_id
 FROM DELTA_SCAN("./lakehouse/bronze/raw__adventure_works__addresses")

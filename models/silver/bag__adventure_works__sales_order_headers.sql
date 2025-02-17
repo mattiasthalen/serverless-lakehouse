@@ -30,7 +30,7 @@ WITH staging AS (
     tax_amt AS sales_order__tax_amt,
     total_due AS sales_order__total_due,
     TO_TIMESTAMP(_dlt_load_id::DOUBLE) AS sales_order__record_loaded_at
-  FROM DELTA_SCAN("./lakehouse/bronze/raw__adventure_works__sales_order_headers")
+  FROM bronze.raw__adventure_works__sales_order_headers
 ), validity AS (
   SELECT
     *,
