@@ -1,0 +1,16 @@
+MODEL (
+  kind VIEW
+);
+
+SELECT
+  territory_id,
+  cost_last_year,
+  cost_ytd,
+  country_region_code,
+  group,
+  modified_date,
+  name,
+  rowguid,
+  sales_last_year,
+  sales_ytd
+FROM DELTA_SCAN("./lakehouse/bronze/raw__adventure_works__sales_territories")
