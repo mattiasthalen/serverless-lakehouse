@@ -1,5 +1,5 @@
 MODEL (
-  kind VIEW
+  kind FULL
 );
 
 SELECT
