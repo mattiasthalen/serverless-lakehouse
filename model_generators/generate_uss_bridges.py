@@ -56,7 +56,7 @@ SELECT * FROM bridge
         with open(target_path, "w", encoding="utf-8") as f:
             f.write(sql_content)
     
-    print(f"Generated {len(filenames)} uss bridge in ./models/silver/")
+    print(f"Generated {len(filenames)} uss bridges in ./models/silver/")
     
 if __name__ == "__main__":
     generate_uss_bridges()

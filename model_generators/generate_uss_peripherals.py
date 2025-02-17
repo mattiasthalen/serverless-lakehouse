@@ -11,51 +11,50 @@ def generate_uss_peripherals():
     hook_pattern = re.compile(r"(_hook__\w+)")
     
     # Process each SQL file in the source directory
-    for filename in os.listdir(source_dir):
-        if filename.startswith("uss__int__") and filename.endswith(".sql"):
-            source_path = os.path.join(source_dir, filename)
-            
-            # Split the filename by '__' and take the last part for the target filename
-            parts = filename.replace("uss__int__", "").split("__")
-            target_filename = parts[-1]  # No additional .sql here
-            target_path = os.path.join(target_dir, target_filename)
+    filenames = [filename for filename in os.listdir(source_dir) if filename.startswith("uss_bridge__") and filename.endswith(".sql")]
     
-            with open(source_path, "r", encoding="utf-8") as f:
-                content = f.read()
+    for filename in filenames:
+        source_path = os.path.join(source_dir, filename)
+        
+        # Replace "uss_bridge__" with "bag__adventure_works__" for reading
+        read_filename = filename.replace("uss_bridge__", "bag__adventure_works__")
+        target_filename = filename.replace("uss_bridge__", "")
+        target_path = os.path.join(target_dir, target_filename)
     
-            # Extract pit_hook column names (to include)
-            pit_hooks = sorted(set(pit_hook_pattern.findall(content)))
-            # Extract hook column names (to exclude)
-            hooks = sorted(set(hook_pattern.findall(content)))
+        with open(source_path, "r", encoding="utf-8") as f:
+            content = f.read()
     
-            # Prepare the columns to exclude (_hook__ columns)
-            if hooks:
-                exclude_columns = f"EXCLUDE({', '.join(hooks)})"
-            else:
-                exclude_columns = ""
+        # Extract pit_hook column names (to include)
+        pit_hooks = sorted(set(pit_hook_pattern.findall(content)))
+        # Extract hook column names (to exclude)
+        hooks = sorted(set(hook_pattern.findall(content)))
     
-            if not (pit_hooks or hooks):
-                print(f"Skipping {filename} (no hooks found)")
-                continue
+        # Prepare the columns to exclude (_hook__ columns)
+        if hooks:
+            exclude_columns = f"EXCLUDE({', '.join(hooks)})"
+        else:
+            exclude_columns = ""
     
-            # Generate SQL content
-            sql_content = f"""MODEL (
-    kind VIEW
+        if not (pit_hooks or hooks):
+            print(f"Skipping {filename} (no hooks found)")
+            continue
+    
+        # Generate SQL content
+        sql_content = f"""MODEL (
+  kind VIEW
 );
 
 SELECT
-    * {exclude_columns}
-FROM silver.{filename.replace('.sql', '')}
+  * {exclude_columns}
+FROM silver.{read_filename.replace('.sql', '')}
 """
     
-            # Write to the new target directory
-            os.makedirs(target_dir, exist_ok=True)  # Ensure target directory exists
-            with open(target_path, "w", encoding="utf-8") as f:
-                f.write(sql_content)
+        # Write to the new target directory
+        os.makedirs(target_dir, exist_ok=True)  # Ensure target directory exists
+        with open(target_path, "w", encoding="utf-8") as f:
+            f.write(sql_content)
     
-            print(f"Generated {target_path}.sql")
-    
-    print("Done.")
+    print(f"Generated {len(filenames)} uss peripherals in ./models/gold/")
     
 if __name__ == "__main__":
     generate_uss_peripherals()
