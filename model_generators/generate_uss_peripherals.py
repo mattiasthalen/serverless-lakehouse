@@ -14,10 +14,9 @@ def generate_uss_peripherals():
     filenames = [filename for filename in os.listdir(source_dir) if filename.startswith("uss_bridge__") and filename.endswith(".sql")]
     
     for filename in filenames:
-        source_path = os.path.join(source_dir, filename)
-        
         # Replace "uss_bridge__" with "bag__adventure_works__" for reading
         read_filename = filename.replace("uss_bridge__", "bag__adventure_works__")
+        source_path = os.path.join(source_dir, read_filename)
         target_filename = filename.replace("uss_bridge__", "")
         target_path = os.path.join(target_dir, target_filename)
     
@@ -54,7 +53,7 @@ FROM silver.{read_filename.replace('.sql', '')}
         with open(target_path, "w", encoding="utf-8") as f:
             f.write(sql_content)
     
-    print(f"Generated {len(filenames)} uss peripherals in ./models/gold/")
+    print(f"Generated {len(filenames)} uss peripherals in {target_dir}")
     
 if __name__ == "__main__":
     generate_uss_peripherals()
