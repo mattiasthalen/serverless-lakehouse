@@ -1,5 +1,5 @@
-version: 1
-version_hash: lHn9Nq23yNTo/kSB7CFnAtibMmK9jvZQveExGE5isgA=
+version: 3
+version_hash: WKYp2Ni0NdBnznSiBd3K8qQs87hvDlVpITuWopPgm54=
 engine_version: 11
 name: duckdb_silver
 tables:
@@ -172,6 +172,46 @@ tables:
     write_disposition: append
     file_format: preferred
     resource: _dlt_pipeline_state
+  bag__adventure_works__addresses:
+    columns: {}
+    write_disposition: replace
+    table_format: delta
+    resource: bag__adventure_works__addresses
+  bag__adventure_works__sales_territories:
+    columns: {}
+    write_disposition: replace
+    table_format: delta
+    resource: bag__adventure_works__sales_territories
+  bag__adventure_works__ship_methods:
+    columns: {}
+    write_disposition: replace
+    table_format: delta
+    resource: bag__adventure_works__ship_methods
+  bag__adventure_works__state_provinces:
+    columns: {}
+    write_disposition: replace
+    table_format: delta
+    resource: bag__adventure_works__state_provinces
+  uss_bridge__addresses:
+    columns: {}
+    write_disposition: replace
+    table_format: delta
+    resource: uss_bridge__addresses
+  uss_bridge__sales_territories:
+    columns: {}
+    write_disposition: replace
+    table_format: delta
+    resource: uss_bridge__sales_territories
+  uss_bridge__ship_methods:
+    columns: {}
+    write_disposition: replace
+    table_format: delta
+    resource: uss_bridge__ship_methods
+  uss_bridge__state_provinces:
+    columns: {}
+    write_disposition: replace
+    table_format: delta
+    resource: uss_bridge__state_provinces
 settings:
   detections:
   - iso_timestamp
@@ -195,4 +235,6 @@ normalizers:
   json:
     module: dlt.common.normalizers.json.relational
 previous_hashes:
+- Q2kBPKnRHym258C28n3U2/QJeErohagLAuMJk2EnNVQ=
+- lHn9Nq23yNTo/kSB7CFnAtibMmK9jvZQveExGE5isgA=
 - bID2pHs7BlXS1VoU5jKgO8+vZ5GsBp/Zw5JUocSdbE8=

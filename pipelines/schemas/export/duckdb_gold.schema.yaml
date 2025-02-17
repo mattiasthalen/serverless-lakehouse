@@ -1,7 +1,7 @@
-version: 4
-version_hash: tuMrBq2cmvflX1cWHIFeFirGnON/yR1A/m7pqehwJQc=
+version: 2
+version_hash: wpXUaWwCWrORRItgELlJEhW5GHy4FYAxblZFyFlIujw=
 engine_version: 11
-name: duckdb_silver
+name: duckdb_gold
 tables:
   _dlt_version:
     columns:
@@ -46,12 +46,69 @@ tables:
     write_disposition: skip
     resource: _dlt_loads
     description: Created by DLT. Tracks completed loads
-  bag__adventure_works__credit_cards:
+  addresses:
     columns:
-      _pit_hook__credit_card:
+      _pit_hook__address:
         data_type: text
         nullable: true
-      _hook__credit_card:
+      address_id:
+        data_type: bigint
+        nullable: true
+      state_province_id:
+        data_type: bigint
+        nullable: true
+      address__address_line1:
+        data_type: text
+        nullable: true
+      address__city:
+        data_type: text
+        nullable: true
+      address__modified_date:
+        data_type: text
+        nullable: true
+      address__postal_code:
+        data_type: text
+        nullable: true
+      address__rowguid:
+        data_type: text
+        nullable: true
+      address__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      address__record_version:
+        data_type: bigint
+        nullable: true
+      address__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      address__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      address__is_current_record:
+        data_type: bool
+        nullable: true
+      address__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+      address__address_line2:
+        data_type: text
+        nullable: true
+    write_disposition: replace
+    table_format: delta
+    resource: addresses
+    x-normalizer:
+      seen-data: true
+  credit_cards:
+    columns:
+      _pit_hook__credit_card:
         data_type: text
         nullable: true
       credit_card_id:
@@ -100,15 +157,12 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: delta
-    resource: bag__adventure_works__credit_cards
+    resource: credit_cards
     x-normalizer:
       seen-data: true
-  bag__adventure_works__currency_rates:
+  currency_rates:
     columns:
       _pit_hook__currency_rate:
-        data_type: text
-        nullable: true
-      _hook__currency_rate:
         data_type: text
         nullable: true
       currency_rate_id:
@@ -160,24 +214,12 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: delta
-    resource: bag__adventure_works__currency_rates
+    resource: currency_rates
     x-normalizer:
       seen-data: true
-  bag__adventure_works__customers:
+  customers:
     columns:
       _pit_hook__customer:
-        data_type: text
-        nullable: true
-      _hook__customer:
-        data_type: text
-        nullable: true
-      _hook__person:
-        data_type: text
-        nullable: true
-      _hook__store:
-        data_type: text
-        nullable: true
-      _hook__territory:
         data_type: text
         nullable: true
       customer_id:
@@ -229,21 +271,12 @@ tables:
         nullable: true
     write_disposition: replace
     table_format: delta
-    resource: bag__adventure_works__customers
+    resource: customers
     x-normalizer:
       seen-data: true
-  bag__adventure_works__products:
+  products:
     columns:
       _pit_hook__product:
-        data_type: text
-        nullable: true
-      _hook__product:
-        data_type: text
-        nullable: true
-      _hook__product_model:
-        data_type: text
-        nullable: true
-      _hook__product_subcategory:
         data_type: text
         nullable: true
       product_id:
@@ -311,28 +344,28 @@ tables:
         nullable: false
         unique: true
         row_key: true
-      product__class:
-        data_type: text
-        nullable: true
-      product__color:
-        data_type: text
-        nullable: true
       product_model_id:
         data_type: double
         nullable: true
       product_subcategory_id:
         data_type: double
         nullable: true
+      product__color:
+        data_type: text
+        nullable: true
       product__product_line:
+        data_type: text
+        nullable: true
+      product__style:
+        data_type: text
+        nullable: true
+      product__class:
         data_type: text
         nullable: true
       product__size:
         data_type: text
         nullable: true
       product__size_unit_measure_code:
-        data_type: text
-        nullable: true
-      product__style:
         data_type: text
         nullable: true
       product__weight:
@@ -346,15 +379,12 @@ tables:
         nullable: true
     write_disposition: replace
     table_format: delta
-    resource: bag__adventure_works__products
+    resource: products
     x-normalizer:
       seen-data: true
-  bag__adventure_works__product_categories:
+  product_categories:
     columns:
       _pit_hook__product_category:
-        data_type: text
-        nullable: true
-      _hook__product_category:
         data_type: text
         nullable: true
       product_category_id:
@@ -397,18 +427,12 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: delta
-    resource: bag__adventure_works__product_categories
+    resource: product_categories
     x-normalizer:
       seen-data: true
-  bag__adventure_works__product_subcategories:
+  product_subcategories:
     columns:
       _pit_hook__product_subcategory:
-        data_type: text
-        nullable: true
-      _hook__product_subcategory:
-        data_type: text
-        nullable: true
-      _hook__product_category:
         data_type: text
         nullable: true
       product_subcategory_id:
@@ -454,24 +478,12 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: delta
-    resource: bag__adventure_works__product_subcategories
+    resource: product_subcategories
     x-normalizer:
       seen-data: true
-  bag__adventure_works__sales_order_details:
+  sales_order_details:
     columns:
       _pit_hook__sales_order_detail:
-        data_type: text
-        nullable: true
-      _hook__sales_order_detail:
-        data_type: text
-        nullable: true
-      _hook__product:
-        data_type: text
-        nullable: true
-      _hook__sales_order:
-        data_type: text
-        nullable: true
-      _hook__special_offer:
         data_type: text
         nullable: true
       sales_order_detail_id:
@@ -485,6 +497,9 @@ tables:
         nullable: true
       special_offer_id:
         data_type: bigint
+        nullable: true
+      sales_order_detail__carrier_tracking_number:
+        data_type: text
         nullable: true
       sales_order_detail__line_total:
         data_type: double
@@ -530,44 +545,14 @@ tables:
         nullable: false
         unique: true
         row_key: true
-      sales_order_detail__carrier_tracking_number:
-        data_type: text
-        nullable: true
     write_disposition: replace
     table_format: delta
-    resource: bag__adventure_works__sales_order_details
+    resource: sales_order_details
     x-normalizer:
       seen-data: true
-  bag__adventure_works__sales_order_headers:
+  sales_order_headers:
     columns:
       _pit_hook__sales_order:
-        data_type: text
-        nullable: true
-      _hook__sales_order:
-        data_type: text
-        nullable: true
-      _hook__bill_to_address:
-        data_type: text
-        nullable: true
-      _hook__credit_card:
-        data_type: text
-        nullable: true
-      _hook__currency_rate:
-        data_type: text
-        nullable: true
-      _hook__customer:
-        data_type: text
-        nullable: true
-      _hook__sales_person:
-        data_type: text
-        nullable: true
-      _hook__ship_method:
-        data_type: text
-        nullable: true
-      _hook__ship_to_address:
-        data_type: text
-        nullable: true
-      _hook__territory:
         data_type: text
         nullable: true
       sales_order_id:
@@ -673,25 +658,16 @@ tables:
         nullable: true
     write_disposition: replace
     table_format: delta
-    resource: bag__adventure_works__sales_order_headers
+    resource: sales_order_headers
     x-normalizer:
       seen-data: true
-  bag__adventure_works__sales_persons:
+  sales_persons:
     columns:
       _pit_hook__sales_person:
         data_type: text
         nullable: true
-      _hook__sales_person:
-        data_type: text
-        nullable: true
-      _hook__territory:
-        data_type: text
-        nullable: true
       sales_person_id:
         data_type: bigint
-        nullable: true
-      territory_id:
-        data_type: double
         nullable: true
       sales_person__bonus:
         data_type: double
@@ -706,9 +682,6 @@ tables:
         data_type: text
         nullable: true
       sales_person__sales_last_year:
-        data_type: double
-        nullable: true
-      sales_person__sales_quota:
         data_type: double
         nullable: true
       sales_person__sales_ytd:
@@ -740,17 +713,140 @@ tables:
         nullable: false
         unique: true
         row_key: true
+      territory_id:
+        data_type: double
+        nullable: true
+      sales_person__sales_quota:
+        data_type: double
+        nullable: true
     write_disposition: replace
     table_format: delta
-    resource: bag__adventure_works__sales_persons
+    resource: sales_persons
     x-normalizer:
       seen-data: true
-  bag__adventure_works__special_offers:
+  sales_territories:
     columns:
-      _pit_hook__special_offer:
+      _pit_hook__territory:
         data_type: text
         nullable: true
-      _hook__special_offer:
+      territory_id:
+        data_type: bigint
+        nullable: true
+      territory__cost_last_year:
+        data_type: double
+        nullable: true
+      territory__cost_ytd:
+        data_type: double
+        nullable: true
+      territory__country_region_code:
+        data_type: text
+        nullable: true
+      territory__group:
+        data_type: text
+        nullable: true
+      territory__modified_date:
+        data_type: text
+        nullable: true
+      territory__name:
+        data_type: text
+        nullable: true
+      territory__rowguid:
+        data_type: text
+        nullable: true
+      territory__sales_last_year:
+        data_type: double
+        nullable: true
+      territory__sales_ytd:
+        data_type: double
+        nullable: true
+      territory__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      territory__record_version:
+        data_type: bigint
+        nullable: true
+      territory__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      territory__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      territory__is_current_record:
+        data_type: bool
+        nullable: true
+      territory__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    table_format: delta
+    resource: sales_territories
+    x-normalizer:
+      seen-data: true
+  ship_methods:
+    columns:
+      _pit_hook__ship_method:
+        data_type: text
+        nullable: true
+      ship_method_id:
+        data_type: bigint
+        nullable: true
+      ship_method__modified_date:
+        data_type: text
+        nullable: true
+      ship_method__name:
+        data_type: text
+        nullable: true
+      ship_method__rowguid:
+        data_type: text
+        nullable: true
+      ship_method__ship_base:
+        data_type: double
+        nullable: true
+      ship_method__ship_rate:
+        data_type: double
+        nullable: true
+      ship_method__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      ship_method__record_version:
+        data_type: bigint
+        nullable: true
+      ship_method__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      ship_method__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      ship_method__is_current_record:
+        data_type: bool
+        nullable: true
+      ship_method__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    table_format: delta
+    resource: ship_methods
+    x-normalizer:
+      seen-data: true
+  special_offers:
+    columns:
+      _pit_hook__special_offer:
         data_type: text
         nullable: true
       special_offer_id:
@@ -814,687 +910,12 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: delta
-    resource: bag__adventure_works__special_offers
+    resource: special_offers
     x-normalizer:
       seen-data: true
-  uss_bridge__credit_cards:
-    columns:
-      stage:
-        data_type: text
-        nullable: true
-      _pit_hook__credit_card:
-        data_type: text
-        nullable: true
-      _hook__credit_card:
-        data_type: text
-        nullable: true
-      bridge__record_loaded_at:
-        data_type: timestamp
-        nullable: true
-      bridge__record_updated_at:
-        data_type: timestamp
-        nullable: true
-      bridge__record_valid_from:
-        data_type: timestamp
-        nullable: true
-      bridge__record_valid_to:
-        data_type: timestamp
-        nullable: true
-      bridge__is_current_record:
-        data_type: bool
-        nullable: true
-      _dlt_load_id:
-        data_type: text
-        nullable: false
-      _dlt_id:
-        data_type: text
-        nullable: false
-        unique: true
-        row_key: true
-    write_disposition: replace
-    table_format: delta
-    resource: uss_bridge__credit_cards
-    x-normalizer:
-      seen-data: true
-  uss_bridge__currency_rates:
-    columns:
-      stage:
-        data_type: text
-        nullable: true
-      _pit_hook__currency_rate:
-        data_type: text
-        nullable: true
-      _hook__currency_rate:
-        data_type: text
-        nullable: true
-      bridge__record_loaded_at:
-        data_type: timestamp
-        nullable: true
-      bridge__record_updated_at:
-        data_type: timestamp
-        nullable: true
-      bridge__record_valid_from:
-        data_type: timestamp
-        nullable: true
-      bridge__record_valid_to:
-        data_type: timestamp
-        nullable: true
-      bridge__is_current_record:
-        data_type: bool
-        nullable: true
-      _dlt_load_id:
-        data_type: text
-        nullable: false
-      _dlt_id:
-        data_type: text
-        nullable: false
-        unique: true
-        row_key: true
-    write_disposition: replace
-    table_format: delta
-    resource: uss_bridge__currency_rates
-    x-normalizer:
-      seen-data: true
-  uss_bridge__customers:
-    columns:
-      stage:
-        data_type: text
-        nullable: true
-      _pit_hook__customer:
-        data_type: text
-        nullable: true
-      _hook__customer:
-        data_type: text
-        nullable: true
-      bridge__record_loaded_at:
-        data_type: timestamp
-        nullable: true
-      bridge__record_updated_at:
-        data_type: timestamp
-        nullable: true
-      bridge__record_valid_from:
-        data_type: timestamp
-        nullable: true
-      bridge__record_valid_to:
-        data_type: timestamp
-        nullable: true
-      bridge__is_current_record:
-        data_type: bool
-        nullable: true
-      _dlt_load_id:
-        data_type: text
-        nullable: false
-      _dlt_id:
-        data_type: text
-        nullable: false
-        unique: true
-        row_key: true
-    write_disposition: replace
-    table_format: delta
-    resource: uss_bridge__customers
-    x-normalizer:
-      seen-data: true
-  uss_bridge__products:
-    columns:
-      stage:
-        data_type: text
-        nullable: true
-      _pit_hook__product:
-        data_type: text
-        nullable: true
-      _hook__product:
-        data_type: text
-        nullable: true
-      _pit_hook__product_subcategory:
-        data_type: text
-        nullable: true
-      _pit_hook__product_category:
-        data_type: text
-        nullable: true
-      bridge__record_loaded_at:
-        data_type: timestamp
-        nullable: true
-      bridge__record_updated_at:
-        data_type: timestamp
-        nullable: true
-      bridge__record_valid_from:
-        data_type: timestamp
-        nullable: true
-      bridge__record_valid_to:
-        data_type: timestamp
-        nullable: true
-      bridge__is_current_record:
-        data_type: bool
-        nullable: true
-      _dlt_load_id:
-        data_type: text
-        nullable: false
-      _dlt_id:
-        data_type: text
-        nullable: false
-        unique: true
-        row_key: true
-    write_disposition: replace
-    table_format: delta
-    resource: uss_bridge__products
-    x-normalizer:
-      seen-data: true
-  uss_bridge__product_categories:
-    columns:
-      stage:
-        data_type: text
-        nullable: true
-      _pit_hook__product_category:
-        data_type: text
-        nullable: true
-      _hook__product_category:
-        data_type: text
-        nullable: true
-      bridge__record_loaded_at:
-        data_type: timestamp
-        nullable: true
-      bridge__record_updated_at:
-        data_type: timestamp
-        nullable: true
-      bridge__record_valid_from:
-        data_type: timestamp
-        nullable: true
-      bridge__record_valid_to:
-        data_type: timestamp
-        nullable: true
-      bridge__is_current_record:
-        data_type: bool
-        nullable: true
-      _dlt_load_id:
-        data_type: text
-        nullable: false
-      _dlt_id:
-        data_type: text
-        nullable: false
-        unique: true
-        row_key: true
-    write_disposition: replace
-    table_format: delta
-    resource: uss_bridge__product_categories
-    x-normalizer:
-      seen-data: true
-  uss_bridge__product_subcategories:
-    columns:
-      stage:
-        data_type: text
-        nullable: true
-      _pit_hook__product_subcategory:
-        data_type: text
-        nullable: true
-      _hook__product_subcategory:
-        data_type: text
-        nullable: true
-      _pit_hook__product_category:
-        data_type: text
-        nullable: true
-      bridge__record_loaded_at:
-        data_type: timestamp
-        nullable: true
-      bridge__record_updated_at:
-        data_type: timestamp
-        nullable: true
-      bridge__record_valid_from:
-        data_type: timestamp
-        nullable: true
-      bridge__record_valid_to:
-        data_type: timestamp
-        nullable: true
-      bridge__is_current_record:
-        data_type: bool
-        nullable: true
-      _dlt_load_id:
-        data_type: text
-        nullable: false
-      _dlt_id:
-        data_type: text
-        nullable: false
-        unique: true
-        row_key: true
-    write_disposition: replace
-    table_format: delta
-    resource: uss_bridge__product_subcategories
-    x-normalizer:
-      seen-data: true
-  uss_bridge__sales_order_details:
-    columns:
-      stage:
-        data_type: text
-        nullable: true
-      _pit_hook__sales_order_detail:
-        data_type: text
-        nullable: true
-      _hook__sales_order_detail:
-        data_type: text
-        nullable: true
-      _pit_hook__product:
-        data_type: text
-        nullable: true
-      _pit_hook__product_subcategory:
-        data_type: text
-        nullable: true
-      _pit_hook__product_category:
-        data_type: text
-        nullable: true
-      _pit_hook__sales_order:
-        data_type: text
-        nullable: true
-      _pit_hook__credit_card:
-        data_type: text
-        nullable: true
-      _pit_hook__customer:
-        data_type: text
-        nullable: true
-      _pit_hook__ship_method:
-        data_type: text
-        nullable: true
-      _pit_hook__special_offer:
-        data_type: text
-        nullable: true
-      bridge__record_loaded_at:
-        data_type: timestamp
-        nullable: true
-      bridge__record_updated_at:
-        data_type: timestamp
-        nullable: true
-      bridge__record_valid_from:
-        data_type: timestamp
-        nullable: true
-      bridge__record_valid_to:
-        data_type: timestamp
-        nullable: true
-      bridge__is_current_record:
-        data_type: bool
-        nullable: true
-      _dlt_load_id:
-        data_type: text
-        nullable: false
-      _dlt_id:
-        data_type: text
-        nullable: false
-        unique: true
-        row_key: true
-      _pit_hook__currency_rate:
-        data_type: text
-        nullable: true
-      _pit_hook__sales_person:
-        data_type: text
-        nullable: true
-    write_disposition: replace
-    table_format: delta
-    resource: uss_bridge__sales_order_details
-    x-normalizer:
-      seen-data: true
-  uss_bridge__sales_order_headers:
-    columns:
-      stage:
-        data_type: text
-        nullable: true
-      _pit_hook__sales_order:
-        data_type: text
-        nullable: true
-      _hook__sales_order:
-        data_type: text
-        nullable: true
-      _pit_hook__credit_card:
-        data_type: text
-        nullable: true
-      _pit_hook__currency_rate:
-        data_type: text
-        nullable: true
-      _pit_hook__customer:
-        data_type: text
-        nullable: true
-      _pit_hook__sales_person:
-        data_type: text
-        nullable: true
-      _pit_hook__ship_method:
-        data_type: text
-        nullable: true
-      bridge__record_loaded_at:
-        data_type: timestamp
-        nullable: true
-      bridge__record_updated_at:
-        data_type: timestamp
-        nullable: true
-      bridge__record_valid_from:
-        data_type: timestamp
-        nullable: true
-      bridge__record_valid_to:
-        data_type: timestamp
-        nullable: true
-      bridge__is_current_record:
-        data_type: bool
-        nullable: true
-      _dlt_load_id:
-        data_type: text
-        nullable: false
-      _dlt_id:
-        data_type: text
-        nullable: false
-        unique: true
-        row_key: true
-    write_disposition: replace
-    table_format: delta
-    resource: uss_bridge__sales_order_headers
-    x-normalizer:
-      seen-data: true
-  uss_bridge__sales_persons:
-    columns:
-      stage:
-        data_type: text
-        nullable: true
-      _pit_hook__sales_person:
-        data_type: text
-        nullable: true
-      _hook__sales_person:
-        data_type: text
-        nullable: true
-      bridge__record_loaded_at:
-        data_type: timestamp
-        nullable: true
-      bridge__record_updated_at:
-        data_type: timestamp
-        nullable: true
-      bridge__record_valid_from:
-        data_type: timestamp
-        nullable: true
-      bridge__record_valid_to:
-        data_type: timestamp
-        nullable: true
-      bridge__is_current_record:
-        data_type: bool
-        nullable: true
-      _dlt_load_id:
-        data_type: text
-        nullable: false
-      _dlt_id:
-        data_type: text
-        nullable: false
-        unique: true
-        row_key: true
-    write_disposition: replace
-    table_format: delta
-    resource: uss_bridge__sales_persons
-    x-normalizer:
-      seen-data: true
-  uss_bridge__special_offers:
-    columns:
-      stage:
-        data_type: text
-        nullable: true
-      _pit_hook__special_offer:
-        data_type: text
-        nullable: true
-      _hook__special_offer:
-        data_type: text
-        nullable: true
-      bridge__record_loaded_at:
-        data_type: timestamp
-        nullable: true
-      bridge__record_updated_at:
-        data_type: timestamp
-        nullable: true
-      bridge__record_valid_from:
-        data_type: timestamp
-        nullable: true
-      bridge__record_valid_to:
-        data_type: timestamp
-        nullable: true
-      bridge__is_current_record:
-        data_type: bool
-        nullable: true
-      _dlt_load_id:
-        data_type: text
-        nullable: false
-      _dlt_id:
-        data_type: text
-        nullable: false
-        unique: true
-        row_key: true
-    write_disposition: replace
-    table_format: delta
-    resource: uss_bridge__special_offers
-    x-normalizer:
-      seen-data: true
-  _dlt_pipeline_state:
-    columns:
-      version:
-        data_type: bigint
-        nullable: false
-      engine_version:
-        data_type: bigint
-        nullable: false
-      pipeline_name:
-        data_type: text
-        nullable: false
-      state:
-        data_type: text
-        nullable: false
-      created_at:
-        data_type: timestamp
-        nullable: false
-      version_hash:
-        data_type: text
-        nullable: true
-      _dlt_load_id:
-        data_type: text
-        nullable: false
-      _dlt_id:
-        data_type: text
-        nullable: false
-        unique: true
-        row_key: true
-    write_disposition: append
-    file_format: preferred
-    resource: _dlt_pipeline_state
-    x-normalizer:
-      seen-data: true
-  bag__adventure_works__addresses:
-    columns:
-      _pit_hook__address:
-        data_type: text
-        nullable: true
-      _hook__address:
-        data_type: text
-        nullable: true
-      _hook__state_province:
-        data_type: text
-        nullable: true
-      address_id:
-        data_type: bigint
-        nullable: true
-      state_province_id:
-        data_type: bigint
-        nullable: true
-      address__address_line1:
-        data_type: text
-        nullable: true
-      address__city:
-        data_type: text
-        nullable: true
-      address__modified_date:
-        data_type: text
-        nullable: true
-      address__postal_code:
-        data_type: text
-        nullable: true
-      address__rowguid:
-        data_type: text
-        nullable: true
-      address__record_loaded_at:
-        data_type: timestamp
-        nullable: true
-      address__record_version:
-        data_type: bigint
-        nullable: true
-      address__record_valid_from:
-        data_type: timestamp
-        nullable: true
-      address__record_valid_to:
-        data_type: timestamp
-        nullable: true
-      address__is_current_record:
-        data_type: bool
-        nullable: true
-      address__record_updated_at:
-        data_type: timestamp
-        nullable: true
-      _dlt_load_id:
-        data_type: text
-        nullable: false
-      _dlt_id:
-        data_type: text
-        nullable: false
-        unique: true
-        row_key: true
-      address__address_line2:
-        data_type: text
-        nullable: true
-    write_disposition: replace
-    table_format: delta
-    resource: bag__adventure_works__addresses
-    x-normalizer:
-      seen-data: true
-  bag__adventure_works__sales_territories:
-    columns:
-      _pit_hook__territory:
-        data_type: text
-        nullable: true
-      _hook__territory:
-        data_type: text
-        nullable: true
-      territory_id:
-        data_type: bigint
-        nullable: true
-      territory__cost_last_year:
-        data_type: double
-        nullable: true
-      territory__cost_ytd:
-        data_type: double
-        nullable: true
-      territory__country_region_code:
-        data_type: text
-        nullable: true
-      territory__group:
-        data_type: text
-        nullable: true
-      territory__modified_date:
-        data_type: text
-        nullable: true
-      territory__name:
-        data_type: text
-        nullable: true
-      territory__rowguid:
-        data_type: text
-        nullable: true
-      territory__sales_last_year:
-        data_type: double
-        nullable: true
-      territory__sales_ytd:
-        data_type: double
-        nullable: true
-      territory__record_loaded_at:
-        data_type: timestamp
-        nullable: true
-      territory__record_version:
-        data_type: bigint
-        nullable: true
-      territory__record_valid_from:
-        data_type: timestamp
-        nullable: true
-      territory__record_valid_to:
-        data_type: timestamp
-        nullable: true
-      territory__is_current_record:
-        data_type: bool
-        nullable: true
-      territory__record_updated_at:
-        data_type: timestamp
-        nullable: true
-      _dlt_load_id:
-        data_type: text
-        nullable: false
-      _dlt_id:
-        data_type: text
-        nullable: false
-        unique: true
-        row_key: true
-    write_disposition: replace
-    table_format: delta
-    resource: bag__adventure_works__sales_territories
-    x-normalizer:
-      seen-data: true
-  bag__adventure_works__ship_methods:
-    columns:
-      _pit_hook__ship_method:
-        data_type: text
-        nullable: true
-      _hook__ship_method:
-        data_type: text
-        nullable: true
-      ship_method_id:
-        data_type: bigint
-        nullable: true
-      ship_method__modified_date:
-        data_type: text
-        nullable: true
-      ship_method__name:
-        data_type: text
-        nullable: true
-      ship_method__rowguid:
-        data_type: text
-        nullable: true
-      ship_method__ship_base:
-        data_type: double
-        nullable: true
-      ship_method__ship_rate:
-        data_type: double
-        nullable: true
-      ship_method__record_loaded_at:
-        data_type: timestamp
-        nullable: true
-      ship_method__record_version:
-        data_type: bigint
-        nullable: true
-      ship_method__record_valid_from:
-        data_type: timestamp
-        nullable: true
-      ship_method__record_valid_to:
-        data_type: timestamp
-        nullable: true
-      ship_method__is_current_record:
-        data_type: bool
-        nullable: true
-      ship_method__record_updated_at:
-        data_type: timestamp
-        nullable: true
-      _dlt_load_id:
-        data_type: text
-        nullable: false
-      _dlt_id:
-        data_type: text
-        nullable: false
-        unique: true
-        row_key: true
-    write_disposition: replace
-    table_format: delta
-    resource: bag__adventure_works__ship_methods
-    x-normalizer:
-      seen-data: true
-  bag__adventure_works__state_provinces:
+  state_provinces:
     columns:
       _pit_hook__state_province:
-        data_type: text
-        nullable: true
-      _hook__state_province:
-        data_type: text
-        nullable: true
-      _hook__territory:
         data_type: text
         nullable: true
       state_province_id:
@@ -1549,12 +970,110 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: delta
-    resource: bag__adventure_works__state_provinces
+    resource: state_provinces
     x-normalizer:
       seen-data: true
-  uss_bridge__addresses:
+  _bridge__as_is:
     columns:
       stage:
+        data_type: text
+        nullable: true
+      _pit_hook__currency_rate:
+        data_type: text
+        nullable: true
+      _hook__currency_rate:
+        data_type: text
+        nullable: true
+      bridge__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      bridge__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      bridge__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      bridge__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      bridge__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+      _pit_hook__sales_order:
+        data_type: text
+        nullable: true
+      _hook__sales_order:
+        data_type: text
+        nullable: true
+      _pit_hook__credit_card:
+        data_type: text
+        nullable: true
+      _pit_hook__customer:
+        data_type: text
+        nullable: true
+      _pit_hook__sales_person:
+        data_type: text
+        nullable: true
+      _pit_hook__ship_method:
+        data_type: text
+        nullable: true
+      _pit_hook__product_subcategory:
+        data_type: text
+        nullable: true
+      _hook__product_subcategory:
+        data_type: text
+        nullable: true
+      _pit_hook__product_category:
+        data_type: text
+        nullable: true
+      _hook__sales_person:
+        data_type: text
+        nullable: true
+      _pit_hook__product:
+        data_type: text
+        nullable: true
+      _hook__product:
+        data_type: text
+        nullable: true
+      _pit_hook__state_province:
+        data_type: text
+        nullable: true
+      _pit_hook__territory:
+        data_type: text
+        nullable: true
+      _hook__state_province:
+        data_type: text
+        nullable: true
+      _hook__territory:
+        data_type: text
+        nullable: true
+      _pit_hook__sales_order_detail:
+        data_type: text
+        nullable: true
+      _hook__sales_order_detail:
+        data_type: text
+        nullable: true
+      _pit_hook__special_offer:
+        data_type: text
+        nullable: true
+      _hook__ship_method:
+        data_type: text
+        nullable: true
+      _hook__special_offer:
+        data_type: text
+        nullable: true
+      _hook__product_category:
+        data_type: text
+        nullable: true
+      _hook__customer:
         data_type: text
         nullable: true
       _pit_hook__address:
@@ -1563,10 +1082,23 @@ tables:
       _hook__address:
         data_type: text
         nullable: true
-      _pit_hook__state_province:
+      _hook__credit_card:
         data_type: text
         nullable: true
-      _pit_hook__territory:
+    write_disposition: replace
+    table_format: delta
+    resource: _bridge__as_is
+    x-normalizer:
+      seen-data: true
+  _bridge__as_of:
+    columns:
+      stage:
+        data_type: text
+        nullable: true
+      _pit_hook__currency_rate:
+        data_type: text
+        nullable: true
+      _hook__currency_rate:
         data_type: text
         nullable: true
       bridge__record_loaded_at:
@@ -1592,117 +1124,108 @@ tables:
         nullable: false
         unique: true
         row_key: true
-    write_disposition: replace
-    table_format: delta
-    resource: uss_bridge__addresses
-    x-normalizer:
-      seen-data: true
-  uss_bridge__sales_territories:
-    columns:
-      stage:
+      _pit_hook__sales_order:
         data_type: text
         nullable: true
-      _pit_hook__territory:
+      _hook__sales_order:
         data_type: text
         nullable: true
-      _hook__territory:
+      _pit_hook__credit_card:
         data_type: text
         nullable: true
-      bridge__record_loaded_at:
-        data_type: timestamp
-        nullable: true
-      bridge__record_updated_at:
-        data_type: timestamp
-        nullable: true
-      bridge__record_valid_from:
-        data_type: timestamp
-        nullable: true
-      bridge__record_valid_to:
-        data_type: timestamp
-        nullable: true
-      bridge__is_current_record:
-        data_type: bool
-        nullable: true
-      _dlt_load_id:
+      _pit_hook__customer:
         data_type: text
-        nullable: false
-      _dlt_id:
-        data_type: text
-        nullable: false
-        unique: true
-        row_key: true
-    write_disposition: replace
-    table_format: delta
-    resource: uss_bridge__sales_territories
-    x-normalizer:
-      seen-data: true
-  uss_bridge__ship_methods:
-    columns:
-      stage:
+        nullable: true
+      _pit_hook__sales_person:
         data_type: text
         nullable: true
       _pit_hook__ship_method:
         data_type: text
         nullable: true
-      _hook__ship_method:
+      _pit_hook__product_subcategory:
         data_type: text
         nullable: true
-      bridge__record_loaded_at:
-        data_type: timestamp
-        nullable: true
-      bridge__record_updated_at:
-        data_type: timestamp
-        nullable: true
-      bridge__record_valid_from:
-        data_type: timestamp
-        nullable: true
-      bridge__record_valid_to:
-        data_type: timestamp
-        nullable: true
-      bridge__is_current_record:
-        data_type: bool
-        nullable: true
-      _dlt_load_id:
+      _hook__product_subcategory:
         data_type: text
-        nullable: false
-      _dlt_id:
+        nullable: true
+      _pit_hook__product_category:
         data_type: text
-        nullable: false
-        unique: true
-        row_key: true
-    write_disposition: replace
-    table_format: delta
-    resource: uss_bridge__ship_methods
-    x-normalizer:
-      seen-data: true
-  uss_bridge__state_provinces:
-    columns:
-      stage:
+        nullable: true
+      _hook__sales_person:
+        data_type: text
+        nullable: true
+      _pit_hook__product:
+        data_type: text
+        nullable: true
+      _hook__product:
         data_type: text
         nullable: true
       _pit_hook__state_province:
         data_type: text
         nullable: true
-      _hook__state_province:
-        data_type: text
-        nullable: true
       _pit_hook__territory:
         data_type: text
         nullable: true
-      bridge__record_loaded_at:
-        data_type: timestamp
+      _hook__state_province:
+        data_type: text
         nullable: true
-      bridge__record_updated_at:
-        data_type: timestamp
+      _hook__territory:
+        data_type: text
         nullable: true
-      bridge__record_valid_from:
-        data_type: timestamp
+      _pit_hook__sales_order_detail:
+        data_type: text
         nullable: true
-      bridge__record_valid_to:
-        data_type: timestamp
+      _hook__sales_order_detail:
+        data_type: text
         nullable: true
-      bridge__is_current_record:
-        data_type: bool
+      _pit_hook__special_offer:
+        data_type: text
+        nullable: true
+      _hook__ship_method:
+        data_type: text
+        nullable: true
+      _hook__special_offer:
+        data_type: text
+        nullable: true
+      _hook__product_category:
+        data_type: text
+        nullable: true
+      _hook__customer:
+        data_type: text
+        nullable: true
+      _pit_hook__address:
+        data_type: text
+        nullable: true
+      _hook__address:
+        data_type: text
+        nullable: true
+      _hook__credit_card:
+        data_type: text
+        nullable: true
+    write_disposition: replace
+    table_format: delta
+    resource: _bridge__as_of
+    x-normalizer:
+      seen-data: true
+  _dlt_pipeline_state:
+    columns:
+      version:
+        data_type: bigint
+        nullable: false
+      engine_version:
+        data_type: bigint
+        nullable: false
+      pipeline_name:
+        data_type: text
+        nullable: false
+      state:
+        data_type: text
+        nullable: false
+      created_at:
+        data_type: timestamp
+        nullable: false
+      version_hash:
+        data_type: text
         nullable: true
       _dlt_load_id:
         data_type: text
@@ -1712,9 +1235,9 @@ tables:
         nullable: false
         unique: true
         row_key: true
-    write_disposition: replace
-    table_format: delta
-    resource: uss_bridge__state_provinces
+    write_disposition: append
+    file_format: preferred
+    resource: _dlt_pipeline_state
     x-normalizer:
       seen-data: true
 settings:
@@ -1740,7 +1263,5 @@ normalizers:
   json:
     module: dlt.common.normalizers.json.relational
 previous_hashes:
-- WKYp2Ni0NdBnznSiBd3K8qQs87hvDlVpITuWopPgm54=
-- Q2kBPKnRHym258C28n3U2/QJeErohagLAuMJk2EnNVQ=
-- lHn9Nq23yNTo/kSB7CFnAtibMmK9jvZQveExGE5isgA=
-- bID2pHs7BlXS1VoU5jKgO8+vZ5GsBp/Zw5JUocSdbE8=
+- SdrcW5LaSuMWEbWY7Cyv/9tre+CAmXbVfeIVnB6GSPU=
+- nb2FhtthJhjsABSdT27hgOCW9M+UPnxgDJ5WOhxoGXc=
