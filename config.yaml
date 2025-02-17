@@ -5,8 +5,13 @@ gateways:
       database: "./lakehouse/lakehouse.duckdb"
       extensions:
         - delta
+  
+  remote:
+    connection:
+      type: motherduck
+      database: adventure_works
 
-default_gateway: local
+default_gateway: remote
 
 model_defaults:
   dialect: duckdb
