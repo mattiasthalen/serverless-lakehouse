@@ -4,5 +4,5 @@ MODEL (
     
 SELECT
   *
-FROM gold._bridge__as_of
+FROM silver.uss_bridge
 WHERE bridge__is_current_record = True
