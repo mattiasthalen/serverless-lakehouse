@@ -79,7 +79,9 @@ WITH bridge AS (
     SELECT
         bridge._pit_hook__sales_order,
         bag__adventure_works__sales_order_headers.sales_order__order_date AS event_date,
-        1 AS measure__sales_order_placed
+        1 AS measure__sales_order_placed,
+        sales_order__due_date - sales_order__order_date AS measure__sales_order_due_lead_time,
+        sales_order__ship_date - sales_order__order_date AS measure__sales_order_shipping_lead_time
     FROM bridge
     INNER JOIN silver.bag__adventure_works__sales_order_headers USING (_pit_hook__sales_order)
 ), sales_order__due_date AS (
@@ -88,8 +90,8 @@ WITH bridge AS (
         bag__adventure_works__sales_order_headers.sales_order__due_date AS event_date,
         1 AS measure__sales_order_due,
         CASE
-            WHEN bag__adventure_works__sales_order_headers.sales_order__ship_date = bag__adventure_works__sales_order_headers.sales_order__due_date
-            THEN 1
+          WHEN bag__adventure_works__sales_order_headers.sales_order__ship_date = bag__adventure_works__sales_order_headers.sales_order__due_date
+          THEN 1
         END AS measure__sales_order_shipped_on_time
     FROM bridge
     INNER JOIN silver.bag__adventure_works__sales_order_headers USING (_pit_hook__sales_order)
@@ -108,9 +110,12 @@ WITH bridge AS (
         sales_order__due_date.event_date,
         sales_order__ship_date.event_date
       ) AS event_date,
-      sales_order__order_date.* EXCLUDE (_pit_hook__sales_order, event_date),
-      sales_order__due_date.* EXCLUDE (_pit_hook__sales_order, event_date),
-      sales_order__ship_date.* EXCLUDE (_pit_hook__sales_order, event_date)
+      sales_order__order_date.measure__sales_order_placed,
+      sales_order__order_date.measure__sales_order_due_lead_time,
+      sales_order__order_date.measure__sales_order_shipping_lead_time,
+      sales_order__due_date.measure__sales_order_due,
+      sales_order__due_date.measure__sales_order_shipped_on_time,
+      sales_order__ship_date.measure__sales_order_shipped
     FROM bridge
     FULL OUTER JOIN sales_order__order_date USING (_pit_hook__sales_order)
     FULL OUTER JOIN sales_order__due_date USING (_pit_hook__sales_order, event_date)
@@ -131,6 +136,8 @@ SELECT
   _pit_hook__territory,
   CONCAT('calendar|date|', event_date)::BLOB AS _hook__calendar__date,
   measure__sales_order_placed,
+  measure__sales_order_due_lead_time,
+  measure__sales_order_shipping_lead_time,
   measure__sales_order_due,
   measure__sales_order_shipped_on_time,
   measure__sales_order_shipped,
