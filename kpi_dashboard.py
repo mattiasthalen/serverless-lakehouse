@@ -233,43 +233,70 @@ def plot_control_chart(metrics_df: pl.DataFrame, metric: str):
 st.set_page_config(layout="wide")
 
 # Render visualizations
-n_periods = 10
 metrics = ["sales_orders_placed", "sales_orders_due", "sales_orders_shipped"]
 dashboard_columns = len(metrics)
 
 st.title("Adventure Works")
 st.subheader("Leading Measures")
 
+neutral = "rgba(90, 90, 160, 0.2)"
+good = "rgba(100, 170, 90, 0.2)"
+bad = "rgba(190, 120, 80, 0.2)"
+
+def colored_text(text, color):
+    return f'<div style="background-color: {color}; padding: 10px; border-radius: 5px; display: inline-block;">{text}</div>'
+
 st.markdown(
     """
     <style>
-        /* Style columns (works in both themes) */
-        [data-testid="stHorizontalBlock"] > div {
-            background-color: rgba(100, 100, 150, 0.2); /* Subtle blue tint */
-            border-radius: 10px;
-            padding: 10px;
-            margin: 5px;
-            border-style: none;
-            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
-            color: inherit; /* Ensures text color adapts */
-        }
-
-        /* Style expanders (adaptive color) */
-        [data-testid="stExpander"] details {
-            background-color: rgba(100, 100, 150, 0.2); /* Subtle blue tint */
-            border-radius: 10px;
-            margin: 10px 0;
-            padding: 0px;
-            border-style: none;
-            color: inherit;
+        :hover {
+            rgba(90, 90, 160, 0.2);
         }
         
-        /* Apply background to expander content */
+        [data-testid="stHorizontalBlock"] > div {
+            background-color: rgba(90, 90, 160, 0.2);
+            border-radius: 15px;
+            padding: 10px;
+            margin: 2px;
+            border-style: none;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        [data-testid="stExpander"] details {
+            background-color: rgba(90, 90, 160, 0.2);
+            border-radius: 10px;
+            margin: 2px 0;
+            padding: 0;
+            border-style: none;
+            color: inherit;
+            text-align: left;
+        }
+        
         [data-testid="stExpander"] details > div {
-            background-color: rgba(100, 100, 150, 0.2); /* Subtle blue tint */
+            background-color: rgba(90, 90, 160, 0.2);
             padding: 10px;
             border-radius: 0 0 10px 10px;
         }
+        
+        [data-testid="stExpander"] div {
+            box-shadow: none;
+            border-radius: 5px;
+        }
+        
+        [data-testid="stTable"] {
+            background-color: rgba(90, 90, 160, 0.2);
+            text-align: center;
+        }
+        
+        [data-testid="stTable"] div {
+            color: inherit;
+            text-align: center;
+        }
+        
     </style>
     """,
     unsafe_allow_html=True
@@ -278,22 +305,67 @@ st.markdown(
 columns = st.columns(dashboard_columns, border=True)
 
 for idx, col in enumerate(columns):
+    metric_name = metrics[idx]
+    metric_title = metric_name.replace("_", " ").title()
+    
+    measures_df = uss__date_df.select("date", metric_name)
+    
+    control_data_df = calculate_control_limits(measures_df, metric_name).head(90)
+    
+    current_central_line = control_data_df["central_line"][0]
+    current_lower_control_limit = control_data_df["lower_control_limit"][0]
+    current_upper_control_limit = control_data_df["upper_control_limit"][0]
+    
     with col:
-        metric_title = metrics[idx].replace("_", " ").title()
+        
         st.header(metric_title)
         
         # Card 1 - KPI
-        with st.expander("KPI", expanded=True):
-            st.table(uss__global_df.select(metrics[idx]).head(n_periods))
+        with st.expander("Current Process", expanded=True):
+                subcol1, subcol2, subcol3 = st.columns(3)
+                
+                with subcol1:
+                    st.metric(label="Central Line", value=f"{current_central_line:0.2f}")                    #st.markdown("**Central Line**")
+                with subcol2:
+                    st.metric(label="Lower Control Limit", value=f"{current_lower_control_limit:0.2f}")
+                with subcol3:
+                    st.metric(label="Upper Control Limit", value=f"{current_upper_control_limit:0.2f}")
     
-        # Card 2 - Table
-        with st.expander("Calendar", expanded=True):
-            st.table(uss__date_df.select(["date", metrics[idx]]).head(n_periods))
+        # Card 2 - Calendar
+        with st.expander("Weekly Outlier Matrix", expanded=True):
+            import calendar
+                
+            calendar_df = (
+                control_data_df.with_columns([
+                    pl.col("date").dt.week().alias("Week"),
+                    pl.col("date").dt.weekday().alias("Weekday"),
+                    pl.when(pl.col(metric_name) > pl.col("upper_control_limit"))
+                        .then(pl.lit("🔥"))
+                        .when(pl.col(metric_name) < pl.col("lower_control_limit"))
+                        .then(pl.lit("❄️"))
+                        .otherwise(pl.lit(""))
+                        .alias(metric_name)
+                ])
+                .sort("Weekday")
+                .pivot(
+                    on="Weekday",
+                    values=metric_name,
+                    index="Week",
+                    aggregate_function="first"
+                )
+                .sort("Week", descending=True)
+                .to_pandas()
+                .set_index("Week")
+            )
+            
+            calendar_df.columns = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+            
+            st.table(calendar_df.head(10))
     
         # Card 3 - Control Chart
-        with st.expander("Control Chart", expanded=True):
-            st.table(uss__date_df.select(["date", metrics[idx]]).head(n_periods))
+        with st.expander("Process Control Chart", expanded=False): # expand when dev is completed
+            st.table(control_data_df.head(10))
     
         # Card 4 - Pareto
-        with st.expander("Pareto", expanded=True):
-            st.table(uss__customer_df.select(["customer__account_number", metrics[idx]]).head(n_periods))
+        with st.expander("Pareto", expanded=False): # expand when dev is completed
+            st.table(uss__customer_df.select(["customer__account_number", metrics[idx]]).head(10))
