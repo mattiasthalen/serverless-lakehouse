@@ -88,4 +88,3 @@ SELECT
   bridge__record_valid_to,
   bridge__is_current_record
 FROM bridge
-WHERE stage IS NOT NULL
