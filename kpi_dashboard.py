@@ -63,6 +63,7 @@ def create_metric_summary(df, group_by_col=None, sort_by="sales_orders_placed"):
     
 uss__global_df = create_metric_summary(uss_df)
 uss__date_df = create_metric_summary(uss_df, "date", "date")
+uss__year_week_day_df = create_metric_summary(uss_df, ["year_week", "weekday__name", "date"], "date")
 uss__customer_df = create_metric_summary(uss_df, "customer__account_number")
 uss__product_df = create_metric_summary(uss_df, "product__name")
 uss__product_subcategory_df = create_metric_summary(uss_df, "product_subcategory__name")
@@ -308,7 +309,7 @@ for idx, col in enumerate(columns):
     metric_name = metrics[idx]
     metric_title = metric_name.replace("_", " ").title()
     
-    measures_df = uss__date_df.select("date", metric_name)
+    measures_df = uss__year_week_day_df.select("year_week", "weekday__name", "date", metric_name)
     
     control_data_df = calculate_control_limits(measures_df, metric_name).head(90)
     
@@ -337,8 +338,8 @@ for idx, col in enumerate(columns):
                 
             calendar_df = (
                 control_data_df.with_columns([
-                    pl.col("date").dt.week().alias("Week"),
-                    pl.col("date").dt.weekday().alias("Weekday"),
+                    pl.col("year_week").alias("Year-Week"),
+                    pl.col("weekday__name").alias("Weekday"),
                     pl.when(pl.col(metric_name) > pl.col("upper_control_limit"))
                         .then(pl.lit("🔥"))
                         .when(pl.col(metric_name) < pl.col("lower_control_limit"))
@@ -350,15 +351,14 @@ for idx, col in enumerate(columns):
                 .pivot(
                     on="Weekday",
                     values=metric_name,
-                    index="Week",
+                    index="Year-Week",
                     aggregate_function="first"
                 )
-                .sort("Week", descending=True)
+                .sort("Year-Week", descending=True)
+                .select("Year-Week", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
                 .to_pandas()
-                .set_index("Week")
+                .set_index("Year-Week")
             )
-            
-            calendar_df.columns = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
             
             st.table(calendar_df.head(6))
     
