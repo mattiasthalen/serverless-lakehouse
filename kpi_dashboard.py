@@ -360,7 +360,7 @@ for idx, col in enumerate(columns):
             
             calendar_df.columns = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
             
-            st.table(calendar_df.head(10))
+            st.table(calendar_df.head(6))
     
         # Card 3 - Control Chart
         with st.expander("Process Control Chart", expanded=False): # expand when dev is completed
