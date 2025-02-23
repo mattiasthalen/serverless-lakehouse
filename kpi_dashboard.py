@@ -238,29 +238,62 @@ metrics = ["sales_orders_placed", "sales_orders_due", "sales_orders_shipped"]
 dashboard_columns = len(metrics)
 
 st.title("Adventure Works")
-st.subheader("Leading Measures For Sales Orders")
+st.subheader("Leading Measures")
 
-for idx, col in enumerate(st.columns(dashboard_columns)):
+st.markdown(
+    """
+    <style>
+        /* Style columns (works in both themes) */
+        [data-testid="stHorizontalBlock"] > div {
+            background-color: rgba(100, 100, 150, 0.2); /* Subtle blue tint */
+            border-radius: 10px;
+            padding: 10px;
+            margin: 5px;
+            border-style: none;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+            color: inherit; /* Ensures text color adapts */
+        }
+
+        /* Style expanders (adaptive color) */
+        [data-testid="stExpander"] details {
+            background-color: rgba(100, 100, 150, 0.2); /* Subtle blue tint */
+            border-radius: 10px;
+            margin: 10px 0;
+            padding: 0px;
+            border-style: none;
+            color: inherit;
+        }
+        
+        /* Apply background to expander content */
+        [data-testid="stExpander"] details > div {
+            background-color: rgba(100, 100, 150, 0.2); /* Subtle blue tint */
+            padding: 10px;
+            border-radius: 0 0 10px 10px;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+columns = st.columns(dashboard_columns, border=True)
+
+for idx, col in enumerate(columns):
     with col:
-        title = metrics[idx].replace("_", " ").title()
-        st.subheader(title)
+        metric_title = metrics[idx].replace("_", " ").title()
+        st.header(metric_title)
         
         # Card 1 - KPI
-        with st.expander("Process Metrics", expanded=True):
-            with st.container():
-                st.table(uss__global_df.select(metrics[idx]).head(n_periods))#, use_container_width=True)
-        
+        with st.expander("KPI", expanded=True):
+            st.table(uss__global_df.select(metrics[idx]).head(n_periods))
+    
         # Card 2 - Table
-        with st.expander("Process Data", expanded=True):
-            with st.container():
-                st.table(uss__date_df.select(["date", metrics[idx]]).head(n_periods))
-        
+        with st.expander("Calendar", expanded=True):
+            st.table(uss__date_df.select(["date", metrics[idx]]).head(n_periods))
+    
         # Card 3 - Control Chart
-        with st.expander("Process Control", expanded=True):
-            with st.container():
-                st.table(uss__date_df.select(["date", metrics[idx]]).head(n_periods))
-        
+        with st.expander("Control Chart", expanded=True):
+            st.table(uss__date_df.select(["date", metrics[idx]]).head(n_periods))
+    
         # Card 4 - Pareto
-        with st.expander("Process Distribution", expanded=True):
-            with st.container():
-                st.table(uss__customer_df.select(["customer__account_number", metrics[idx]]).head(n_periods))
+        with st.expander("Pareto", expanded=True):
+            st.table(uss__customer_df.select(["customer__account_number", metrics[idx]]).head(n_periods))
