@@ -237,7 +237,7 @@ metrics = ["sales_orders_placed", "sales_orders_due", "sales_orders_shipped"]
 dashboard_columns = len(metrics)
 
 st.title("Adventure Works")
-st.subheader("Leading Measures")
+#st.subheader("Leading Measures")
 
 neutral = "rgba(90, 90, 160, 0.2)"
 good = "rgba(100, 170, 90, 0.2)"
