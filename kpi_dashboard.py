@@ -41,7 +41,7 @@ uss_df = bridge_df.join(
     pl.col("date").is_not_null()
 )
 
-def create_metric_summary(df, group_by_col, sort_by="measure__sales_order_placed"):
+def create_metric_summary(df, group_by_col=None, sort_by="sales_orders_placed"):
     """
     Create a summary of sales metrics grouped by the specified column.
     
@@ -50,27 +50,23 @@ def create_metric_summary(df, group_by_col, sort_by="measure__sales_order_placed
         group_by_col: str - column to group by
         sort_by: str - column to sort by (defaults to sales_order_placed)
     """
-    return df.group_by(
-        group_by_col
-    ).agg(
-        [
-            pl.col("measure__sales_order_placed").sum(),
-            pl.col("measure__sales_order_due").sum(),
-            pl.col("measure__sales_order_shipped").sum()
-        ]
-    ).sort(sort_by, descending=True)
+    aggregation = [
+        pl.col("measure__sales_order_placed").sum().alias("sales_orders_placed"),
+        pl.col("measure__sales_order_due").sum().alias("sales_orders_due"),
+        pl.col("measure__sales_order_shipped").sum().alias("sales_orders_shipped")
+    ]
     
-uss__global_df = create_metric_summary(uss_df, "date", "date")
+    if not group_by_col:
+        return df.select(aggregation).sort(sort_by, descending=True) 
+    
+    return df.group_by(group_by_col).agg(aggregation).sort(sort_by, descending=True)
+    
+uss__global_df = create_metric_summary(uss_df)
+uss__date_df = create_metric_summary(uss_df, "date", "date")
 uss__customer_df = create_metric_summary(uss_df, "customer__account_number")
 uss__product_df = create_metric_summary(uss_df, "product__name")
 uss__product_subcategory_df = create_metric_summary(uss_df, "product_subcategory__name")
 uss__product_category_df = create_metric_summary(uss_df, "product_category__name")
-
-uss__global_df
-uss__customer_df
-uss__product_df
-uss__product_subcategory_df
-uss__product_category_df
 
 def calculate_control_limits(df: pl.DataFrame, measure_col: str, calc_window: int = 20, long_run: int = 8, short_run: int = 4):
     total_rows = df.height
@@ -233,15 +229,38 @@ def plot_control_chart(metrics_df: pl.DataFrame, metric: str):
     
     st.plotly_chart(fig, use_container_width=True)
 
+# Set page config to use wide layout
+st.set_page_config(layout="wide")
 
-n_periods = 90
+# Render visualizations
+n_periods = 10
+metrics = ["sales_orders_placed", "sales_orders_due", "sales_orders_shipped"]
+dashboard_columns = len(metrics)
 
-#with st.container():
-#    col1, col2 = st.columns(2)
-#    with col1:
-    #        plot_control_chart(metrics_df.tail(n_periods), "orders_placed")
-    #    
-    #    with col2:
-#        plot_control_chart(metrics_df.tail(n_periods), "orders_due")
-#    
-#    plot_control_chart(metrics_df.tail(n_periods), "orders_shipped")
+st.title("Adventure Works")
+st.subheader("Leading Measures For Sales Orders")
+
+for idx, col in enumerate(st.columns(dashboard_columns)):
+    with col:
+        title = metrics[idx].replace("_", " ").title()
+        st.subheader(title)
+        
+        # Card 1 - KPI
+        with st.expander("Process Metrics", expanded=True):
+            with st.container():
+                st.table(uss__global_df.select(metrics[idx]).head(n_periods))#, use_container_width=True)
+        
+        # Card 2 - Table
+        with st.expander("Process Data", expanded=True):
+            with st.container():
+                st.table(uss__date_df.select(["date", metrics[idx]]).head(n_periods))
+        
+        # Card 3 - Control Chart
+        with st.expander("Process Control", expanded=True):
+            with st.container():
+                st.table(uss__date_df.select(["date", metrics[idx]]).head(n_periods))
+        
+        # Card 4 - Pareto
+        with st.expander("Process Distribution", expanded=True):
+            with st.container():
+                st.table(uss__customer_df.select(["customer__account_number", metrics[idx]]).head(n_periods))
