@@ -3,6 +3,7 @@ import numpy as np
 import polars as pl
 import streamlit as st
 
+n_weeks = 6
 gold_path = "./lakehouse/gold"
 
 bridge_df = pl.read_delta(f"{gold_path}/_bridge__as_is")
@@ -43,10 +44,7 @@ uss_df = bridge_df.join(
         on="_hook__calendar__date",
         how="left"
     ).filter(
-        pl.col("date") >= pl.col("date").max() - pl.duration(days=6*7)
-    ).sort(
-        "date",
-        descending=True
+        pl.col("date") >= pl.col("date").max() - pl.duration(days=n_weeks*7)
     )
 
 def create_metric_summary(df, group_by_col=None, sort_by="sales_orders_placed"):
@@ -258,7 +256,11 @@ for idx, col in enumerate(columns):
     metric_name = metrics[idx]
     metric_title = metric_name.replace("_", " ").title()
     
-    measures_df = uss__year_week_day_df.select("year_week", "weekday__name", "date", metric_name)
+    measures_df = uss__year_week_day_df.select(
+        "year_week", "weekday__name", "date", metric_name
+    ).sort(
+        "date"
+    )
     
     control_data_df = calculate_control_limits(measures_df, metric_name)
     
@@ -365,7 +367,12 @@ for idx, col in enumerate(columns):
             fig.update_layout(
                 xaxis_title="Date",
                 yaxis_title=metric_title,
-                xaxis=dict(type="category"),
+                xaxis=dict(
+                    type="category",
+                    tickmode="auto",
+                    nticks=n_weeks,
+                    #tickangle=45
+                ),
                 legend=dict(orientation="h", yanchor="bottom", y=1.1, xanchor="center", x=0.5),
                 paper_bgcolor="rgba(0, 0, 0, 0)",
                 plot_bgcolor="rgba(0, 0, 0, 0)"
