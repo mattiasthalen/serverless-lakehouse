@@ -61,6 +61,7 @@ WITH bridge AS (
   SELECT
     _pit_hook__sales_order_detail,
     sales_order__order_date AS event_date,
+    1 AS measure__sales_order_detail__placed,
     CASE WHEN _pit_hook__special_offer IS NOT NULL THEN 1 END AS measure__sales_order_detail__has_special_offer,
     sales_order_detail__unit_price_discount*sales_order_detail__order_qty AS measure__sales_order_detail__discount_price,
     sales_order_detail__unit_price*sales_order_detail__order_qty AS measure__sales_order_detail__price,
@@ -91,6 +92,7 @@ WITH bridge AS (
     _pit_hook__territory,
     _pit_hook__special_offer,
     CONCAT('calendar|date|', event_date)::BLOB AS _hook__calendar__date,
+    measure__sales_order_detail__placed,
     measure__sales_order_detail__has_special_offer,
     measure__sales_order_detail__discount_price,
     measure__sales_order_detail__price,

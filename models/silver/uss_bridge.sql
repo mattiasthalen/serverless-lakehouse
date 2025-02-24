@@ -77,6 +77,7 @@ SELECT
   _pit_hook__territory,
   _hook__calendar__date,
   measure__is_returning_customer,
+  measure__sales_order_detail__placed,
   measure__sales_order_detail__has_special_offer,
   measure__sales_order_detail__discount_price,
   measure__sales_order_detail__price,
