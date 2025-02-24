@@ -366,6 +366,7 @@ for idx, col in enumerate(columns):
             # Layout settings
             fig.update_layout(
                 yaxis_title=metric_title,
+                margin=dict(l=50, r=50, t=50, b=50),
                 showlegend=False,
                 paper_bgcolor="rgba(0, 0, 0, 0)",
                 plot_bgcolor="rgba(0, 0, 0, 0)"
