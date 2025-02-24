@@ -264,6 +264,7 @@ for idx, col in enumerate(columns):
     
     control_data_df = calculate_control_limits(measures_df, metric_name)
     
+    current_value = control_data_df[metric_name][0]
     current_central_line = control_data_df["central_line"][0]
     current_lower_control_limit = control_data_df["lower_control_limit"][0]
     current_upper_control_limit = control_data_df["upper_control_limit"][0]
@@ -274,14 +275,16 @@ for idx, col in enumerate(columns):
         
         # Card 1 - KPI
         with st.expander("Current Process", expanded=True):
-                subcol1, subcol2, subcol3 = st.columns(3)
-                
-                with subcol1:
-                    st.metric(label="Central Line", value=f"{current_central_line:0.2f}")                    #st.markdown("**Central Line**")
-                with subcol2:
-                    st.metric(label="Lower Control Limit", value=f"{current_lower_control_limit:0.2f}")
-                with subcol3:
-                    st.metric(label="Upper Control Limit", value=f"{current_upper_control_limit:0.2f}")
+            subcol1, subcol2, subcol3, subcol4 = st.columns(4)
+
+            with subcol1:
+                st.metric(label=metric_title, value=f"{current_value:0.2f}")   
+            with subcol2:
+                st.metric(label="Central Line", value=f"{current_central_line:0.2f}")
+            with subcol3:
+                st.metric(label="Lower Control Limit", value=f"{current_lower_control_limit:0.2f}")
+            with subcol4:
+                st.metric(label="Upper Control Limit", value=f"{current_upper_control_limit:0.2f}")
     
         # Card 2 - Calendar
         with st.expander("Weekly Outlier Matrix", expanded=True):
