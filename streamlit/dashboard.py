@@ -340,7 +340,7 @@ for idx, col in enumerate(columns):
             for col, color, name in [
                 ("central_line", neutral_color(1.0), "Central Line"),
                 ("upper_control_limit", bad_color(1.0), "Upper Control Limit"),
-                ("lower_control_limit", bad_color(1.0), "Lower Control Limit")
+                ("lower_control_limit", good_color(1.0), "Lower Control Limit")
             ]:
                 fig.add_trace(go.Scatter(
                     x=process_control_df["date"],
@@ -353,7 +353,7 @@ for idx, col in enumerate(columns):
             # Plot upper and lower outliers as bold points
             for col, color, name in [
                 ("upper_outlier", bad_color(1.0), "Upper Outlier"),
-                ("lower_outlier", bad_color(1.0), "Lower Outlier")
+                ("lower_outlier", good_color(1.0), "Lower Outlier")
             ]:
                 fig.add_trace(go.Scatter(
                     x=process_control_df["date"],
