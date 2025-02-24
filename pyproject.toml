@@ -6,10 +6,14 @@ readme = "README.md"
 requires-python = ">=3.9,<3.13"
 dependencies = [
     "beautifulsoup4>=4.12.3",
+    "deltalake>=0.24.0",
     "dlt[deltalake,duckdb,filesystem]>=1.5.0",
     "duckdb>=1.1.3",
     "enlighten>=1.13.0",
+    "matplotlib>=3.9.4",
+    "plotly>=6.0.0",
     "polars>=1.21.0",
     "pyarrow>=17.0.0",
     "sqlmesh[github,web]>=0.150.1",
+    "streamlit>=1.42.1",
 ]

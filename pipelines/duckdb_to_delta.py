@@ -62,5 +62,15 @@ def load_schema(schema: str) -> None:
     print(load_info)
 
 if __name__ == "__main__":
-    load_schema("silver")
-    load_schema("gold")
+    import sys
+    
+    # Default behavior: load both schemas if no argument provided
+    if len(sys.argv) == 1:
+        load_schema("silver")
+        load_schema("gold")
+        
+    # Load specific schema if provided as argument
+    elif len(sys.argv) == 2 and sys.argv[1].lower() in ["silver", "gold"]:
+        load_schema(sys.argv[1].lower())
+    else:
+        print("Usage: python duckdb_to_delta.py [silver|gold]")

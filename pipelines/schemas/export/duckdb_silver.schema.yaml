@@ -1,5 +1,5 @@
 version: 5
-version_hash: XmfDQ8hlnyqWg/Vp76U+mb6OEjsKuZ/bCnZZSKoHTi0=
+version_hash: 0wMXcxO3HMLP1pI/P/iFb9RN7pc4ohyE1MLaYTSMROQ=
 engine_version: 11
 name: duckdb_silver
 tables:
@@ -598,19 +598,19 @@ tables:
         data_type: text
         nullable: true
       sales_order__due_date:
-        data_type: text
+        data_type: timestamp
         nullable: true
       sales_order__freight:
         data_type: double
         nullable: true
       sales_order__modified_date:
-        data_type: text
+        data_type: timestamp
         nullable: true
       sales_order__online_order_flag:
         data_type: bool
         nullable: true
       sales_order__order_date:
-        data_type: text
+        data_type: timestamp
         nullable: true
       sales_order__revision_number:
         data_type: bigint
@@ -622,7 +622,7 @@ tables:
         data_type: text
         nullable: true
       sales_order__ship_date:
-        data_type: text
+        data_type: timestamp
         nullable: true
       sales_order__status:
         data_type: bigint
@@ -1086,7 +1086,13 @@ tables:
       _pit_hook__credit_card:
         data_type: text
         nullable: true
+      _pit_hook__currency_rate:
+        data_type: text
+        nullable: true
       _pit_hook__customer:
+        data_type: text
+        nullable: true
+      _pit_hook__sales_person:
         data_type: text
         nullable: true
       _pit_hook__ship_method:
@@ -1118,12 +1124,6 @@ tables:
         nullable: false
         unique: true
         row_key: true
-      _pit_hook__currency_rate:
-        data_type: text
-        nullable: true
-      _pit_hook__sales_person:
-        data_type: text
-        nullable: true
     write_disposition: replace
     table_format: delta
     resource: uss_bridge__sales_order_details
@@ -1161,6 +1161,12 @@ tables:
       measure__sales_order_placed:
         data_type: double
         nullable: true
+      measure__sales_order_due_lead_time:
+        data_type: double
+        nullable: true
+      measure__sales_order_shipping_lead_time:
+        data_type: double
+        nullable: true
       bridge__record_loaded_at:
         data_type: timestamp
         nullable: true
@@ -1185,6 +1191,9 @@ tables:
         unique: true
         row_key: true
       measure__sales_order_due:
+        data_type: double
+        nullable: true
+      measure__sales_order_shipped_on_time:
         data_type: double
         nullable: true
       measure__sales_order_shipped:
@@ -1737,9 +1746,6 @@ tables:
       _pit_hook__currency_rate:
         data_type: text
         nullable: true
-      _hook__currency_rate:
-        data_type: text
-        nullable: true
       bridge__record_loaded_at:
         data_type: timestamp
         nullable: true
@@ -1763,16 +1769,13 @@ tables:
         nullable: false
         unique: true
         row_key: true
-      _pit_hook__sales_order:
-        data_type: text
-        nullable: true
-      _hook__sales_order:
-        data_type: text
-        nullable: true
       _pit_hook__credit_card:
         data_type: text
         nullable: true
       _pit_hook__customer:
+        data_type: text
+        nullable: true
+      _pit_hook__sales_order:
         data_type: text
         nullable: true
       _pit_hook__sales_person:
@@ -1787,28 +1790,19 @@ tables:
       measure__sales_order_placed:
         data_type: double
         nullable: true
-      measure__sales_order_due:
+      measure__sales_order_due_lead_time:
         data_type: double
         nullable: true
-      measure__sales_order_shipped:
+      measure__sales_order_shipping_lead_time:
         data_type: double
-        nullable: true
-      _pit_hook__product_subcategory:
-        data_type: text
-        nullable: true
-      _hook__product_subcategory:
-        data_type: text
         nullable: true
       _pit_hook__product_category:
         data_type: text
         nullable: true
-      _hook__sales_person:
+      _pit_hook__product_subcategory:
         data_type: text
         nullable: true
       _pit_hook__product:
-        data_type: text
-        nullable: true
-      _hook__product:
         data_type: text
         nullable: true
       _pit_hook__state_province:
@@ -1817,40 +1811,13 @@ tables:
       _pit_hook__territory:
         data_type: text
         nullable: true
-      _hook__state_province:
-        data_type: text
-        nullable: true
-      _hook__territory:
-        data_type: text
-        nullable: true
       _pit_hook__sales_order_detail:
-        data_type: text
-        nullable: true
-      _hook__sales_order_detail:
         data_type: text
         nullable: true
       _pit_hook__special_offer:
         data_type: text
         nullable: true
-      _hook__ship_method:
-        data_type: text
-        nullable: true
-      _hook__special_offer:
-        data_type: text
-        nullable: true
-      _hook__product_category:
-        data_type: text
-        nullable: true
-      _hook__customer:
-        data_type: text
-        nullable: true
       _pit_hook__address:
-        data_type: text
-        nullable: true
-      _hook__address:
-        data_type: text
-        nullable: true
-      _hook__credit_card:
         data_type: text
         nullable: true
     write_disposition: replace

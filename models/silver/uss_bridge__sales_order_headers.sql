@@ -104,8 +104,6 @@ WITH bridge AS (
     USING (_pit_hook__sales_order, event_date)
   FULL OUTER JOIN sales_order__ship_date
     USING (_pit_hook__sales_order, event_date)
-  FULL OUTER JOIN bridge
-    USING (_pit_hook__sales_order)
 ), final AS (
   SELECT
     stage,
@@ -131,7 +129,8 @@ WITH bridge AS (
     bridge__record_valid_from,
     bridge__record_valid_to,
     bridge__record_valid_to = '9999-12-31 23:59:59'::TIMESTAMP AS bridge__is_current_record
-  FROM measures
+  FROM bridge
+  LEFT JOIN measures USING (_pit_hook__sales_order)
 )
 SELECT
   *

@@ -60,6 +60,7 @@ WITH bridge AS (
   FROM silver.uss_bridge__credit_cards
 )
 SELECT
+  stage,
   _pit_hook__address,
   _pit_hook__credit_card,
   _pit_hook__currency_rate,
