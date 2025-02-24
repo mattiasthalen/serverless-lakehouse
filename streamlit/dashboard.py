@@ -307,8 +307,69 @@ for idx, col in enumerate(columns):
             st.table(calendar_df.head(6))
     
         # Card 3 - Control Chart
-        with st.expander("Process Control Chart", expanded=False): # expand when dev is completed
-            st.table(control_data_df.head(10))
+        with st.expander("Process Control Chart", expanded=True):
+            process_control_df = control_data_df.select(
+                pl.col("date").dt.strftime("%Y-%m-%d").alias("date"),
+                pl.col(metric_name),
+                pl.col("central_line"),
+                pl.col("upper_control_limit"),
+                pl.col("lower_control_limit"),
+                pl.col("short_run"),
+                pl.col("long_run"),
+                pl.col("upper_outlier"),
+                pl.col("lower_outlier")
+            ).head(6*7)
+            
+            fig = go.Figure()
+            
+            # Plot metric_name as tiny points without lines
+            fig.add_trace(go.Scatter(
+                x=process_control_df["date"],
+                y=process_control_df[metric_name],
+                mode="markers",
+                marker=dict(size=5, color=neutral_color(1.0)),
+                name="In control"
+            ))
+            
+            # Plot central line, UCL, and LCL as thick whole lines
+            for col, color, name in [
+                ("central_line", neutral_color(1.0), "Central Line"),
+                ("upper_control_limit", bad_color(1.0), "Upper Control Limit"),
+                ("lower_control_limit", bad_color(1.0), "Lower Control Limit")
+            ]:
+                fig.add_trace(go.Scatter(
+                    x=process_control_df["date"],
+                    y=process_control_df[col],
+                    mode="lines",
+                    line=dict(width=3, color=color),
+                    name=name
+                ))
+            
+            # Plot upper and lower outliers as bold points
+            for col, color, name in [
+                ("upper_outlier", bad_color(1.0), "Upper Outlier"),
+                ("lower_outlier", bad_color(1.0), "Lower Outlier")
+            ]:
+                fig.add_trace(go.Scatter(
+                    x=process_control_df["date"],
+                    y=process_control_df[col],
+                    mode="markers",
+                    marker=dict(size=10, color=color, symbol="circle"),
+                    name=name
+                ))
+            
+            # Layout settings
+            fig.update_layout(
+                xaxis_title="Date",
+                yaxis_title=metric_title,
+                xaxis=dict(type="category"),
+                legend=dict(orientation="h", yanchor="bottom", y=1.1, xanchor="center", x=0.5),
+                paper_bgcolor="rgba(0, 0, 0, 0)",
+                plot_bgcolor="rgba(0, 0, 0, 0)"
+            )
+            
+            # Display in Streamlit
+            st.write(fig)
     
         # Card 4 - Pareto
         with st.expander("Pareto", expanded=True):
