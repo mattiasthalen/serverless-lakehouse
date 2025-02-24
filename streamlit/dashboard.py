@@ -43,7 +43,10 @@ uss_df = bridge_df.join(
         on="_hook__calendar__date",
         how="left"
     ).filter(
-        pl.col("date").is_not_null()
+        pl.col("date") >= pl.col("date").max() - pl.duration(days=6*7)
+    ).sort(
+        "date",
+        descending=True
     )
 
 def create_metric_summary(df, group_by_col=None, sort_by="sales_orders_placed"):
@@ -257,7 +260,7 @@ for idx, col in enumerate(columns):
     
     measures_df = uss__year_week_day_df.select("year_week", "weekday__name", "date", metric_name)
     
-    control_data_df = calculate_control_limits(measures_df, metric_name).head(90)
+    control_data_df = calculate_control_limits(measures_df, metric_name)
     
     current_central_line = control_data_df["central_line"][0]
     current_lower_control_limit = control_data_df["lower_control_limit"][0]
@@ -304,7 +307,7 @@ for idx, col in enumerate(columns):
                 .set_index("Year-Week")
             )
             
-            st.table(calendar_df.head(6))
+            st.table(calendar_df)
     
         # Card 3 - Control Chart
         with st.expander("Process Control Chart", expanded=True):
@@ -318,7 +321,7 @@ for idx, col in enumerate(columns):
                 pl.col("long_run"),
                 pl.col("upper_outlier"),
                 pl.col("lower_outlier")
-            ).head(6*7)
+            )
             
             fig = go.Figure()
             
