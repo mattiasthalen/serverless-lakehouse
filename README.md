@@ -11,7 +11,7 @@ This project utilizes dlt, DuckDB, and SQLMesh, to create a serverless lakehouse
 It does this locally into `./lakehouse`, which could be replaced by a S3 bucket.
 
 ## Streamlit Dashboard
-<img width="1440" alt="image" src="https://github.com/user-attachments/assets/71160501-924f-4c0c-b50f-b99f3964dd0a" />
+<img width="1440" alt="image" src="https://github.com/user-attachments/assets/708d6a79-60a3-41f9-9252-1c988c4885ba" />
 
 ## Architecture
 ```mermaid
