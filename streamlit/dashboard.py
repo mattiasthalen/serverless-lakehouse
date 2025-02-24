@@ -346,7 +346,7 @@ for idx, col in enumerate(columns):
                     x=process_control_df["date"],
                     y=process_control_df[col],
                     mode="lines",
-                    line=dict(width=3, color=color),
+                    line=dict(color=color),
                     name=name
                 ))
             
@@ -359,21 +359,14 @@ for idx, col in enumerate(columns):
                     x=process_control_df["date"],
                     y=process_control_df[col],
                     mode="markers",
-                    marker=dict(size=10, color=color, symbol="circle"),
+                    marker=dict(size=6, color=color, symbol="circle"),
                     name=name
                 ))
             
             # Layout settings
             fig.update_layout(
-                xaxis_title="Date",
                 yaxis_title=metric_title,
-                xaxis=dict(
-                    type="category",
-                    tickmode="auto",
-                    nticks=n_weeks,
-                    #tickangle=45
-                ),
-                legend=dict(orientation="h", yanchor="bottom", y=1.1, xanchor="center", x=0.5),
+                showlegend=False,
                 paper_bgcolor="rgba(0, 0, 0, 0)",
                 plot_bgcolor="rgba(0, 0, 0, 0)"
             )
