@@ -546,7 +546,7 @@ tables:
       _hook__sales_order:
         data_type: text
         nullable: true
-      _hook__bill_to_address:
+      _hook__address__bill_to:
         data_type: text
         nullable: true
       _hook__credit_card:
@@ -564,7 +564,7 @@ tables:
       _hook__ship_method:
         data_type: text
         nullable: true
-      _hook__ship_to_address:
+      _hook__address__ship_to:
         data_type: text
         nullable: true
       _hook__territory:
