@@ -6,40 +6,45 @@ import streamlit as st
 gold_path = "./lakehouse/gold"
 
 bridge_df = pl.read_delta(f"{gold_path}/_bridge__as_is")
+address_df = pl.read_delta(f"{gold_path}/addresses")
 customers_df = pl.read_delta(f"{gold_path}/customers")
 sales_order_headers_df = pl.read_delta(f"{gold_path}/sales_order_headers")
-products_df = pl.read_delta(f"{gold_path}/products")
-product_subcategories_df = pl.read_delta(f"{gold_path}/product_subcategories")
-product_categories_df = pl.read_delta(f"{gold_path}/product_categories")
+sales_territory_df = pl.read_delta(f"{gold_path}/sales_territories")
+state_province_df = pl.read_delta(f"{gold_path}/state_provinces")
+ship_method_df = pl.read_delta(f"{gold_path}/ship_methods")
 calendar_df = pl.read_delta(f"{gold_path}/calendar")
 
 uss_df = bridge_df.join(
-    customers_df,
-    on="_pit_hook__customer",
-    how="left"
-).join(
+    address_df,
+        on="_pit_hook__address",
+        how="left"
+    ).join(
     sales_order_headers_df,
-    on="_pit_hook__sales_order",
-    how="left"
-).join(
-    products_df,
-    on="_pit_hook__product",
-    how="left"
-).join(
-    product_subcategories_df,
-    on="_pit_hook__product_subcategory",
-    how="left"
-).join(
-    product_categories_df,
-    on="_pit_hook__product_category",
-    how="left"
-).join(
-    calendar_df,
-    on="_hook__calendar__date",
-    how="left"
-).filter(
-    pl.col("date").is_not_null()
-)
+        on="_pit_hook__sales_order",
+        how="left"
+    ).join(
+        customers_df,
+        on="_pit_hook__customer",
+        how="left"
+    ).join(
+        ship_method_df,
+        on="_pit_hook__ship_method",
+        how="left"
+    ).join(
+        sales_territory_df,
+        on="_pit_hook__territory",
+        how="left"
+    ).join(
+        state_province_df,
+        on="_pit_hook__state_province",
+        how="left"
+    ).join(
+        calendar_df,
+        on="_hook__calendar__date",
+        how="left"
+    ).filter(
+        pl.col("date").is_not_null()
+    )
 
 def create_metric_summary(df, group_by_col=None, sort_by="sales_orders_placed"):
     """
@@ -64,10 +69,11 @@ def create_metric_summary(df, group_by_col=None, sort_by="sales_orders_placed"):
 uss__global_df = create_metric_summary(uss_df)
 uss__date_df = create_metric_summary(uss_df, "date", "date")
 uss__year_week_day_df = create_metric_summary(uss_df, ["year_week", "weekday__name", "date"], "date")
+uss__weekday_df = create_metric_summary(uss_df, "weekday__name")
 uss__customer_df = create_metric_summary(uss_df, "customer__account_number")
-uss__product_df = create_metric_summary(uss_df, "product__name")
-uss__product_subcategory_df = create_metric_summary(uss_df, "product_subcategory__name")
-uss__product_category_df = create_metric_summary(uss_df, "product_category__name")
+uss__ship_method_df = create_metric_summary(uss_df, "ship_method__name")
+uss__territory_df = create_metric_summary(uss_df, "territory__name")
+uss__address_df = create_metric_summary(uss_df, "_pit_hook__address")
 
 def calculate_control_limits(df: pl.DataFrame, measure_col: str, calc_window: int = 20, long_run: int = 8, short_run: int = 4):
     total_rows = df.height
@@ -165,71 +171,6 @@ def calculate_control_limits(df: pl.DataFrame, measure_col: str, calc_window: in
 
     return df
 
-def plot_control_chart(metrics_df: pl.DataFrame, metric: str):
-    xmr_df = metrics_df.select("date", metric)
-    xmr_df = calculate_control_limits(xmr_df, metric)
-    
-    metric_name = metric.replace("_", " ").title()
-    
-    fig = go.Figure()
-        
-    # Add metric scatter plot
-    fig.add_trace(go.Scatter(
-        x=xmr_df["date"].to_list(), y=xmr_df[metric].to_list(),
-        mode='markers', name=metric_name, marker=dict(color='lightgray', size=3)
-    ))
-    
-    # Add control lines
-    fig.add_trace(go.Scatter(
-        x=xmr_df["date"].to_list(), y=xmr_df["central_line"].to_list(),
-        mode='lines', name='Central Line', line=dict(color='white', width=2)
-    ))
-    fig.add_trace(go.Scatter(
-        x=xmr_df["date"].to_list(), y=xmr_df["upper_control_limit"].to_list(),
-        mode='lines', name='Upper Control Limit', line=dict(color='salmon', width=2)
-    ))
-    fig.add_trace(go.Scatter(
-        x=xmr_df["date"].to_list(), y=xmr_df["lower_control_limit"].to_list(),
-        mode='lines', name='Lower Control Limit', line=dict(color='mediumseagreen', width=2)
-    ))
-    
-    # Add outliers
-    fig.add_trace(go.Scatter(
-        x=xmr_df["date"].to_list(), y=xmr_df["upper_outlier"].to_list(),
-        mode='markers', name='Upper Outlier', marker=dict(color='salmon', size=8)
-    ))
-    fig.add_trace(go.Scatter(
-        x=xmr_df["date"].to_list(), y=xmr_df["lower_outlier"].to_list(),
-        mode='markers', name='Lower Outlier', marker=dict(color='mediumseagreen', size=8)
-    ))
-    
-    # Customize layout
-    fig.update_layout(
-        title=dict(text=metric_name, x=0.05, font=dict(size=18)),
-        plot_bgcolor='rgb(40,40,40)',
-        paper_bgcolor='rgb(40,40,40)',
-        font=dict(color='white'),
-        xaxis=dict(gridcolor='gray'),
-        yaxis=dict(gridcolor='gray'),
-        margin=dict(l=40, r=40, t=40, b=40),
-        hovermode="x unified",
-        template="plotly_dark",
-        showlegend=False,
-        xaxis_zeroline=False, yaxis_zeroline=False,
-        shapes=[
-            dict(
-                type="rect",
-                xref="paper", yref="paper",
-                x0=0, y0=0, x1=1, y1=1,
-                fillcolor="rgba(50,50,50,1)",
-                layer="below", line=dict(width=0),
-                opacity=1,
-            )
-        ]
-    )
-    
-    st.plotly_chart(fig, use_container_width=True)
-
 # Set page config to use wide layout
 st.set_page_config(layout="wide")
 
@@ -240,9 +181,9 @@ dashboard_columns = len(metrics)
 st.title("Adventure Works")
 #st.subheader("Leading Measures")
 
-neutral = "rgba(90, 90, 160, 0.2)"
-good = "rgba(100, 170, 90, 0.2)"
-bad = "rgba(190, 120, 80, 0.2)"
+neutral_color = lambda x: f"rgba(90, 90, 160, {x})"
+good_color = lambda x: f"rgba(100, 170, 90, {x})"
+bad_color = lambda x: f"rgba(190, 120, 80, {x})"
 
 def colored_text(text, color):
     return f'<div style="background-color: {color}; padding: 10px; border-radius: 5px; display: inline-block;">{text}</div>'
@@ -298,6 +239,11 @@ st.markdown(
             text-align: center;
         }
         
+        [data-testid="stPlotlyChart"] {
+            background-color: rgba(90, 90, 160, 0.2);
+            text-align: center;
+        }
+        
     </style>
     """,
     unsafe_allow_html=True
@@ -334,8 +280,6 @@ for idx, col in enumerate(columns):
     
         # Card 2 - Calendar
         with st.expander("Weekly Outlier Matrix", expanded=True):
-            import calendar
-                
             calendar_df = (
                 control_data_df.with_columns([
                     pl.col("year_week").alias("Year-Week"),
@@ -367,5 +311,79 @@ for idx, col in enumerate(columns):
             st.table(control_data_df.head(10))
     
         # Card 4 - Pareto
-        with st.expander("Pareto", expanded=False): # expand when dev is completed
-            st.table(uss__customer_df.select(["customer__account_number", metrics[idx]]).head(10))
+        with st.expander("Pareto", expanded=True):
+            pareto_dimension = "weekday__name"
+            pareto_dimension_title = pareto_dimension.replace("__", " - ").replace("_", " ").title()
+            full_pareto_df = uss__weekday_df.select(
+                pl.col(pareto_dimension),
+                pl.col(metric_name)
+            ).sort(
+                metric_name,
+                descending=True
+            )
+            
+            n_dimensions = len(full_pareto_df)
+            top_n = 10
+            
+            pareto_df = full_pareto_df.head(top_n)
+
+            if n_dimensions - top_n > 0:
+                pareto_tail_df = full_pareto_df.tail(
+                    n_dimensions - top_n
+                ).select(
+                    pl.lit("Others").alias(pareto_dimension),
+                    pl.col(metric_name).sum()
+                )
+                
+                pareto_df = pareto_df.vstack(
+                    pareto_tail_df
+                )
+            
+            pareto_df = pareto_df.with_columns(
+                (pl.col(metric_name).cum_sum()/pl.col(metric_name).sum()).alias("cumulative_percentage")
+            ).to_pandas()
+            
+            fig = go.Figure()
+
+            fig.add_trace(go.Bar(
+                x=pareto_df[pareto_dimension],
+                y=pareto_df[metric_name],
+                name=metric_title,
+                marker_color=neutral_color(1.0),
+                yaxis="y1"
+            ))
+            
+            # Add line chart (cumulative percentage)
+            fig.add_trace(go.Scatter(
+                x=pareto_df[pareto_dimension],
+                y=pareto_df["cumulative_percentage"],
+                name="Cumulative %",
+                mode="lines+markers",
+                marker=dict(color=good_color(1.0)),
+                yaxis="y2"
+            ))
+            
+            fig.update_layout(
+                xaxis=dict(title=pareto_dimension_title),
+                yaxis=dict(
+                    title=metric_title,
+                    side="left",
+                    showgrid=False,
+                    rangemode="tozero"
+                ),
+                yaxis2=dict(
+                    title="Cumulative Percentage",
+                    overlaying="y",
+                    side="right",
+                    range=[0, 1],
+                    tickformat=".2%",
+                    showgrid=False
+                ),
+                showlegend=False,
+                margin=dict(l=50, r=50, t=50, b=50),
+                paper_bgcolor="rgba(0, 0, 0, 0)",
+                plot_bgcolor="rgba(0, 0, 0, 0)"
+            )
+            
+            # Streamlit UI
+            st.plotly_chart(fig, key=f"pareto__{metric_name}")
