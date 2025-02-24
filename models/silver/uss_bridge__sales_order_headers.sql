@@ -79,6 +79,7 @@ WITH bridge AS (
   SELECT
     _pit_hook__sales_order,
     sales_order__order_date AS event_date,
+    CASE WHEN sales_order__customer_order_sequence > 1 THEN 1 END AS measure__is_returning_customer,
     1 AS measure__sales_order_placed,
     DATE_DIFF('days', sales_order__order_date, sales_order__due_date) AS measure__sales_order_due_lead_time,
     DATE_DIFF('days', sales_order__order_date, sales_order__ship_date) AS measure__sales_order_shipping_lead_time
@@ -118,6 +119,7 @@ WITH bridge AS (
     _pit_hook__state_province,
     _pit_hook__territory,
     CONCAT('calendar|date|', event_date)::BLOB AS _hook__calendar__date,
+    measure__is_returning_customer,
     measure__sales_order_placed,
     measure__sales_order_due_lead_time,
     measure__sales_order_shipping_lead_time,

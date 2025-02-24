@@ -29,6 +29,7 @@ WITH staging AS (
     sub_total AS sales_order__sub_total,
     tax_amt AS sales_order__tax_amt,
     total_due AS sales_order__total_due,
+    ROW_NUMBER() OVER (PARTITION BY customer_id ORDER BY sales_order__order_date) AS sales_order__customer_order_sequence,
     TO_TIMESTAMP(_dlt_load_id::DOUBLE) AS sales_order__record_loaded_at
   FROM bronze.raw__adventure_works__sales_order_headers
 ), validity AS (
