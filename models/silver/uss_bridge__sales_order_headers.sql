@@ -72,16 +72,17 @@ WITH bridge AS (
     AND bag__adventure_works__sales_order_headers.sales_order__record_valid_from <= uss_bridge__ship_methods.bridge__record_valid_to
     AND bag__adventure_works__sales_order_headers.sales_order__record_valid_to >= uss_bridge__ship_methods.bridge__record_valid_from
   LEFT JOIN silver.uss_bridge__addresses
-    ON bag__adventure_works__sales_order_headers._hook__ship_to_address = uss_bridge__addresses._hook__address
+    ON bag__adventure_works__sales_order_headers._hook__address__ship_to = uss_bridge__addresses._hook__address
     AND bag__adventure_works__sales_order_headers.sales_order__record_valid_from <= uss_bridge__addresses.bridge__record_valid_to
     AND bag__adventure_works__sales_order_headers.sales_order__record_valid_to >= uss_bridge__addresses.bridge__record_valid_from
 ), sales_order__order_date AS (
   SELECT
     _pit_hook__sales_order,
     sales_order__order_date AS event_date,
+    CASE WHEN sales_order__customer_order_sequence > 1 THEN 1 END AS measure__is_returning_customer,
     1 AS measure__sales_order_placed,
-    sales_order__due_date - sales_order__order_date AS measure__sales_order_due_lead_time,
-    sales_order__ship_date - sales_order__order_date AS measure__sales_order_shipping_lead_time
+    DATE_DIFF('DAYS', sales_order__order_date, sales_order__due_date) AS measure__sales_order_due_lead_time,
+    DATE_DIFF('DAYS', sales_order__order_date, sales_order__ship_date) AS measure__sales_order_shipping_lead_time
   FROM silver.bag__adventure_works__sales_order_headers
 ), sales_order__due_date AS (
   SELECT
@@ -118,6 +119,7 @@ WITH bridge AS (
     _pit_hook__state_province,
     _pit_hook__territory,
     CONCAT('calendar|date|', event_date)::BLOB AS _hook__calendar__date,
+    measure__is_returning_customer,
     measure__sales_order_placed,
     measure__sales_order_due_lead_time,
     measure__sales_order_shipping_lead_time,
@@ -130,7 +132,8 @@ WITH bridge AS (
     bridge__record_valid_to,
     bridge__record_valid_to = '9999-12-31 23:59:59'::TIMESTAMP AS bridge__is_current_record
   FROM bridge
-  LEFT JOIN measures USING (_pit_hook__sales_order)
+  LEFT JOIN measures
+    USING (_pit_hook__sales_order)
 )
 SELECT
   *

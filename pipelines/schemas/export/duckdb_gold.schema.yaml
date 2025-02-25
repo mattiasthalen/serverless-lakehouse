@@ -1,5 +1,5 @@
-version: 4
-version_hash: r8zYs7ekx1mfJq3gwTwuzQRv7r9a2XTqPpF6IXAnbNE=
+version: 6
+version_hash: oGGgfaaoryfBA4xfKyC++RF4ktsWRxfqOWSGQVRhu3M=
 engine_version: 11
 name: duckdb_gold
 tables:
@@ -656,6 +656,9 @@ tables:
       currency_rate_id:
         data_type: double
         nullable: true
+      sales_order__customer_order_sequence:
+        data_type: bigint
+        nullable: true
     write_disposition: replace
     table_format: delta
     resource: sales_order_headers
@@ -1064,6 +1067,24 @@ tables:
       _pit_hook__address:
         data_type: text
         nullable: true
+      measure__is_returning_customer:
+        data_type: double
+        nullable: true
+      measure__sales_order_detail__has_special_offer:
+        data_type: double
+        nullable: true
+      measure__sales_order_detail__discount_price:
+        data_type: double
+        nullable: true
+      measure__sales_order_detail__price:
+        data_type: double
+        nullable: true
+      measure__sales_order_detail__discount:
+        data_type: double
+        nullable: true
+      measure__sales_order_detail__placed:
+        data_type: double
+        nullable: true
     write_disposition: replace
     table_format: delta
     resource: _bridge__as_is
@@ -1159,6 +1180,24 @@ tables:
         nullable: true
       _pit_hook__address:
         data_type: text
+        nullable: true
+      measure__is_returning_customer:
+        data_type: double
+        nullable: true
+      measure__sales_order_detail__has_special_offer:
+        data_type: double
+        nullable: true
+      measure__sales_order_detail__discount_price:
+        data_type: double
+        nullable: true
+      measure__sales_order_detail__price:
+        data_type: double
+        nullable: true
+      measure__sales_order_detail__discount:
+        data_type: double
+        nullable: true
+      measure__sales_order_detail__placed:
+        data_type: double
         nullable: true
     write_disposition: replace
     table_format: delta
@@ -1334,6 +1373,48 @@ tables:
       _pit_hook__sales_person:
         data_type: text
         nullable: true
+      _pit_hook__address:
+        data_type: text
+        nullable: true
+      _pit_hook__state_province:
+        data_type: text
+        nullable: true
+      _pit_hook__territory:
+        data_type: text
+        nullable: true
+      measure__is_returning_customer:
+        data_type: double
+        nullable: true
+      _pit_hook__product:
+        data_type: text
+        nullable: true
+      _pit_hook__product_category:
+        data_type: text
+        nullable: true
+      _pit_hook__product_subcategory:
+        data_type: text
+        nullable: true
+      _pit_hook__sales_order_detail:
+        data_type: text
+        nullable: true
+      _pit_hook__special_offer:
+        data_type: text
+        nullable: true
+      measure__sales_order_detail__has_special_offer:
+        data_type: double
+        nullable: true
+      measure__sales_order_detail__discount_price:
+        data_type: double
+        nullable: true
+      measure__sales_order_detail__price:
+        data_type: double
+        nullable: true
+      measure__sales_order_detail__discount:
+        data_type: double
+        nullable: true
+      measure__sales_order_detail__placed:
+        data_type: double
+        nullable: true
     write_disposition: replace
     table_format: delta
     resource: _bridge__as_of_event
@@ -1362,6 +1443,8 @@ normalizers:
   json:
     module: dlt.common.normalizers.json.relational
 previous_hashes:
+- ruVKkBAIEaEaOBAf1nFtGC2ocbpq27uuxU+9jNxMbyM=
+- r8zYs7ekx1mfJq3gwTwuzQRv7r9a2XTqPpF6IXAnbNE=
 - Nz//oOkyrw1mVwvA9cyBaOLxl9snQOPS7db+uK5ZeP0=
 - eZk9KMWCnzzB5g3y3oLlPUMNsurGBOyYSPF7STRtaZI=
 - SdrcW5LaSuMWEbWY7Cyv/9tre+CAmXbVfeIVnB6GSPU=
