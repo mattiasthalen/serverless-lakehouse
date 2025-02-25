@@ -1,5 +1,5 @@
 flowchart LR
-    subgraph bronze["bronze"]
+    subgraph lakehouse.bronze["lakehouse.bronze"]
         direction LR
         raw__adventure_works__addresses(["raw__adventure_works__addresses"])
         raw__adventure_works__credit_cards(["raw__adventure_works__credit_cards"])
@@ -17,24 +17,23 @@ flowchart LR
         raw__adventure_works__state_provinces(["raw__adventure_works__state_provinces"])
     end
 
-    subgraph silver["silver"]
+    subgraph lakehouse.silver["lakehouse.silver"]
         direction LR
-        
         subgraph bags
-            bag__adventure_works__addresses(["bag__adventure_works__addresses"])
-            bag__adventure_works__credit_cards(["bag__adventure_works__credit_cards"])
-            bag__adventure_works__currency_rates(["bag__adventure_works__currency_rates"])
-            bag__adventure_works__customers(["bag__adventure_works__customers"])
-            bag__adventure_works__product_categories(["bag__adventure_works__product_categories"])
-            bag__adventure_works__product_subcategories(["bag__adventure_works__product_subcategories"])
-            bag__adventure_works__products(["bag__adventure_works__products"])
-            bag__adventure_works__sales_order_details(["bag__adventure_works__sales_order_details"])
-            bag__adventure_works__sales_order_headers(["bag__adventure_works__sales_order_headers"])
-            bag__adventure_works__sales_persons(["bag__adventure_works__sales_persons"])
-            bag__adventure_works__sales_territories(["bag__adventure_works__sales_territories"])
-            bag__adventure_works__ship_methods(["bag__adventure_works__ship_methods"])
-            bag__adventure_works__special_offers(["bag__adventure_works__special_offers"])
-            bag__adventure_works__state_provinces(["bag__adventure_works__state_provinces"])
+          bag__adventure_works__addresses(["bag__adventure_works__addresses"])
+          bag__adventure_works__credit_cards(["bag__adventure_works__credit_cards"])
+          bag__adventure_works__currency_rates(["bag__adventure_works__currency_rates"])
+          bag__adventure_works__customers(["bag__adventure_works__customers"])
+          bag__adventure_works__product_categories(["bag__adventure_works__product_categories"])
+          bag__adventure_works__product_subcategories(["bag__adventure_works__product_subcategories"])
+          bag__adventure_works__products(["bag__adventure_works__products"])
+          bag__adventure_works__sales_order_details(["bag__adventure_works__sales_order_details"])
+          bag__adventure_works__sales_order_headers(["bag__adventure_works__sales_order_headers"])
+          bag__adventure_works__sales_persons(["bag__adventure_works__sales_persons"])
+          bag__adventure_works__sales_territories(["bag__adventure_works__sales_territories"])
+          bag__adventure_works__ship_methods(["bag__adventure_works__ship_methods"])
+          bag__adventure_works__special_offers(["bag__adventure_works__special_offers"])
+          bag__adventure_works__state_provinces(["bag__adventure_works__state_provinces"])
         end
         uss_bridge(["uss_bridge"])
         uss_bridge__addresses(["uss_bridge__addresses"])
@@ -53,11 +52,12 @@ flowchart LR
         uss_bridge__state_provinces(["uss_bridge__state_provinces"])
     end
 
-    subgraph gold["gold"]
+    subgraph lakehouse.gold["lakehouse.gold"]
         direction LR
         _bridge__as_is(["_bridge__as_is"])
         _bridge__as_of(["_bridge__as_of"])
         _bridge__as_of_event(["_bridge__as_of_event"])
+        _cube__metrics(["_cube__metrics"])
         addresses(["addresses"])
         calendar(["calendar"])
         credit_cards(["credit_cards"])
@@ -75,7 +75,7 @@ flowchart LR
         state_provinces(["state_provinces"])
     end
 
-    %% bronze -> silver
+    %% lakehouse.bronze -> lakehouse.silver
     raw__adventure_works__addresses --> bag__adventure_works__addresses
     raw__adventure_works__credit_cards --> bag__adventure_works__credit_cards
     raw__adventure_works__currency_rates --> bag__adventure_works__currency_rates
@@ -91,7 +91,7 @@ flowchart LR
     raw__adventure_works__special_offers --> bag__adventure_works__special_offers
     raw__adventure_works__state_provinces --> bag__adventure_works__state_provinces
 
-    %% silver -> silver
+    %% lakehouse.silver -> lakehouse.silver
     bag__adventure_works__addresses --> uss_bridge__addresses
     bag__adventure_works__credit_cards --> uss_bridge__credit_cards
     bag__adventure_works__currency_rates --> uss_bridge__currency_rates
@@ -100,6 +100,7 @@ flowchart LR
     bag__adventure_works__product_subcategories --> uss_bridge__product_subcategories
     bag__adventure_works__products --> uss_bridge__products
     bag__adventure_works__sales_order_details --> uss_bridge__sales_order_details
+    bag__adventure_works__sales_order_headers --> uss_bridge__sales_order_details
     bag__adventure_works__sales_order_headers --> uss_bridge__sales_order_headers
     bag__adventure_works__sales_persons --> uss_bridge__sales_persons
     bag__adventure_works__sales_territories --> uss_bridge__sales_territories
@@ -134,7 +135,7 @@ flowchart LR
     uss_bridge__state_provinces --> uss_bridge
     uss_bridge__state_provinces --> uss_bridge__addresses
 
-    %% silver -> gold
+    %% lakehouse.silver -> lakehouse.gold
     bag__adventure_works__addresses --> addresses
     bag__adventure_works__credit_cards --> credit_cards
     bag__adventure_works__currency_rates --> currency_rates
@@ -153,6 +154,24 @@ flowchart LR
     uss_bridge --> _bridge__as_of
     uss_bridge --> _bridge__as_of_event
     uss_bridge --> calendar
+
+    _bridge__as_of_event --> _cube__metrics
+    addresses --> _cube__metrics
+    calendar --> _cube__metrics
+    credit_cards --> _cube__metrics
+    currency_rates --> _cube__metrics
+    customers --> _cube__metrics
+    product_categories --> _cube__metrics
+    product_subcategories --> _cube__metrics
+    products --> _cube__metrics
+    sales_order_details --> _cube__metrics
+    sales_order_headers --> _cube__metrics
+    sales_persons --> _cube__metrics
+    sales_territories --> _cube__metrics
+    ship_methods --> _cube__metrics
+    special_offers --> _cube__metrics
+    state_provinces --> _cube__metrics
+
     
     linkStyle default stroke:#666,stroke-width:2px
 
@@ -174,9 +193,9 @@ flowchart LR
     classDef gold_light fill:#FFE55C,color:black
     classDef gold_antique fill:#CFB53B,color:black
 
-    class bronze bronze_classic
+    class lakehouse.bronze bronze_classic
 
-    class silver silver_classic
+    class lakehouse.silver silver_classic
     class bags silver_antique
 
-    class gold gold_classic
+    class lakehouse.gold gold_classic
