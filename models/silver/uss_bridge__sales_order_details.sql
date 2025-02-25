@@ -62,13 +62,15 @@ WITH bridge AS (
     _pit_hook__sales_order_detail,
     sales_order__order_date AS event_date,
     1 AS measure__sales_order_detail__placed,
-    CASE WHEN _pit_hook__special_offer IS NOT NULL THEN 1 END AS measure__sales_order_detail__has_special_offer,
-    sales_order_detail__unit_price_discount*sales_order_detail__order_qty AS measure__sales_order_detail__discount_price,
-    sales_order_detail__unit_price*sales_order_detail__order_qty AS measure__sales_order_detail__price,
+    CASE WHEN NOT _pit_hook__special_offer IS NULL THEN 1 END AS measure__sales_order_detail__has_special_offer,
+    sales_order_detail__unit_price_discount * sales_order_detail__order_qty AS measure__sales_order_detail__discount_price,
+    sales_order_detail__unit_price * sales_order_detail__order_qty AS measure__sales_order_detail__price,
     measure__sales_order_detail__price - measure__sales_order_detail__discount_price AS measure__sales_order_detail__discount
   FROM bridge
-  LEFT JOIN silver.bag__adventure_works__sales_order_headers USING (_pit_hook__sales_order)
-  LEFT JOIN silver.bag__adventure_works__sales_order_details USING (_pit_hook__sales_order_detail)
+  LEFT JOIN silver.bag__adventure_works__sales_order_headers
+    USING (_pit_hook__sales_order)
+  LEFT JOIN silver.bag__adventure_works__sales_order_details
+    USING (_pit_hook__sales_order_detail)
 ), measures AS (
   SELECT
     *
@@ -103,9 +105,9 @@ WITH bridge AS (
     bridge__record_valid_to,
     bridge__record_valid_to = '9999-12-31 23:59:59'::TIMESTAMP AS bridge__is_current_record
   FROM bridge
-  LEFT JOIN measures USING (_pit_hook__sales_order_detail)
+  LEFT JOIN measures
+    USING (_pit_hook__sales_order_detail)
 )
-
 SELECT
   *
 FROM final
