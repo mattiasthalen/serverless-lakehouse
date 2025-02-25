@@ -16,7 +16,7 @@ WITH cte__union AS (
     product_id,
     reference_order_id,
     reference_order_line_id,
-    transaction_date AS transaction__transaction_date,
+    transaction_date::DATE AS transaction__transaction_date,
     transaction_type AS transaction__transaction_type,
     quantity AS transaction__quantity,
     actual_cost AS transaction__actual_cost,
