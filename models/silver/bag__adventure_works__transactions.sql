@@ -2,10 +2,14 @@ MODEL (
   kind VIEW
 );
 
-WITH cte__union AS(
-    SELECT * FROM bronze.raw__adventure_works__transaction_histories
-    UNION ALL
-    SELECT * FROM bronze.raw__adventure_works__transaction_history_archives
+WITH cte__union AS (
+  SELECT
+    *
+  FROM bronze.raw__adventure_works__transaction_histories
+  UNION ALL
+  SELECT
+    *
+  FROM bronze.raw__adventure_works__transaction_history_archives
 ), cte__staging AS (
   SELECT
     transaction_id,
