@@ -6,7 +6,7 @@ WITH cte__aggregated_transactions AS (
   SELECT
     _hook__product,
     product_id,
-    transaction__transaction_date AS inventory__inventory_date,
+    transaction__transaction_date,
     SUM(
       CASE WHEN transaction__transaction_type = 'P' THEN transaction__quantity ELSE 0 END
     ) AS inventory__quantity_purchased,
@@ -21,16 +21,19 @@ WITH cte__aggregated_transactions AS (
   WHERE
     transaction__is_current_record = TRUE
   GROUP BY ALL
-), cte__cum_sum AS (
+), cte__window AS (
   SELECT
     *,
-    SUM(inventory__net_transacted_quantity) OVER (PARTITION BY _hook__product ORDER BY inventory__inventory_date ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS inventory__net_on_hand_quantity
+    LEAD(transaction__transaction_date) OVER (PARTITION BY _hook__product ORDER BY transaction__transaction_date) AS transaction__next_transaction_date,
+    SUM(inventory__net_transacted_quantity) OVER (PARTITION BY _hook__product ORDER BY transaction__transaction_date ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS inventory__net_on_hand_quantity
   FROM cte__aggregated_transactions
-), cte__gross AS (
+), cte__expanded AS (
   SELECT
     *,
-    LAG(inventory__net_on_hand_quantity, 1, 0) OVER (PARTITION BY _hook__product ORDER BY inventory__inventory_date) AS inventory__gross_on_hand_quantity
-  FROM cte__cum_sum
+    UNNEST(
+      GENERATE_SERIES(transaction__transaction_date, transaction__next_transaction_date, INTERVAL '1' DAY)
+    ) AS inventory__inventory_date
+  FROM cte__window
 ), cte__final AS (
   SELECT
     CONCAT(
@@ -39,11 +42,38 @@ WITH cte__aggregated_transactions AS (
       '~epoch|inventory_date|',
       inventory__inventory_date
     )::BLOB AS _hook__inventory,
-    *
-  FROM cte__gross
+    _hook__product,
+    product_id,
+    inventory__inventory_date,
+    CASE
+      WHEN inventory__inventory_date = transaction__transaction_date
+      THEN inventory__quantity_purchased
+      ELSE 0
+    END AS inventory__quantity_purchased,
+    CASE
+      WHEN inventory__inventory_date = transaction__transaction_date
+      THEN inventory__quantity_made
+      ELSE 0
+    END AS inventory__quantity_made,
+    CASE
+      WHEN inventory__inventory_date = transaction__transaction_date
+      THEN inventory__quantity_sold
+      ELSE 0
+    END AS inventory__quantity_sold,
+    CASE
+      WHEN inventory__inventory_date = transaction__transaction_date
+      THEN inventory__net_transacted_quantity
+      ELSE 0
+    END AS inventory__net_transacted_quantity,
+    COALESCE(
+      LAG(inventory__net_on_hand_quantity) OVER (PARTITION BY _hook__product ORDER BY inventory__inventory_date),
+      0
+    ) AS inventory__gross_on_hand_quantity,
+    inventory__net_on_hand_quantity
+  FROM cte__expanded
+  ORDER BY
+    _hook__inventory
 )
 SELECT
   *
 FROM cte__final
-ORDER BY
-  _hook__inventory
