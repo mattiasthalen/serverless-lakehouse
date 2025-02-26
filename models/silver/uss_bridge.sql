@@ -58,6 +58,10 @@ WITH bridge AS (
   SELECT
     *
   FROM silver.uss_bridge__credit_cards
+  UNION ALL BY NAME
+  SELECT
+    *
+  FROM silver.uss_bridge__inventories
 )
 SELECT
   stage,
@@ -75,7 +79,13 @@ SELECT
   _pit_hook__special_offer,
   _pit_hook__state_province,
   _pit_hook__territory,
+  _pit_hook__inventory,
   _hook__calendar__date,
+  measure__inventory__quantity_purchased,
+  measure__inventory__quantity_made,
+  measure__inventory__quantity_sold,
+  measure__inventory__net_transacted_quantity,
+  measure__inventory__gross_on_hand_quantity,
   measure__is_returning_customer,
   measure__sales_order_detail__placed,
   measure__sales_order_detail__has_special_offer,

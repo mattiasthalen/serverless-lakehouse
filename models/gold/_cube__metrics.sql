@@ -38,7 +38,10 @@ WITH one_big_table AS (
     USING (_pit_hook__state_province)
 ), metrics AS (
   SELECT
-    RIGHT(GROUPING_ID(year, year_week, weekday__name, date, territory__name)::BIT::TEXT, 5) AS grouping_id,
+    RIGHT(
+      GROUPING_ID(year, year_week, weekday__name, date, territory__name, product_category__name)::BIT::TEXT,
+      6
+    ) AS grouping_id,
     TRIM(
       CONCAT_WS(
         ', ',
@@ -46,14 +49,21 @@ WITH one_big_table AS (
         CASE WHEN SUBSTRING(grouping_id, 2, 1) = '0' THEN 'year_week' END,
         CASE WHEN SUBSTRING(grouping_id, 3, 1) = '0' THEN 'weekday__name' END,
         CASE WHEN SUBSTRING(grouping_id, 4, 1) = '0' THEN 'date' END,
-        CASE WHEN SUBSTRING(grouping_id, 5, 1) = '0' THEN 'territory__name' END
+        CASE WHEN SUBSTRING(grouping_id, 5, 1) = '0' THEN 'territory__name' END,
+        CASE WHEN SUBSTRING(grouping_id, 6, 1) = '0' THEN 'product_category__name' END
       )
     ) AS grouped_by,
-    year_week, /* Dimensions */
+    year_week,
     weekday__name,
     date,
     territory__name,
-    SUM(measure__is_returning_customer) AS metric__orders_from_returning_customers, /* Metrics */
+    product_category__name,
+    SUM(measure__inventory__quantity_purchased) AS metric__inventory__quantity_purchased,
+    SUM(measure__inventory__quantity_made) AS metric__inventory__quantity_made,
+    SUM(measure__inventory__quantity_sold) AS metric__inventory__quantity_sold,
+    SUM(measure__inventory__net_transacted_quantity) AS metric__inventory__net_transacted_quantity,
+    SUM(measure__inventory__gross_on_hand_quantity) AS metric__inventory__gross_on_hand_quantity,
+    SUM(measure__is_returning_customer) AS metric__orders_from_returning_customers,
     SUM(measure__sales_order_detail__placed) AS metric__sales_order_details_placed,
     SUM(measure__sales_order_detail__has_special_offer) AS metric__sales_order_lines_with_special_offer,
     SUM(measure__sales_order_detail__discount_price) AS metric__total_sales_order_discount_price,
@@ -65,7 +75,7 @@ WITH one_big_table AS (
     SUM(measure__sales_order_due) AS metric__sales_orders_due,
     SUM(measure__sales_order_shipped_on_time) AS metric__sales_order_shipped_on_time,
     SUM(measure__sales_order_shipped) AS metric__sales_orders_shipped,
-    metric__sales_order_lines_with_special_offer /* Derived Metrics */ / metric__sales_order_details_placed * 100 AS metric__percentage_of_order_details_with_special_offer,
+    metric__sales_order_lines_with_special_offer / metric__sales_order_details_placed * 100 AS metric__percentage_of_order_details_with_special_offer,
     metric__total_sales_order_discount / metric__total_sales_order_price * 100 AS metric__percentage_of_sales_order_discount,
     metric__orders_from_returning_customers / metric__sales_orders_placed * 100 AS metric__percentage_of_orders_from_returning_customers
   FROM one_big_table
@@ -74,6 +84,9 @@ WITH one_big_table AS (
       (year),
       (year, year_week),
       (year, year_week, weekday__name, date),
+      (year, product_category__name),
+      (year, year_week, product_category__name),
+      (year, year_week, weekday__name, date, product_category__name),
       (year, territory__name),
       (year, year_week, territory__name),
       (year, year_week, weekday__name, date, territory__name)

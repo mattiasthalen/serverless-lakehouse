@@ -49,6 +49,14 @@ WITH cte__aggregated_transactions AS (
       'product|adventure_works|',
       product_id,
       '~epoch|inventory_date|',
+      inventory__inventory_date,
+      '~epoch|valid_from|',
+      inventory__record_valid_from
+    )::BLOB AS _pit_hook__inventory,
+    CONCAT(
+      'product|adventure_works|',
+      product_id,
+      '~epoch|inventory_date|',
       inventory__inventory_date
     )::BLOB AS _hook__inventory,
     _hook__product,
