@@ -1,4 +1,5 @@
 import dlt
+import os
 import typing as t
 
 from dotenv import load_dotenv
@@ -589,7 +590,7 @@ def load_adventure_works() -> None:
     
     pipeline = dlt.pipeline(
         pipeline_name="adventure_works",
-        destination=dlt.destinations.filesystem("./lakehouse"),
+        destination=dlt.destinations.motherduck(f"md:adventure_works?motherduck_token={os.getenv("motherduck_token")}"),
         dataset_name="bronze",
         progress="enlighten",
         export_schema_path="./pipelines/schemas/export",
@@ -599,7 +600,7 @@ def load_adventure_works() -> None:
 
     source = adventure_works_source()
     
-    load_info = pipeline.run(source, table_format="delta")
+    load_info = pipeline.run(source)
     print(load_info)
 
 if __name__ == "__main__":
