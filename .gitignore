@@ -11,4 +11,5 @@ secrets.toml
 logs/
 .cache/
 .venv/
-lakehouse/
+lakehouse/*
+!lakehouse/sqlmesh_state.duckdb

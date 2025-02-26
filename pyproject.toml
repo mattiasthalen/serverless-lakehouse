@@ -14,6 +14,8 @@ dependencies = [
     "plotly>=6.0.0",
     "polars>=1.21.0",
     "pyarrow>=17.0.0",
+    "pyiceberg>=0.8.1",
+    "pyspark>=3.5.4",
     "sqlmesh[github,web]>=0.150.1",
     "streamlit>=1.42.1",
 ]
