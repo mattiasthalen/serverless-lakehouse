@@ -240,7 +240,7 @@ def execute(
     date_key = "_hook__calendar__date"
     
     # Load data
-    table = context.resolve_table("lakehouse.silver.uss_bridge")
+    table = context.resolve_table("silver.uss_bridge")
     source_df = pl.from_pandas(context.fetchdf(f"SELECT DISTINCT {date_key} FROM {table}"))
     
     # Early exit if empty, e.g., during first plan
