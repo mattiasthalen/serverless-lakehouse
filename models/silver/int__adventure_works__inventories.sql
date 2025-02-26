@@ -7,6 +7,7 @@ WITH cte__aggregated_transactions AS (
     _hook__product,
     product_id,
     transaction__transaction_date,
+    transaction__quantity,
     SUM(
       CASE WHEN transaction__transaction_type = 'P' THEN transaction__quantity ELSE 0 END
     ) AS inventory__quantity_purchased,
@@ -16,7 +17,11 @@ WITH cte__aggregated_transactions AS (
     SUM(
       CASE WHEN transaction__transaction_type = 'S' THEN transaction__quantity ELSE 0 END
     ) AS inventory__quantity_sold,
-    inventory__quantity_purchased + inventory__quantity_made - inventory__quantity_sold AS inventory__net_transacted_quantity
+    inventory__quantity_purchased + inventory__quantity_made - inventory__quantity_sold AS inventory__net_transacted_quantity,
+    MIN(transaction__record_loaded_at) AS inventory__record_loaded_at,
+    MAX(transaction__record_updated_at) AS inventory__record_updated_at,
+    MAX(transaction__record_valid_from) AS inventory__record_valid_from,
+    MAX(transaction__record_valid_to) AS inventory__record_valid_to
   FROM silver.bag__adventure_works__transactions
   WHERE
     transaction__is_current_record = TRUE
@@ -31,7 +36,11 @@ WITH cte__aggregated_transactions AS (
   SELECT
     *,
     UNNEST(
-      GENERATE_SERIES(transaction__transaction_date, transaction__next_transaction_date, INTERVAL '1' DAY)
+      GENERATE_SERIES(
+        transaction__transaction_date,
+        transaction__next_transaction_date - INTERVAL '1' DAY,
+        INTERVAL '1' DAY
+      )
     ) AS inventory__inventory_date
   FROM cte__window
 ), cte__final AS (
@@ -43,7 +52,6 @@ WITH cte__aggregated_transactions AS (
       inventory__inventory_date
     )::BLOB AS _hook__inventory,
     _hook__product,
-    product_id,
     inventory__inventory_date,
     CASE
       WHEN inventory__inventory_date = transaction__transaction_date
@@ -69,7 +77,10 @@ WITH cte__aggregated_transactions AS (
       LAG(inventory__net_on_hand_quantity) OVER (PARTITION BY _hook__product ORDER BY inventory__inventory_date),
       0
     ) AS inventory__gross_on_hand_quantity,
-    inventory__net_on_hand_quantity
+    inventory__record_loaded_at,
+    inventory__record_updated_at,
+    inventory__record_valid_from,
+    inventory__record_valid_to
   FROM cte__expanded
   ORDER BY
     _hook__inventory
