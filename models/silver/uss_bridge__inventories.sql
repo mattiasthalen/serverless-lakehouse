@@ -8,6 +8,8 @@ WITH cte__bridge AS (
     int__adventure_works__inventories._pit_hook__inventory,
     int__adventure_works__inventories._hook__inventory,
     uss_bridge__products._pit_hook__product,
+    uss_bridge__products._pit_hook__product_subcategory,
+    uss_bridge__products._pit_hook__product_category,
     GREATEST(
       int__adventure_works__inventories.inventory__record_loaded_at,
       uss_bridge__products.bridge__record_loaded_at
@@ -37,7 +39,8 @@ WITH cte__bridge AS (
     inventory__quantity_made AS measure__inventory__quantity_made,
     inventory__quantity_sold AS measure__inventory__quantity_sold,
     inventory__net_transacted_quantity AS measure__inventory__net_transacted_quantity,
-    inventory__gross_on_hand_quantity AS measure__inventory__gross_on_hand_quantity
+    inventory__gross_on_hand_quantity AS measure__inventory__gross_on_hand_quantity,
+    inventory__net_on_hand_quantity AS measure__inventory__net_on_hand_quantity
   FROM silver.int__adventure_works__inventories
 ), cte__final AS (
   SELECT
@@ -45,12 +48,15 @@ WITH cte__bridge AS (
     _pit_hook__inventory,
     _hook__inventory,
     _pit_hook__product,
+    _pit_hook__product_subcategory,
+    _pit_hook__product_category,
     _hook__calendar__date,
     measure__inventory__quantity_purchased,
     measure__inventory__quantity_made,
     measure__inventory__quantity_sold,
     measure__inventory__net_transacted_quantity,
     measure__inventory__gross_on_hand_quantity,
+    measure__inventory__net_on_hand_quantity,
     bridge__record_loaded_at,
     bridge__record_updated_at,
     bridge__record_valid_from,

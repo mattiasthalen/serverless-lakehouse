@@ -53,6 +53,7 @@ WITH one_big_table AS (
         CASE WHEN SUBSTRING(grouping_id, 6, 1) = '0' THEN 'product_category__name' END
       )
     ) AS grouped_by,
+    year,
     year_week,
     weekday__name,
     date,
@@ -63,6 +64,7 @@ WITH one_big_table AS (
     SUM(measure__inventory__quantity_sold) AS metric__inventory__quantity_sold,
     SUM(measure__inventory__net_transacted_quantity) AS metric__inventory__net_transacted_quantity,
     SUM(measure__inventory__gross_on_hand_quantity) AS metric__inventory__gross_on_hand_quantity,
+    SUM(measure__inventory__net_on_hand_quantity) AS metric__inventory__net_on_hand_quantity,
     SUM(measure__is_returning_customer) AS metric__orders_from_returning_customers,
     SUM(measure__sales_order_detail__placed) AS metric__sales_order_details_placed,
     SUM(measure__sales_order_detail__has_special_offer) AS metric__sales_order_lines_with_special_offer,

@@ -86,6 +86,7 @@ SELECT
   measure__inventory__quantity_sold,
   measure__inventory__net_transacted_quantity,
   measure__inventory__gross_on_hand_quantity,
+  measure__inventory__net_on_hand_quantity,
   measure__is_returning_customer,
   measure__sales_order_detail__placed,
   measure__sales_order_detail__has_special_offer,

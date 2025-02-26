@@ -41,7 +41,7 @@ WITH cte__aggregated_transactions AS (
         transaction__next_transaction_date - INTERVAL '1' DAY,
         INTERVAL '1' DAY
       )
-    ) AS inventory__inventory_date
+    )::DATE AS inventory__inventory_date
   FROM cte__window
 ), cte__final AS (
   SELECT
@@ -85,6 +85,7 @@ WITH cte__aggregated_transactions AS (
       LAG(inventory__net_on_hand_quantity) OVER (PARTITION BY _hook__product ORDER BY inventory__inventory_date),
       0
     ) AS inventory__gross_on_hand_quantity,
+    inventory__net_on_hand_quantity,
     inventory__record_loaded_at,
     inventory__record_updated_at,
     inventory__record_valid_from,
