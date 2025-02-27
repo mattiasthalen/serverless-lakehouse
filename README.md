@@ -18,37 +18,28 @@ It does this locally into `./lakehouse`, which could be replaced by a S3 bucket.
 architecture-beta
     service api(cloud)[Adventure Works API]
     service extract(server)[dlt]
-    service load(server)[SQLMesh]
-    service export_silver(server)[dlt]
-    service export_gold(server)[dlt]
     service consumption(cloud)[BI]
 
-    group storage(cloud)[Storage]
+    group storage(cloud)[Iceberg]
         service bronze(disk)[Bronze] in storage
         service silver(disk)[Silver] in storage
         service gold(disk)[Gold] in storage
 
-    group engine(database)[DuckDB]
-        service bronze_view(database)[Bronze] in engine
-        service l1_transform(server)[SQLMesh] in engine
-        service silver_view(database)[Silver] in engine
-        service l2_transform(server)[SQLMesh] in engine
-        service gold_view(database)[Gold] in engine
+    group engine(server)[Spark]
+        service transform(server)[SQLMesh] in engine
 
     api:R -- L:extract
     extract:R -- L:bronze
-    bronze:T -- B:load
-    load:T -- B:bronze_view
-    bronze_view:R -- L:l1_transform
-    l1_transform:R -- L:silver_view
-    silver_view:R -- L:l2_transform
-    l2_transform:R -- L:gold_view
-    silver_view:B -- T:export_silver
-    export_silver:B -- T:silver
-    gold_view:B -- T:export_gold
-    export_gold:B -- T:gold
+
+    bronze:T -- L:transform
+    silver:T -- B:transform
+    gold:T -- R:transform
+    
+    bronze:R -- L:silver
+    silver:R -- L:gold
+
     gold:R -- L:consumption
-```
+    ```
 
 ## Lineage / DAG
 ```mermaid
