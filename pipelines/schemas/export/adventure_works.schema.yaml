@@ -1,5 +1,5 @@
-version: 3
-version_hash: k4qKUhwXGPREUnN4oiuOZxtWeGZoGzBi0p65YAqCYsQ=
+version: 4
+version_hash: qEDeNhRAFMqmjYduxtTL8BukB2wMkEEnzXMLmFeAI14=
 engine_version: 11
 name: adventure_works
 tables:
@@ -83,9 +83,10 @@ tables:
         data_type: text
         nullable: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__addresses
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__credit_cards:
     columns:
@@ -118,9 +119,10 @@ tables:
         unique: true
         row_key: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__credit_cards
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__currency_rates:
     columns:
@@ -156,9 +158,10 @@ tables:
         unique: true
         row_key: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__currency_rates
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__customers:
     columns:
@@ -194,9 +197,10 @@ tables:
         data_type: bigint
         nullable: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__customers
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__persons:
     columns:
@@ -250,9 +254,10 @@ tables:
         data_type: text
         nullable: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__persons
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__products:
     columns:
@@ -339,9 +344,10 @@ tables:
         data_type: text
         nullable: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__products
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__product_categories:
     columns:
@@ -368,9 +374,10 @@ tables:
         unique: true
         row_key: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__product_categories
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__sales_order_details:
     columns:
@@ -418,9 +425,10 @@ tables:
         unique: true
         row_key: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__sales_order_details
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__sales_order_headers:
     columns:
@@ -510,9 +518,10 @@ tables:
         data_type: bigint
         nullable: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__sales_order_headers
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__sales_persons:
     columns:
@@ -554,9 +563,10 @@ tables:
         data_type: double
         nullable: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__sales_persons
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__sales_territories:
     columns:
@@ -601,9 +611,10 @@ tables:
         unique: true
         row_key: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__sales_territories
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__ship_methods:
     columns:
@@ -636,9 +647,10 @@ tables:
         unique: true
         row_key: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__ship_methods
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__special_offers:
     columns:
@@ -686,9 +698,10 @@ tables:
         data_type: bigint
         nullable: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__special_offers
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__state_provinces:
     columns:
@@ -727,9 +740,10 @@ tables:
         unique: true
         row_key: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__state_provinces
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__stores:
     columns:
@@ -762,9 +776,10 @@ tables:
         unique: true
         row_key: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__stores
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   _dlt_pipeline_state:
     columns:
@@ -824,9 +839,10 @@ tables:
         unique: true
         row_key: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__departments
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__employees:
     columns:
@@ -886,9 +902,10 @@ tables:
         data_type: bigint
         nullable: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__employees
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__employee_pay_histories:
     columns:
@@ -919,9 +936,10 @@ tables:
         unique: true
         row_key: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__employee_pay_histories
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__employee_department_histories:
     columns:
@@ -954,9 +972,10 @@ tables:
         data_type: text
         nullable: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__employee_department_histories
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__job_candidates:
     columns:
@@ -983,9 +1002,10 @@ tables:
         data_type: bigint
         nullable: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__job_candidates
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__shifts:
     columns:
@@ -1015,9 +1035,10 @@ tables:
         unique: true
         row_key: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__shifts
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__address_types:
     columns:
@@ -1044,9 +1065,10 @@ tables:
         unique: true
         row_key: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__address_types
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__business_entity_addresses:
     columns:
@@ -1076,9 +1098,10 @@ tables:
         unique: true
         row_key: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__business_entity_addresses
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__business_entity_contacts:
     columns:
@@ -1108,9 +1131,10 @@ tables:
         unique: true
         row_key: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__business_entity_contacts
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__contact_types:
     columns:
@@ -1134,9 +1158,10 @@ tables:
         unique: true
         row_key: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__contact_types
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__country_regions:
     columns:
@@ -1160,9 +1185,10 @@ tables:
         unique: true
         row_key: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__country_regions
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__email_addresses:
     columns:
@@ -1192,9 +1218,10 @@ tables:
         unique: true
         row_key: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__email_addresses
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__person_phones:
     columns:
@@ -1221,9 +1248,10 @@ tables:
         unique: true
         row_key: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__person_phones
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__phone_number_types:
     columns:
@@ -1247,9 +1275,10 @@ tables:
         unique: true
         row_key: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__phone_number_types
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__bill_of_materials:
     columns:
@@ -1291,9 +1320,10 @@ tables:
         data_type: text
         nullable: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__bill_of_materials
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__cultures:
     columns:
@@ -1317,9 +1347,10 @@ tables:
         unique: true
         row_key: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__cultures
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__illustrations:
     columns:
@@ -1343,9 +1374,10 @@ tables:
         unique: true
         row_key: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__illustrations
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__locations:
     columns:
@@ -1375,9 +1407,10 @@ tables:
         unique: true
         row_key: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__locations
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__product_cost_histories:
     columns:
@@ -1407,9 +1440,10 @@ tables:
         unique: true
         row_key: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__product_cost_histories
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__product_descriptions:
     columns:
@@ -1436,9 +1470,10 @@ tables:
         unique: true
         row_key: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__product_descriptions
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__product_inventories:
     columns:
@@ -1474,9 +1509,10 @@ tables:
         unique: true
         row_key: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__product_inventories
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__product_list_price_histories:
     columns:
@@ -1506,9 +1542,10 @@ tables:
         unique: true
         row_key: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__product_list_price_histories
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__product_model_illustrations:
     columns:
@@ -1532,9 +1569,10 @@ tables:
         unique: true
         row_key: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__product_model_illustrations
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__product_models:
     columns:
@@ -1567,9 +1605,10 @@ tables:
         data_type: text
         nullable: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__product_models
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__product_photos:
     columns:
@@ -1602,9 +1641,10 @@ tables:
         unique: true
         row_key: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__product_photos
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__product_reviews:
     columns:
@@ -1643,9 +1683,10 @@ tables:
         unique: true
         row_key: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__product_reviews
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__product_subcategories:
     columns:
@@ -1675,9 +1716,10 @@ tables:
         unique: true
         row_key: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__product_subcategories
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__scrap_reasons:
     columns:
@@ -1701,9 +1743,10 @@ tables:
         unique: true
         row_key: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__scrap_reasons
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__transaction_histories:
     columns:
@@ -1745,9 +1788,10 @@ tables:
         unique: true
         row_key: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__transaction_histories
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__transaction_history_archives:
     columns:
@@ -1789,9 +1833,10 @@ tables:
         unique: true
         row_key: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__transaction_history_archives
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__unit_measures:
     columns:
@@ -1815,9 +1860,10 @@ tables:
         unique: true
         row_key: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__unit_measures
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__work_orders:
     columns:
@@ -1862,9 +1908,10 @@ tables:
         data_type: bigint
         nullable: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__work_orders
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__work_order_routings:
     columns:
@@ -1915,9 +1962,10 @@ tables:
         unique: true
         row_key: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__work_order_routings
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__product_vendors:
     columns:
@@ -1965,9 +2013,10 @@ tables:
         data_type: bigint
         nullable: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__product_vendors
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__purchase_order_details:
     columns:
@@ -2015,9 +2064,10 @@ tables:
         unique: true
         row_key: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__purchase_order_details
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__purchase_order_headers:
     columns:
@@ -2071,9 +2121,10 @@ tables:
         unique: true
         row_key: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__purchase_order_headers
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__vendors:
     columns:
@@ -2112,9 +2163,10 @@ tables:
         data_type: text
         nullable: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__vendors
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__currencies:
     columns:
@@ -2138,9 +2190,10 @@ tables:
         unique: true
         row_key: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__currencies
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__sales_person_quota_histories:
     columns:
@@ -2170,9 +2223,10 @@ tables:
         unique: true
         row_key: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__sales_person_quota_histories
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__sales_reasons:
     columns:
@@ -2199,9 +2253,10 @@ tables:
         unique: true
         row_key: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__sales_reasons
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__sales_tax_rates:
     columns:
@@ -2237,9 +2292,10 @@ tables:
         unique: true
         row_key: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__sales_tax_rates
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__sales_territory_histories:
     columns:
@@ -2272,9 +2328,10 @@ tables:
         data_type: text
         nullable: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__sales_territory_histories
     x-normalizer:
+      max_nesting: 0
       seen-data: true
   raw__adventure_works__shopping_cart_items:
     columns:
@@ -2307,9 +2364,10 @@ tables:
         unique: true
         row_key: true
     write_disposition: append
-    table_format: delta
+    table_format: iceberg
     resource: get__adventure_works__odata__v1__shopping_cart_items
     x-normalizer:
+      max_nesting: 0
       seen-data: true
 settings:
   detections:
@@ -2334,7 +2392,7 @@ normalizers:
   json:
     module: dlt.common.normalizers.json.relational
 previous_hashes:
+- jscvLUEgrNBoYntRUcXmD+Nh40ND0NLIo3GxQ9/tyLc=
 - bE6+6CHZTCu/zPUCOi1Y+BiTSW4y1iCXt3EdAceLdVA=
-- +CulIRjc3s5Oap+M2ct/5Za/434LQ9VMlcoxgjITxo0=
 - 4fzSraeXKSu7h+imSDnIyZcedETTuZFvOKhZQFx03rM=
 - r35lcST6OCm7DCyj6bdpgbVAWm0TnmuPo7FA8lJbfcA=

@@ -7,7 +7,7 @@ requires-python = ">=3.9,<3.13"
 dependencies = [
     "beautifulsoup4>=4.12.3",
     "deltalake>=0.24.0",
-    "dlt[deltalake,duckdb,filesystem]>=1.5.0",
+    "dlt[deltalake,duckdb,filesystem,pyiceberg]>=1.5.0",
     "duckdb>=1.1.3",
     "enlighten>=1.13.0",
     "matplotlib>=3.9.4",
@@ -16,6 +16,7 @@ dependencies = [
     "pyarrow>=17.0.0",
     "pyiceberg>=0.8.1",
     "pyspark>=3.5.4",
+    "sqlalchemy>=2.0.18",
     "sqlmesh[github,web]>=0.150.1",
     "streamlit>=1.42.1",
 ]
