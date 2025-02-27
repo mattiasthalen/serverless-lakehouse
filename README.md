@@ -39,7 +39,7 @@ architecture-beta
     silver:R -- L:gold
 
     gold:R -- L:consumption
-    ```
+```
 
 ## Lineage / DAG
 ```mermaid
