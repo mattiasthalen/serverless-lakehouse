@@ -40,9 +40,10 @@ config = Config(
             "spark": GatewayConfig(
                 connection=SparkConnectionConfig(
                     config_dir="./",
+                    concurrent_tasks=1
                 ),
                 state_connection=DuckDBConnectionConfig(
-                    database="./lakehouse/sqlmesh_state.duckdb",
+                    database="./lakehouse/state.duckdb",
                 )
             )
         },

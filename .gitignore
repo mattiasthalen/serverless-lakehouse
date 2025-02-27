@@ -12,4 +12,5 @@ logs/
 .cache/
 .venv/
 lakehouse/*
-!lakehouse/sqlmesh_state.duckdb
+!lakehouse/catalog.db
+!lakehouse/state.duckdb
