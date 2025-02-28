@@ -1,4 +1,5 @@
 import dlt
+import os
 import sys
 import typing as t
 
@@ -7,8 +8,138 @@ from dotenv import load_dotenv
 from dlt.sources.rest_api.typing import RESTAPIConfig
 from dlt.sources.rest_api import rest_api_resources
 from dlt.sources.helpers.rest_client.paginators import JSONLinkPaginator
+
+from pyiceberg.catalog.sql import SqlCatalog
 from requests import Response
 
+from pyiceberg.catalog.sql import SqlCatalog
+import os
+from typing import Optional
+
+def register_iceberg_tables_to_sqlite(
+    catalog_path: str,
+    catalog_name: str,
+    namespace: str,
+    sqlite_db_path: str
+) -> None:
+    """
+    Registers or refreshes Iceberg tables from a specific namespace (subfolder) of a file-based catalog
+    into a SQLite catalog.
+    
+    Args:
+        catalog_path: Path to the root of the file-based Iceberg catalog (e.g., '/path/to/warehouse').
+        catalog_name: Name of the catalog in SQLite (e.g., 'lakehouse').
+        namespace: The specific namespace (subfolder) to import tables from (e.g., 'sales').
+        sqlite_db_path: Path to the SQLite database file (e.g., 'catalog.db').
+    """
+    catalog_path = os.path.abspath(catalog_path)
+    
+    # Initialize the SQLite catalog
+    catalog = SqlCatalog(
+        catalog_name,
+        uri=f"sqlite:///{sqlite_db_path}",
+        warehouse=f"file://{catalog_path}"
+    )
+    
+    # Create the namespace in the SQLite catalog if it doesn't exist
+    try:
+        catalog.create_namespace(namespace)
+        print(f"Created namespace '{namespace}' in SQLite catalog '{catalog_name}'.")
+    except Exception:
+        # If the namespace already exists, this is fine; proceed silently
+        pass
+        
+    # Construct the path to the specified namespace
+    namespace_path = os.path.join(catalog_path, namespace)
+    
+    # Check if the namespace exists and is a directory
+    if not os.path.isdir(namespace_path):
+        print(f"Namespace '{namespace}' not found or is not a directory at {namespace_path}. Exiting.")
+        return
+
+    # Iterate through table directories within the specified namespace
+    for table_dir in os.listdir(namespace_path):
+        table_path = os.path.join(namespace_path, table_dir)
+        metadata_dir = os.path.join(table_path, "metadata")
+        
+        # Check if this is a valid Iceberg table directory (has a metadata folder)
+        if os.path.isdir(metadata_dir):
+            # Find all metadata files
+            metadata_files = [f for f in os.listdir(metadata_dir) if f.endswith(".metadata.json")]
+            if not metadata_files:
+                print(f"No metadata files found for table {namespace}.{table_dir}. Skipping.")
+                continue
+            
+            # Find all metadata files
+            metadata_files = [f for f in os.listdir(metadata_dir) if f.endswith(".metadata.json")]
+            if not metadata_files:
+                print(f"No metadata files found for table {namespace}.{table_dir}. Skipping.")
+                continue
+            
+            # Find all metadata files
+            metadata_files = [f for f in os.listdir(metadata_dir) if f.endswith(".metadata.json")]
+            if not metadata_files:
+                print(f"No metadata files found for table {namespace}.{table_dir}. Skipping.")
+                continue
+            
+            # Pick the metadata file with snapshots and latest last-updated-ms
+            latest_metadata_file = None
+            latest_timestamp = -1
+            has_snapshots = False
+            for metafile in metadata_files:
+                metafile_path = os.path.join(metadata_dir, metafile)
+                with open(metafile_path, 'r') as f:
+                    import json
+                    metadata = json.load(f)
+                    timestamp = metadata.get("last-updated-ms", -1)
+                    snapshots = metadata.get("snapshots", [])
+                    if snapshots and timestamp >= latest_timestamp:
+                        latest_timestamp = timestamp
+                        latest_metadata_file = metafile
+                        has_snapshots = True
+                    elif not has_snapshots and timestamp > latest_timestamp:
+                        latest_timestamp = timestamp
+                        latest_metadata_file = metafile
+            
+            if latest_metadata_file is None:
+                print(f"No valid metadata file found for {namespace}.{table_dir}. Skipping.")
+                continue
+            
+            metadata_location = f"file://{os.path.join(metadata_dir, latest_metadata_file)}"
+            
+            # Check if the table already exists in the catalog
+            table_identifier = (namespace, table_dir)
+            try:
+                catalog.load_table(table_identifier)
+                # If table exists, drop it to refresh with latest metadata
+                catalog.drop_table(table_identifier)
+                print(f"Dropped existing table {namespace}.{table_dir} to refresh.")
+            except Exception:
+                # Table doesn't exist, no need to drop; proceed to register
+                pass
+            
+            # Register (or re-register) the table in the SQLite catalog
+            try:
+                catalog.register_table(
+                    identifier=table_identifier,
+                    metadata_location=metadata_location
+                )
+                # Load the table to describe it
+                table = catalog.load_table(table_identifier)
+                schema = table.schema()
+                snapshot_count = len(table.snapshots())
+                print(f"Successfully registered table: {namespace}.{table_dir} in catalog '{catalog_name}'")
+                print(f"  Registered with metadata: {metadata_location}")
+                print(f"Table Description for {namespace}.{table_dir}:")
+                print(f"  Schema: {schema}")
+                print(f"  Snapshot Count: {snapshot_count}")
+                if snapshot_count == 0:
+                    print(f"  Warning: No snapshots found for {namespace}.{table_dir}. Table may have no data.")
+                if not schema.fields:
+                    print(f"  Warning: Schema is empty for {namespace}.{table_dir}. Check metadata file.")
+            except Exception as e:
+                print(f"Failed to register table {namespace}.{table_dir}: {str(e)}")
+                
 class ODataLinkPaginator(JSONLinkPaginator):
     def __init__(
         self,
@@ -591,9 +722,11 @@ def load_adventure_works(env) -> None:
     
     load_dotenv()
     
+    destination_path = "./lakehouse"
+    
     pipeline = dlt.pipeline(
         pipeline_name="adventure_works",
-        destination=dlt.destinations.filesystem("./lakehouse"),
+        destination=dlt.destinations.filesystem(destination_path),
         dataset_name="bronze",
         progress="enlighten",
         export_schema_path="./pipelines/schemas/export",
@@ -605,8 +738,19 @@ def load_adventure_works(env) -> None:
     
     load_info = pipeline.run(source, table_format="iceberg")
     print(load_info)
-
+    
+    register_iceberg_tables(
+        path=destination_path,
+        namespace=pipeline.dataset_name
+    )
+    
 if __name__ == "__main__":
     env = sys.argv[1] if len(sys.argv) > 1 else "dev"
-    
-    load_adventure_works(env=env)
+    #load_adventure_works(env=env)
+
+    register_iceberg_tables_to_sqlite(
+        catalog_path="./lakehouse",
+        catalog_name="lakehouse",
+        namespace="bronze",
+        sqlite_db_path="./lakehouse/catalog.db"
+    )
